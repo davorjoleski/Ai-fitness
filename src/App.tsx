@@ -7,6 +7,7 @@ import LoadingScreen from './components/LoadingScreen';
 import Testimonials from './components/Testimonials';
 import TrustSection from './components/TrustSection';
 import Footer from './components/Footer';
+import LiveChatbot from './components/LiveChatbot';
 
 interface FormData {
   fullName: string;
@@ -48,6 +49,9 @@ function App() {
       <Testimonials />
       <TrustSection />
       <Footer />
+      
+      {/* Live AI Chatbot */}
+      <LiveChatbot />
     </div>
   );
 }
