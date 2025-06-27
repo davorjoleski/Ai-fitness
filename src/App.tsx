@@ -8,6 +8,8 @@ import Testimonials from './components/Testimonials';
 import TrustSection from './components/TrustSection';
 import Footer from './components/Footer';
 import LiveChatbot from './components/LiveChatbot';
+import ProgressTracker from './components/ProgressTracker';
+import NutritionCalculator from './components/NutritionCalculator';
 
 interface FormData {
   fullName: string;
@@ -45,6 +47,8 @@ function App() {
       <Hero onStartClick={scrollToForm} />
       <ChatSimulation />
       <HowItWorks />
+      <NutritionCalculator />
+      <ProgressTracker />
       <LeadForm onSubmit={handleFormSubmit} />
       <Testimonials />
       <TrustSection />
