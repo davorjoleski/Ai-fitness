@@ -29,7 +29,7 @@ function App() {
   const [showStickyFooter, setShowStickyFooter] = useState(true);
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState('');
-  const [toastType, setToastType] = useState<'success' | 'info'>('success');
+  const [toastType, setToastType] = useState<'success' | 'info' | 'error'>('success');
 
   // Apply dark mode to document
   useEffect(() => {
@@ -51,26 +51,31 @@ function App() {
     setIsDarkMode(!isDarkMode);
   };
 
-  const handleFormSubmit = (data: FormData) => {
+  const showToastMessage = (message: string, type: 'success' | 'info' | 'error') => {
+    setToastMessage(message);
+    setToastType(type);
+    setShowToast(true);
+  };
+
+  const handleFormSubmit = (data: FormData, emailResult: { success: boolean; message: string }) => {
     console.log('Form submitted:', data);
     setIsLoading(true);
     
-    // Show email sending toast
-    setToastMessage('Sending your personalized AI workout plan...');
-    setToastType('info');
-    setShowToast(true);
+    // Show initial loading toast
+    showToastMessage('Generating your personalized AI workout plan...', 'info');
     
-    // Simulate loading for 3 seconds
+    // Simulate AI processing time
     setTimeout(() => {
       setIsLoading(false);
       
-      // Show success toast
-      setToastMessage('Email sent! Your plan is on its way to your inbox!');
-      setToastType('success');
-      setShowToast(true);
-      
-      // Hide sticky footer after successful submission
-      setShowStickyFooter(false);
+      // Show result based on email sending success/failure
+      if (emailResult.success) {
+        showToastMessage(emailResult.message, 'success');
+        // Hide sticky footer after successful submission
+        setShowStickyFooter(false);
+      } else {
+        showToastMessage(emailResult.message, 'error');
+      }
     }, 3000);
   };
 
