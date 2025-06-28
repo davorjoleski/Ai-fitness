@@ -2,7 +2,11 @@ import React, { useState, useRef, useEffect } from 'react';
 import { MessageCircle, Bot, User, Send, RefreshCw, AlertCircle, X } from 'lucide-react';
 import { useChat } from '../hooks/useChat';
 
-export default function LiveChatbot() {
+interface LiveChatbotProps {
+  isDarkMode?: boolean;
+}
+
+export default function LiveChatbot({ isDarkMode = false }: LiveChatbotProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [inputMessage, setInputMessage] = useState('');
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -65,7 +69,11 @@ export default function LiveChatbot() {
 
       {/* Chat Window */}
       {isOpen && (
-        <div className="fixed bottom-24 right-6 z-40 w-96 max-w-[calc(100vw-3rem)] h-[500px] bg-white rounded-2xl shadow-2xl border border-gray-200 flex flex-col overflow-hidden">
+        <div className={`fixed bottom-24 right-6 z-40 w-96 max-w-[calc(100vw-3rem)] h-[500px] rounded-2xl shadow-2xl border flex flex-col overflow-hidden ${
+          isDarkMode 
+            ? 'bg-gray-800 border-gray-700' 
+            : 'bg-white border-gray-200'
+        }`}>
           {/* Header */}
           <div className="bg-gradient-to-r from-blue-500 to-purple-600 text-white p-4 flex items-center justify-between">
             <div className="flex items-center">
@@ -91,10 +99,12 @@ export default function LiveChatbot() {
 
           {/* Error Banner */}
           {error && (
-            <div className="bg-red-50 border-l-4 border-red-500 p-3 flex items-center justify-between">
+            <div className={`border-l-4 border-red-500 p-3 flex items-center justify-between ${
+              isDarkMode ? 'bg-red-900/50' : 'bg-red-50'
+            }`}>
               <div className="flex items-center">
                 <AlertCircle className="w-4 h-4 text-red-500 mr-2" />
-                <p className="text-sm text-red-700">{error}</p>
+                <p className={`text-sm ${isDarkMode ? 'text-red-200' : 'text-red-700'}`}>{error}</p>
               </div>
               <button
                 onClick={clearError}
@@ -125,19 +135,25 @@ export default function LiveChatbot() {
                     className={`px-4 py-3 rounded-2xl ${
                       message.type === 'user'
                         ? 'bg-gradient-to-r from-blue-500 to-purple-600 text-white'
-                        : 'bg-gray-100 text-gray-900'
+                        : isDarkMode 
+                          ? 'bg-gray-700 text-gray-100'
+                          : 'bg-gray-100 text-gray-900'
                     }`}
                   >
                     <p className="text-sm leading-relaxed">{message.text}</p>
                   </div>
-                  <span className="text-xs text-gray-500 mt-1 px-2">
+                  <span className={`text-xs mt-1 px-2 ${
+                    isDarkMode ? 'text-gray-400' : 'text-gray-500'
+                  }`}>
                     {formatTime(message.timestamp)}
                   </span>
                 </div>
                 
                 {message.type === 'user' && (
-                  <div className="flex-shrink-0 w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center">
-                    <User className="w-4 h-4 text-gray-600" />
+                  <div className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center ${
+                    isDarkMode ? 'bg-gray-600' : 'bg-gray-300'
+                  }`}>
+                    <User className={`w-4 h-4 ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`} />
                   </div>
                 )}
               </div>
@@ -149,11 +165,19 @@ export default function LiveChatbot() {
                 <div className="flex-shrink-0 w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
                   <Bot className="w-4 h-4 text-white" />
                 </div>
-                <div className="bg-gray-100 px-4 py-3 rounded-2xl">
+                <div className={`px-4 py-3 rounded-2xl ${
+                  isDarkMode ? 'bg-gray-700' : 'bg-gray-100'
+                }`}>
                   <div className="flex space-x-1">
-                    <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
-                    <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
-                    <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+                    <div className={`w-2 h-2 rounded-full animate-bounce ${
+                      isDarkMode ? 'bg-gray-400' : 'bg-gray-400'
+                    }`}></div>
+                    <div className={`w-2 h-2 rounded-full animate-bounce ${
+                      isDarkMode ? 'bg-gray-400' : 'bg-gray-400'
+                    }`} style={{ animationDelay: '0.1s' }}></div>
+                    <div className={`w-2 h-2 rounded-full animate-bounce ${
+                      isDarkMode ? 'bg-gray-400' : 'bg-gray-400'
+                    }`} style={{ animationDelay: '0.2s' }}></div>
                   </div>
                 </div>
               </div>
@@ -163,7 +187,9 @@ export default function LiveChatbot() {
           </div>
 
           {/* Input */}
-          <form onSubmit={handleSubmit} className="p-4 border-t border-gray-200">
+          <form onSubmit={handleSubmit} className={`p-4 border-t ${
+            isDarkMode ? 'border-gray-700' : 'border-gray-200'
+          }`}>
             <div className="flex space-x-2">
               <input
                 ref={inputRef}
@@ -172,7 +198,11 @@ export default function LiveChatbot() {
                 onChange={(e) => setInputMessage(e.target.value)}
                 onKeyPress={handleKeyPress}
                 placeholder="Ask about your fitness goals..."
-                className="flex-1 px-4 py-2 border border-gray-300 rounded-full focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                className={`flex-1 px-4 py-2 border rounded-full focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-colors ${
+                  isDarkMode 
+                    ? 'bg-gray-700 border-gray-600 text-white placeholder-gray-400' 
+                    : 'bg-white border-gray-300 text-gray-900 placeholder-gray-500'
+                }`}
                 disabled={isLoading}
               />
               <button

@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import Header from './components/Header';
 import Hero from './components/Hero';
 import ChatSimulation from './components/ChatSimulation';
 import HowItWorks from './components/HowItWorks';
@@ -11,6 +12,9 @@ import LiveChatbot from './components/LiveChatbot';
 import ProgressTracker from './components/ProgressTracker';
 import NutritionCalculator from './components/NutritionCalculator';
 import FAQ from './components/FAQ';
+import StickyFooterCTA from './components/StickyFooterCTA';
+import SectionDivider from './components/SectionDivider';
+import Toast from './components/Toast';
 
 interface FormData {
   fullName: string;
@@ -21,6 +25,20 @@ interface FormData {
 
 function App() {
   const [isLoading, setIsLoading] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [showStickyFooter, setShowStickyFooter] = useState(true);
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState('');
+  const [toastType, setToastType] = useState<'success' | 'info'>('success');
+
+  // Apply dark mode to document
+  useEffect(() => {
+    if (isDarkMode) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }, [isDarkMode]);
 
   const scrollToForm = () => {
     const formElement = document.getElementById('form');
@@ -29,35 +47,109 @@ function App() {
     }
   };
 
+  const toggleDarkMode = () => {
+    setIsDarkMode(!isDarkMode);
+  };
+
   const handleFormSubmit = (data: FormData) => {
     console.log('Form submitted:', data);
     setIsLoading(true);
     
-    // Simulate loading for 5 seconds
+    // Show email sending toast
+    setToastMessage('Sending your personalized AI workout plan...');
+    setToastType('info');
+    setShowToast(true);
+    
+    // Simulate loading for 3 seconds
     setTimeout(() => {
       setIsLoading(false);
-      // Here you would typically redirect to a success page or show a success message
-      alert('Your personalized AI workout plan has been sent to your email!');
-    }, 5000);
+      
+      // Show success toast
+      setToastMessage('Email sent! Your plan is on its way to your inbox!');
+      setToastType('success');
+      setShowToast(true);
+      
+      // Hide sticky footer after successful submission
+      setShowStickyFooter(false);
+    }, 3000);
+  };
+
+  const handleStickyFooterClose = () => {
+    setShowStickyFooter(false);
   };
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className={`min-h-screen transition-colors duration-300 ${
+      isDarkMode ? 'bg-gray-900' : 'bg-white'
+    }`}>
       {isLoading && <LoadingScreen />}
       
-      <Hero onStartClick={scrollToForm} />
-      <ChatSimulation />
-      <HowItWorks />
-      <NutritionCalculator />
-      <ProgressTracker />
-      <LeadForm onSubmit={handleFormSubmit} />
-      <Testimonials />
-      <FAQ />
-      <TrustSection />
-      <Footer />
+      <Header isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />
+      
+      {/* Add padding top to account for fixed header */}
+      <div className="pt-16">
+        <Hero onStartClick={scrollToForm} isDarkMode={isDarkMode} />
+        
+        <SectionDivider variant="waves" isDarkMode={isDarkMode} />
+        
+        <div id="features">
+          <ChatSimulation isDarkMode={isDarkMode} />
+        </div>
+        
+        <SectionDivider variant="dots" isDarkMode={isDarkMode} />
+        
+        <HowItWorks isDarkMode={isDarkMode} />
+        
+        <SectionDivider variant="zigzag" isDarkMode={isDarkMode} />
+        
+        <div id="calculator">
+          <NutritionCalculator isDarkMode={isDarkMode} />
+        </div>
+        
+        <SectionDivider variant="waves" isDarkMode={isDarkMode} />
+        
+        <ProgressTracker isDarkMode={isDarkMode} />
+        
+        <SectionDivider variant="dots" isDarkMode={isDarkMode} />
+        
+        <LeadForm onSubmit={handleFormSubmit} isDarkMode={isDarkMode} />
+        
+        <SectionDivider variant="zigzag" isDarkMode={isDarkMode} />
+        
+        <div id="testimonials">
+          <Testimonials isDarkMode={isDarkMode} />
+        </div>
+        
+        <SectionDivider variant="waves" isDarkMode={isDarkMode} />
+        
+        <FAQ isDarkMode={isDarkMode} />
+        
+        <SectionDivider variant="dots" isDarkMode={isDarkMode} />
+        
+        <TrustSection isDarkMode={isDarkMode} />
+        
+        <Footer isDarkMode={isDarkMode} />
+      </div>
       
       {/* Live AI Chatbot */}
-      <LiveChatbot />
+      <LiveChatbot isDarkMode={isDarkMode} />
+      
+      {/* Sticky Footer CTA */}
+      <StickyFooterCTA 
+        isVisible={showStickyFooter}
+        onClose={handleStickyFooterClose}
+        onGetStarted={scrollToForm}
+        isDarkMode={isDarkMode}
+      />
+      
+      {/* Toast Notifications */}
+      <Toast
+        isVisible={showToast}
+        onClose={() => setShowToast(false)}
+        type={toastType}
+        message={toastMessage}
+        isDarkMode={isDarkMode}
+      />
     </div>
   );
 }

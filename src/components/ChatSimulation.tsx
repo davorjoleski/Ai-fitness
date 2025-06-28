@@ -1,9 +1,15 @@
 import React from 'react';
 import { MessageCircle, Sparkles, Dumbbell } from 'lucide-react';
 
-export default function ChatSimulation() {
+interface ChatSimulationProps {
+  isDarkMode?: boolean;
+}
+
+export default function ChatSimulation({ isDarkMode = false }: ChatSimulationProps) {
   return (
-    <section className="py-20 bg-gray-50 relative">
+    <section className={`py-20 relative transition-colors duration-300 ${
+      isDarkMode ? 'bg-gray-800' : 'bg-gray-50'
+    }`}>
       {/* Section Divider */}
       <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-green-500 via-blue-500 to-purple-500"></div>
       
@@ -15,10 +21,14 @@ export default function ChatSimulation() {
             </div>
           </div>
           
-          <h2 className="text-4xl sm:text-5xl font-black text-gray-900 mb-4 tracking-tight">
+          <h2 className={`text-4xl sm:text-5xl font-black mb-4 tracking-tight ${
+            isDarkMode ? 'text-white' : 'text-gray-900'
+          }`}>
             CHAT WITH OUR AI FITNESS COACH
           </h2>
-          <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+          <p className={`text-xl mb-8 max-w-2xl mx-auto ${
+            isDarkMode ? 'text-gray-300' : 'text-gray-600'
+          }`}>
             Get instant, personalized fitness advice from our AI coach powered by advanced technology
           </p>
           
