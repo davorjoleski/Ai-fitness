@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { User, Mail, Target, Calendar } from 'lucide-react';
+import { User, Mail, Target, Calendar, Sparkles } from 'lucide-react';
 
 interface LeadFormProps {
   onSubmit: (data: FormData) => void;
@@ -63,21 +63,34 @@ export default function LeadForm({ onSubmit }: LeadFormProps) {
   };
 
   return (
-    <section id="form" className="py-20 bg-gradient-to-br from-gray-50 to-blue-50">
-      <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="form" className="py-20 bg-gradient-to-br from-gray-50 to-blue-50 relative">
+      {/* Section Divider */}
+      <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-yellow-500 via-orange-500 to-red-500"></div>
+      
+      {/* Background Elements */}
+      <div className="absolute top-10 left-10 w-64 h-64 bg-gradient-to-br from-blue-100 to-purple-100 rounded-full opacity-30 blur-3xl"></div>
+      <div className="absolute bottom-10 right-10 w-80 h-80 bg-gradient-to-br from-green-100 to-blue-100 rounded-full opacity-30 blur-3xl"></div>
+      
+      <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         <div className="text-center mb-12">
-          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
-            Get Your AI Workout Plan
+          <div className="flex justify-center mb-6">
+            <div className="w-16 h-16 bg-gradient-to-br from-orange-500 to-red-600 rounded-2xl flex items-center justify-center">
+              <Sparkles className="w-8 h-8 text-white" />
+            </div>
+          </div>
+          
+          <h2 className="text-4xl sm:text-5xl font-black text-gray-900 mb-4 tracking-tight">
+            GET YOUR AI WORKOUT PLAN
           </h2>
-          <p className="text-xl text-gray-600">
-            Fill out the form below and receive your personalized plan instantly
+          <p className="text-xl text-gray-600 max-w-lg mx-auto">
+            Fill out the form below and receive your personalized plan instantly - completely free!
           </p>
         </div>
 
-        <div className="bg-white rounded-2xl shadow-2xl p-8">
+        <div className="bg-white rounded-3xl shadow-2xl p-8 border border-gray-100">
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
-              <label htmlFor="fullName" className="block text-sm font-medium text-gray-700 mb-2">
+              <label htmlFor="fullName" className="block text-sm font-semibold text-gray-700 mb-2">
                 <User className="inline w-4 h-4 mr-2" />
                 Full Name
               </label>
@@ -87,7 +100,7 @@ export default function LeadForm({ onSubmit }: LeadFormProps) {
                 name="fullName"
                 value={formData.fullName}
                 onChange={handleChange}
-                className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors ${
+                className={`w-full px-4 py-4 border rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-lg ${
                   errors.fullName ? 'border-red-500' : 'border-gray-300'
                 }`}
                 placeholder="Enter your full name"
@@ -96,7 +109,7 @@ export default function LeadForm({ onSubmit }: LeadFormProps) {
             </div>
 
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+              <label htmlFor="email" className="block text-sm font-semibold text-gray-700 mb-2">
                 <Mail className="inline w-4 h-4 mr-2" />
                 Email Address
               </label>
@@ -106,7 +119,7 @@ export default function LeadForm({ onSubmit }: LeadFormProps) {
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
-                className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors ${
+                className={`w-full px-4 py-4 border rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-lg ${
                   errors.email ? 'border-red-500' : 'border-gray-300'
                 }`}
                 placeholder="Enter your email address"
@@ -115,7 +128,7 @@ export default function LeadForm({ onSubmit }: LeadFormProps) {
             </div>
 
             <div>
-              <label htmlFor="fitnessGoal" className="block text-sm font-medium text-gray-700 mb-2">
+              <label htmlFor="fitnessGoal" className="block text-sm font-semibold text-gray-700 mb-2">
                 <Target className="inline w-4 h-4 mr-2" />
                 Fitness Goal
               </label>
@@ -124,7 +137,7 @@ export default function LeadForm({ onSubmit }: LeadFormProps) {
                 name="fitnessGoal"
                 value={formData.fitnessGoal}
                 onChange={handleChange}
-                className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors ${
+                className={`w-full px-4 py-4 border rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-lg ${
                   errors.fitnessGoal ? 'border-red-500' : 'border-gray-300'
                 }`}
               >
@@ -132,12 +145,14 @@ export default function LeadForm({ onSubmit }: LeadFormProps) {
                 <option value="lose-weight">Lose Weight</option>
                 <option value="build-muscle">Build Muscle</option>
                 <option value="get-healthier">Get Healthier</option>
+                <option value="improve-endurance">Improve Endurance</option>
+                <option value="general-fitness">General Fitness</option>
               </select>
               {errors.fitnessGoal && <p className="mt-1 text-sm text-red-600">{errors.fitnessGoal}</p>}
             </div>
 
             <div>
-              <label htmlFor="daysPerWeek" className="block text-sm font-medium text-gray-700 mb-2">
+              <label htmlFor="daysPerWeek" className="block text-sm font-semibold text-gray-700 mb-2">
                 <Calendar className="inline w-4 h-4 mr-2" />
                 Days Per Week
               </label>
@@ -146,7 +161,7 @@ export default function LeadForm({ onSubmit }: LeadFormProps) {
                 name="daysPerWeek"
                 value={formData.daysPerWeek}
                 onChange={handleChange}
-                className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors ${
+                className={`w-full px-4 py-4 border rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-lg ${
                   errors.daysPerWeek ? 'border-red-500' : 'border-gray-300'
                 }`}
               >
@@ -162,10 +177,14 @@ export default function LeadForm({ onSubmit }: LeadFormProps) {
 
             <button
               type="submit"
-              className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold py-4 px-8 rounded-lg text-lg transition-all duration-300 transform hover:scale-105 hover:shadow-lg"
+              className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold py-5 px-8 rounded-xl text-xl transition-all duration-300 transform hover:scale-105 hover:shadow-xl shadow-lg"
             >
-              Generate My Plan
+              🚀 GENERATE MY FREE PLAN NOW
             </button>
+            
+            <p className="text-center text-sm text-gray-500 mt-4">
+              ✅ 100% Free • ✅ No Credit Card Required • ✅ Instant Delivery
+            </p>
           </form>
         </div>
       </div>

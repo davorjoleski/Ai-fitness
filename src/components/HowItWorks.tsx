@@ -1,5 +1,5 @@
 import React from 'react';
-import { MessageSquare, Brain, Mail } from 'lucide-react';
+import { MessageSquare, Brain, Mail, ArrowRight } from 'lucide-react';
 
 export default function HowItWorks() {
   const steps = [
@@ -21,11 +21,15 @@ export default function HowItWorks() {
   ];
 
   return (
-    <section className="py-20 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="py-20 bg-white relative">
+      {/* Decorative Elements */}
+      <div className="absolute top-10 left-10 w-32 h-32 bg-gradient-to-br from-green-100 to-blue-100 rounded-full opacity-50 blur-xl"></div>
+      <div className="absolute bottom-10 right-10 w-40 h-40 bg-gradient-to-br from-purple-100 to-pink-100 rounded-full opacity-50 blur-xl"></div>
+      
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         <div className="text-center mb-16">
-          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
-            How It Works
+          <h2 className="text-4xl sm:text-5xl font-black text-gray-900 mb-4 tracking-tight">
+            HOW IT WORKS
           </h2>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
             Get your personalized fitness plan in three simple steps
@@ -34,24 +38,26 @@ export default function HowItWorks() {
 
         <div className="grid md:grid-cols-3 gap-8 lg:gap-12">
           {steps.map((step, index) => (
-            <div key={index} className="text-center group">
+            <div key={index} className="text-center group relative">
               <div className="relative mb-8">
-                <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto transform group-hover:scale-110 transition-transform duration-300 shadow-lg">
-                  <step.icon className="w-10 h-10 text-white" />
+                <div className="w-24 h-24 bg-gradient-to-br from-blue-500 to-purple-600 rounded-3xl flex items-center justify-center mx-auto transform group-hover:scale-110 transition-all duration-300 shadow-xl">
+                  <step.icon className="w-12 h-12 text-white" />
                 </div>
                 {index < steps.length - 1 && (
-                  <div className="hidden md:block absolute top-10 left-full w-full h-0.5 bg-gradient-to-r from-blue-500 to-purple-600 opacity-30 transform -translate-x-10"></div>
+                  <div className="hidden md:flex absolute top-12 left-full w-full items-center justify-center transform -translate-x-12">
+                    <ArrowRight className="w-8 h-8 text-gray-300" />
+                  </div>
                 )}
-                <div className="absolute -top-2 -right-2 w-8 h-8 bg-green-500 rounded-full flex items-center justify-center text-white font-bold text-sm">
+                <div className="absolute -top-3 -right-3 w-10 h-10 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center text-white font-bold text-lg shadow-lg">
                   {index + 1}
                 </div>
               </div>
               
-              <h3 className="text-xl font-bold text-gray-900 mb-4">
+              <h3 className="text-2xl font-bold text-gray-900 mb-4">
                 {step.title}
               </h3>
               
-              <p className="text-gray-600 leading-relaxed">
+              <p className="text-gray-600 leading-relaxed text-lg">
                 {step.description}
               </p>
             </div>

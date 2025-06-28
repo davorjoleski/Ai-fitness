@@ -10,6 +10,7 @@ import Footer from './components/Footer';
 import LiveChatbot from './components/LiveChatbot';
 import ProgressTracker from './components/ProgressTracker';
 import NutritionCalculator from './components/NutritionCalculator';
+import FAQ from './components/FAQ';
 
 interface FormData {
   fullName: string;
@@ -41,7 +42,7 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-white">
       {isLoading && <LoadingScreen />}
       
       <Hero onStartClick={scrollToForm} />
@@ -51,6 +52,7 @@ function App() {
       <ProgressTracker />
       <LeadForm onSubmit={handleFormSubmit} />
       <Testimonials />
+      <FAQ />
       <TrustSection />
       <Footer />
       
