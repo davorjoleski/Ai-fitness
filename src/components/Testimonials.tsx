@@ -1,69 +1,84 @@
 import React from 'react';
 import { Star, Quote } from 'lucide-react';
 
-export default function Testimonials() {
+interface TestimonialsProps {
+  isDarkMode?: boolean;
+}
+
+export default function Testimonials({ isDarkMode = false }: TestimonialsProps) {
   const testimonials = [
     {
-      name: 'Sarah Johnson',
+      name: 'Sarah M.',
       avatar: 'https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop',
-      quote: 'This AI workout plan completely transformed my routine. I lost 15 pounds in 8 weeks and feel stronger than ever!',
+      quote: 'The AI workout plan was exactly what I needed. Simple, effective, and fits my busy schedule perfectly!',
       rating: 5,
-      result: 'Lost 15 lbs in 8 weeks'
+      result: 'Improved fitness'
     },
     {
-      name: 'Mike Chen',
+      name: 'Mike C.',
       avatar: 'https://images.pexels.com/photos/1040880/pexels-photo-1040880.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop',
-      quote: 'Perfect for my busy schedule. The AI understood exactly what I needed and created a plan that actually fits my life.',
+      quote: 'Great for beginners like me. The AI understood my fitness level and created a plan I could actually follow.',
       rating: 5,
-      result: 'Built muscle & saved time'
+      result: 'Built confidence'
     },
     {
-      name: 'Emily Rodriguez',
+      name: 'Emily R.',
       avatar: 'https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop',
-      quote: 'I\'ve tried many fitness programs, but this AI-generated plan actually works! The personalization is incredible.',
+      quote: 'Love how personalized the plan is. It actually considers my preferences and available equipment.',
       rating: 5,
-      result: 'Achieved fitness goals'
+      result: 'Stayed consistent'
     }
   ];
 
   return (
-    <section className="py-20 bg-gray-50 relative">
-      {/* Section Divider */}
-      <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500"></div>
-      
-      {/* Background Elements */}
-      <div className="absolute top-20 left-20 w-32 h-32 bg-gradient-to-br from-pink-100 to-purple-100 rounded-full opacity-50 blur-2xl"></div>
-      <div className="absolute bottom-20 right-20 w-40 h-40 bg-gradient-to-br from-purple-100 to-indigo-100 rounded-full opacity-50 blur-2xl"></div>
-      
+    <section className={`py-20 relative transition-colors duration-300 ${
+      isDarkMode ? 'bg-gray-900' : 'bg-white'
+    }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-        <div className="text-center mb-16">
+        <div className="text-center mb-16 animate-fade-in-up">
           <div className="flex justify-center mb-6">
-            <div className="w-16 h-16 bg-gradient-to-br from-pink-500 to-purple-600 rounded-2xl flex items-center justify-center">
+            <div className="w-16 h-16 bg-gradient-to-br from-pink-500 to-purple-600 rounded-2xl flex items-center justify-center animate-bounce-subtle">
               <Quote className="w-8 h-8 text-white" />
             </div>
           </div>
           
-          <h2 className="text-4xl sm:text-5xl font-black text-gray-900 mb-4 tracking-tight">
+          <h2 className={`text-4xl sm:text-5xl font-black mb-4 tracking-tight ${
+            isDarkMode ? 'text-white' : 'text-gray-900'
+          }`}>
             WHAT OUR USERS SAY
           </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto mb-4">
-            Real results from real people who transformed their fitness
+          <p className={`text-xl max-w-2xl mx-auto mb-4 ${
+            isDarkMode ? 'text-gray-300' : 'text-gray-600'
+          }`}>
+            Real feedback from people using our AI fitness coach
           </p>
-          <p className="text-sm text-gray-500 font-medium">
-            ⭐ Reviews from verified users
+          <p className={`text-sm font-medium ${
+            isDarkMode ? 'text-gray-400' : 'text-gray-500'
+          }`}>
+            ⭐ Sample reviews for demonstration
           </p>
         </div>
 
         <div className="grid md:grid-cols-3 gap-8">
           {testimonials.map((testimonial, index) => (
-            <div key={index} className="bg-white rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100">
+            <div 
+              key={index} 
+              className={`rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border animate-fade-in-up ${
+                isDarkMode 
+                  ? 'bg-gray-800 border-gray-700' 
+                  : 'bg-white border-gray-100'
+              }`}
+              style={{ animationDelay: `${index * 0.2}s` }}
+            >
               <div className="flex items-center mb-6">
                 {[...Array(testimonial.rating)].map((_, i) => (
                   <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />
                 ))}
               </div>
               
-              <p className="text-gray-700 mb-6 italic leading-relaxed text-lg">
+              <p className={`mb-6 italic leading-relaxed text-lg ${
+                isDarkMode ? 'text-gray-300' : 'text-gray-700'
+              }`}>
                 "{testimonial.quote}"
               </p>
               
@@ -75,8 +90,16 @@ export default function Testimonials() {
                     className="w-14 h-14 rounded-full object-cover mr-4 border-2 border-gray-200"
                   />
                   <div>
-                    <p className="font-bold text-gray-900 text-lg">{testimonial.name}</p>
-                    <p className="text-sm text-gray-500">Verified User</p>
+                    <p className={`font-bold text-lg ${
+                      isDarkMode ? 'text-white' : 'text-gray-900'
+                    }`}>
+                      {testimonial.name}
+                    </p>
+                    <p className={`text-sm ${
+                      isDarkMode ? 'text-gray-400' : 'text-gray-500'
+                    }`}>
+                      Sample User
+                    </p>
                   </div>
                 </div>
                 <div className="text-right">
@@ -89,9 +112,11 @@ export default function Testimonials() {
           ))}
         </div>
         
-        <div className="text-center mt-12">
-          <p className="text-gray-600 font-medium">
-            Join hundreds of satisfied users who achieved their fitness goals
+        <div className="text-center mt-12 animate-fade-in-up" style={{ animationDelay: '0.8s' }}>
+          <p className={`font-medium ${
+            isDarkMode ? 'text-gray-300' : 'text-gray-600'
+          }`}>
+            Join others who are improving their fitness with AI guidance
           </p>
         </div>
       </div>

@@ -6,7 +6,11 @@ interface FAQItem {
   answer: string;
 }
 
-export default function FAQ() {
+interface FAQProps {
+  isDarkMode?: boolean;
+}
+
+export default function FAQ({ isDarkMode = false }: FAQProps) {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   const faqs: FAQItem[] = [
@@ -37,26 +41,25 @@ export default function FAQ() {
   };
 
   return (
-    <section className="py-20 bg-white relative">
-      {/* Section Divider */}
-      <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500"></div>
-      
-      {/* Background Elements */}
-      <div className="absolute top-20 right-20 w-32 h-32 bg-gradient-to-br from-indigo-100 to-purple-100 rounded-full opacity-50 blur-2xl"></div>
-      <div className="absolute bottom-20 left-20 w-40 h-40 bg-gradient-to-br from-purple-100 to-pink-100 rounded-full opacity-50 blur-2xl"></div>
-      
+    <section className={`py-20 relative transition-colors duration-300 ${
+      isDarkMode ? 'bg-gray-800' : 'bg-gray-50'
+    }`}>
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-        <div className="text-center mb-16">
+        <div className="text-center mb-16 animate-fade-in-up">
           <div className="flex justify-center mb-6">
-            <div className="w-16 h-16 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl flex items-center justify-center">
+            <div className="w-16 h-16 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl flex items-center justify-center animate-bounce-subtle">
               <HelpCircle className="w-8 h-8 text-white" />
             </div>
           </div>
           
-          <h2 className="text-4xl sm:text-5xl font-black text-gray-900 mb-4 tracking-tight">
+          <h2 className={`text-4xl sm:text-5xl font-black mb-4 tracking-tight ${
+            isDarkMode ? 'text-white' : 'text-gray-900'
+          }`}>
             FREQUENTLY ASKED QUESTIONS
           </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          <p className={`text-xl max-w-2xl mx-auto ${
+            isDarkMode ? 'text-gray-300' : 'text-gray-600'
+          }`}>
             Everything you need to know about our AI fitness coach
           </p>
         </div>
@@ -65,28 +68,45 @@ export default function FAQ() {
           {faqs.map((faq, index) => (
             <div
               key={index}
-              className="bg-gray-50 rounded-2xl border border-gray-200 overflow-hidden transition-all duration-300 hover:shadow-lg"
+              className={`rounded-2xl border overflow-hidden transition-all duration-300 hover:shadow-lg animate-fade-in-up ${
+                isDarkMode 
+                  ? 'bg-gray-900 border-gray-700' 
+                  : 'bg-white border-gray-200'
+              }`}
+              style={{ animationDelay: `${index * 0.1}s` }}
             >
               <button
                 onClick={() => toggleFAQ(index)}
-                className="w-full px-8 py-6 text-left flex items-center justify-between hover:bg-gray-100 transition-colors"
+                className={`w-full px-8 py-6 text-left flex items-center justify-between transition-colors duration-300 ${
+                  isDarkMode ? 'hover:bg-gray-800' : 'hover:bg-gray-50'
+                }`}
               >
-                <h3 className="text-lg font-bold text-gray-900 pr-4">
+                <h3 className={`text-lg font-bold pr-4 ${
+                  isDarkMode ? 'text-white' : 'text-gray-900'
+                }`}>
                   {faq.question}
                 </h3>
                 <div className="flex-shrink-0">
                   {openIndex === index ? (
-                    <ChevronUp className="w-6 h-6 text-gray-500" />
+                    <ChevronUp className={`w-6 h-6 transition-transform duration-300 ${
+                      isDarkMode ? 'text-gray-400' : 'text-gray-500'
+                    }`} />
                   ) : (
-                    <ChevronDown className="w-6 h-6 text-gray-500" />
+                    <ChevronDown className={`w-6 h-6 transition-transform duration-300 ${
+                      isDarkMode ? 'text-gray-400' : 'text-gray-500'
+                    }`} />
                   )}
                 </div>
               </button>
               
               {openIndex === index && (
-                <div className="px-8 pb-6">
-                  <div className="border-t border-gray-200 pt-4">
-                    <p className="text-gray-700 leading-relaxed text-lg">
+                <div className="px-8 pb-6 animate-fade-in">
+                  <div className={`border-t pt-4 ${
+                    isDarkMode ? 'border-gray-700' : 'border-gray-200'
+                  }`}>
+                    <p className={`leading-relaxed text-lg ${
+                      isDarkMode ? 'text-gray-300' : 'text-gray-700'
+                    }`}>
                       {faq.answer}
                     </p>
                   </div>
@@ -96,11 +116,15 @@ export default function FAQ() {
           ))}
         </div>
 
-        <div className="text-center mt-12">
-          <p className="text-gray-600 mb-4">
+        <div className="text-center mt-12 animate-fade-in-up" style={{ animationDelay: '0.6s' }}>
+          <p className={`mb-4 ${
+            isDarkMode ? 'text-gray-300' : 'text-gray-600'
+          }`}>
             Still have questions? Our AI coach is here to help!
           </p>
-          <p className="text-sm text-gray-500">
+          <p className={`text-sm ${
+            isDarkMode ? 'text-gray-400' : 'text-gray-500'
+          }`}>
             Click the chat button in the bottom right to get instant answers
           </p>
         </div>

@@ -1,12 +1,32 @@
 import React from 'react';
-import { Instagram, Heart } from 'lucide-react';
+import { Instagram, Heart, Dumbbell } from 'lucide-react';
 
-export default function Footer() {
+interface FooterProps {
+  isDarkMode?: boolean;
+}
+
+export default function Footer({ isDarkMode = false }: FooterProps) {
   return (
-    <footer className="bg-gray-900 text-white py-12">
+    <footer className={`py-12 transition-colors duration-300 ${
+      isDarkMode ? 'bg-gray-900 text-white' : 'bg-gray-900 text-white'
+    }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center">
-          <h3 className="text-2xl font-bold mb-6">AI Fit Coach</h3>
+          {/* Logo */}
+          <div className="flex items-center justify-center mb-6">
+            <div className="relative">
+              <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center mr-3 shadow-lg">
+                <Dumbbell className="w-7 h-7 text-white" />
+              </div>
+              <div className="absolute -top-1 -right-1 w-4 h-4 bg-gradient-to-br from-green-400 to-green-500 rounded-full flex items-center justify-center">
+                <span className="text-xs font-bold text-white">AI</span>
+              </div>
+            </div>
+            <div>
+              <h3 className="text-2xl font-black tracking-tight">AI Fit Coach</h3>
+              <div className="text-xs text-gray-400 -mt-1">Powered by AI</div>
+            </div>
+          </div>
           
           <div className="flex justify-center space-x-6 mb-8">
             <a

@@ -1,7 +1,11 @@
 import React from 'react';
 import { MessageSquare, Brain, Mail, ArrowRight } from 'lucide-react';
 
-export default function HowItWorks() {
+interface HowItWorksProps {
+  isDarkMode?: boolean;
+}
+
+export default function HowItWorks({ isDarkMode = false }: HowItWorksProps) {
   const steps = [
     {
       icon: MessageSquare,
@@ -21,43 +25,49 @@ export default function HowItWorks() {
   ];
 
   return (
-    <section className="py-20 bg-white relative">
-      {/* Decorative Elements */}
-      <div className="absolute top-10 left-10 w-32 h-32 bg-gradient-to-br from-green-100 to-blue-100 rounded-full opacity-50 blur-xl"></div>
-      <div className="absolute bottom-10 right-10 w-40 h-40 bg-gradient-to-br from-purple-100 to-pink-100 rounded-full opacity-50 blur-xl"></div>
-      
+    <section className={`py-20 relative transition-colors duration-300 ${
+      isDarkMode ? 'bg-gray-800' : 'bg-gray-50'
+    }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl sm:text-5xl font-black text-gray-900 mb-4 tracking-tight">
+        <div className="text-center mb-16 animate-fade-in-up">
+          <h2 className={`text-4xl sm:text-5xl font-black mb-4 tracking-tight ${
+            isDarkMode ? 'text-white' : 'text-gray-900'
+          }`}>
             HOW IT WORKS
           </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          <p className={`text-xl max-w-2xl mx-auto ${
+            isDarkMode ? 'text-gray-300' : 'text-gray-600'
+          }`}>
             Get your personalized fitness plan in three simple steps
           </p>
         </div>
 
         <div className="grid md:grid-cols-3 gap-8 lg:gap-12">
           {steps.map((step, index) => (
-            <div key={index} className="text-center group relative">
+            <div key={index} className="text-center group relative animate-fade-in-up" style={{ animationDelay: `${index * 0.2}s` }}>
               <div className="relative mb-8">
-                <div className="w-24 h-24 bg-gradient-to-br from-blue-500 to-purple-600 rounded-3xl flex items-center justify-center mx-auto transform group-hover:scale-110 transition-all duration-300 shadow-xl">
+                <div className="w-24 h-24 bg-gradient-to-br from-blue-500 to-purple-600 rounded-3xl flex items-center justify-center mx-auto transform group-hover:scale-110 transition-all duration-300 shadow-xl animate-bounce-subtle">
                   <step.icon className="w-12 h-12 text-white" />
                 </div>
                 {index < steps.length - 1 && (
                   <div className="hidden md:flex absolute top-12 left-full w-full items-center justify-center transform -translate-x-12">
-                    <ArrowRight className="w-8 h-8 text-gray-300" />
+                    <ArrowRight className="w-8 h-8 text-gray-300 animate-pulse" />
                   </div>
                 )}
-                <div className="absolute -top-3 -right-3 w-10 h-10 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center text-white font-bold text-lg shadow-lg">
+                <div className="absolute -top-3 -right-3 w-10 h-10 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center text-white font-bold text-lg shadow-lg animate-pulse-subtle">
                   {index + 1}
                 </div>
               </div>
               
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">
+              <h3 className={`text-2xl font-bold mb-4 ${
+                isDarkMode ? 'text-white' : 'text-gray-900'
+              }`}>
                 {step.title}
               </h3>
               
-              <p className="text-gray-600 leading-relaxed text-lg">
+              <p className={`leading-relaxed text-lg ${
+                isDarkMode ? 'text-gray-300' : 'text-gray-600'
+              }`}>
                 {step.description}
               </p>
             </div>

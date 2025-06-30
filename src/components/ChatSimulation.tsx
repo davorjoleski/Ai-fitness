@@ -8,15 +8,12 @@ interface ChatSimulationProps {
 export default function ChatSimulation({ isDarkMode = false }: ChatSimulationProps) {
   return (
     <section className={`py-20 relative transition-colors duration-300 ${
-      isDarkMode ? 'bg-gray-800' : 'bg-gray-50'
+      isDarkMode ? 'bg-gray-900' : 'bg-white'
     }`}>
-      {/* Section Divider */}
-      <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-green-500 via-blue-500 to-purple-500"></div>
-      
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
+        <div className="text-center mb-16 animate-fade-in-up">
           <div className="flex justify-center mb-6">
-            <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center">
+            <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center animate-bounce-subtle">
               <MessageCircle className="w-8 h-8 text-white" />
             </div>
           </div>
@@ -32,9 +29,9 @@ export default function ChatSimulation({ isDarkMode = false }: ChatSimulationPro
             Get instant, personalized fitness advice from our AI coach powered by advanced technology
           </p>
           
-          <div className="bg-gradient-to-br from-blue-500 to-purple-600 text-white rounded-3xl p-8 max-w-3xl mx-auto shadow-2xl">
+          <div className="bg-gradient-to-br from-blue-500 to-purple-600 text-white rounded-3xl p-8 max-w-3xl mx-auto shadow-2xl animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
             <div className="flex items-center justify-center mb-6">
-              <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mr-4">
+              <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mr-4 animate-pulse-subtle">
                 <Dumbbell className="w-8 h-8" />
               </div>
               <div className="text-left">

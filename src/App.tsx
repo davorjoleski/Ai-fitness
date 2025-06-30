@@ -6,7 +6,6 @@ import HowItWorks from './components/HowItWorks';
 import LeadForm from './components/LeadForm';
 import LoadingScreen from './components/LoadingScreen';
 import Testimonials from './components/Testimonials';
-import TrustSection from './components/TrustSection';
 import Footer from './components/Footer';
 import LiveChatbot from './components/LiveChatbot';
 import ProgressTracker from './components/ProgressTracker';
@@ -130,8 +129,6 @@ function App() {
         <FAQ isDarkMode={isDarkMode} />
         
         <SectionDivider variant="dots" isDarkMode={isDarkMode} />
-        
-        <TrustSection isDarkMode={isDarkMode} />
         
         <Footer isDarkMode={isDarkMode} />
       </div>

@@ -17,13 +17,13 @@ export default function Hero({ onStartClick, isDarkMode }: HeroProps) {
       <div className="absolute inset-0 pattern-bg opacity-10"></div>
       
       {/* Floating Elements */}
-      <div className="absolute top-20 left-10 w-20 h-20 bg-green-500/20 rounded-full blur-xl animate-pulse"></div>
-      <div className="absolute bottom-32 right-16 w-32 h-32 bg-blue-500/20 rounded-full blur-2xl animate-pulse" style={{ animationDelay: '1s' }}></div>
-      <div className="absolute top-1/3 right-1/4 w-16 h-16 bg-purple-500/20 rounded-full blur-xl animate-pulse" style={{ animationDelay: '2s' }}></div>
+      <div className="absolute top-20 left-10 w-20 h-20 bg-green-500/20 rounded-full blur-xl animate-float"></div>
+      <div className="absolute bottom-32 right-16 w-32 h-32 bg-blue-500/20 rounded-full blur-2xl animate-float-delayed"></div>
+      <div className="absolute top-1/3 right-1/4 w-16 h-16 bg-purple-500/20 rounded-full blur-xl animate-float-slow"></div>
       
-      <div className="relative z-10 text-center px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
+      <div className="relative z-10 text-center px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto animate-fade-in-up">
         {/* Trust Indicators */}
-        <div className="flex justify-center items-center space-x-6 mb-8 text-sm text-gray-300">
+        <div className="flex justify-center items-center space-x-6 mb-8 text-sm text-gray-300 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
           <div className="flex items-center">
             <Zap className="w-4 h-4 text-yellow-400 mr-2" />
             <span>AI-Powered</span>
@@ -38,38 +38,39 @@ export default function Hero({ onStartClick, isDarkMode }: HeroProps) {
           </div>
         </div>
 
-        <h1 className="text-4xl sm:text-5xl lg:text-7xl font-black mb-6 leading-tight tracking-tight">
+        <h1 className="text-4xl sm:text-5xl lg:text-7xl font-black mb-6 leading-tight tracking-tight animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
           GET YOUR PERSONALIZED
           <span className="gradient-text block">
             AI WORKOUT PLAN
           </span>
         </h1>
         
-        <p className="text-xl sm:text-2xl lg:text-3xl mb-4 text-gray-200 max-w-4xl mx-auto leading-relaxed font-medium">
+        <p className="text-xl sm:text-2xl lg:text-3xl mb-4 text-gray-200 max-w-4xl mx-auto leading-relaxed font-medium animate-fade-in-up" style={{ animationDelay: '0.6s' }}>
           Transform your body with an AI-powered fitness plan designed just for you—no experience needed!
         </p>
         
-        <p className="text-lg mb-12 text-gray-400 max-w-2xl mx-auto">
+        <p className="text-lg mb-12 text-gray-400 max-w-2xl mx-auto animate-fade-in-up" style={{ animationDelay: '0.8s' }}>
           Answer 3 quick questions and get your custom fitness plan instantly
         </p>
         
         <button
           onClick={onStartClick}
-          className="group bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold py-5 px-16 rounded-full text-xl transition-all duration-300 transform hover:scale-105 hover:shadow-2xl shadow-lg border-2 border-green-400/20"
+          className="group bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold py-5 px-16 rounded-full text-xl transition-all duration-300 transform hover:scale-105 hover:shadow-2xl shadow-lg border-2 border-green-400/20 animate-fade-in-up animate-bounce-subtle"
+          style={{ animationDelay: '1s' }}
         >
           START NOW - IT'S FREE
           <ArrowDown className="inline-block ml-3 w-6 h-6 group-hover:translate-y-1 transition-transform duration-300" />
         </button>
         
-        <div className="mt-16 text-center">
-          <p className="text-sm text-gray-400 mb-6">Join thousands who transformed their fitness</p>
+        <div className="mt-16 text-center animate-fade-in-up" style={{ animationDelay: '1.2s' }}>
+          <p className="text-sm text-gray-400 mb-6">Join fitness enthusiasts who transformed their health</p>
           <div className="flex justify-center items-center space-x-12 opacity-70">
             <div className="text-center">
-              <div className="text-3xl font-bold text-green-400">500+</div>
+              <div className="text-3xl font-bold text-green-400">200+</div>
               <div className="text-sm text-gray-400">Success Stories</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold text-blue-400">4.9★</div>
+              <div className="text-3xl font-bold text-blue-400">4.8★</div>
               <div className="text-sm text-gray-400">User Rating</div>
             </div>
             <div className="text-center">
