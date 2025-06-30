@@ -1,5 +1,5 @@
 import React from 'react';
-import { MessageSquare, Brain, Mail, ArrowRight } from 'lucide-react';
+import { MessageSquare, Brain, Mail } from 'lucide-react';
 
 interface HowItWorksProps {
   isDarkMode?: boolean;
@@ -46,14 +46,9 @@ export default function HowItWorks({ isDarkMode = false }: HowItWorksProps) {
           {steps.map((step, index) => (
             <div key={index} className="text-center group relative animate-fade-in-up" style={{ animationDelay: `${index * 0.2}s` }}>
               <div className="relative mb-8">
-                <div className="w-24 h-24 bg-gradient-to-br from-blue-500 to-purple-600 rounded-3xl flex items-center justify-center mx-auto transform group-hover:scale-110 transition-all duration-300 shadow-xl animate-bounce-subtle">
+                <div className="w-24 h-24 bg-gradient-to-br from-blue-500 to-purple-600 rounded-3xl flex items-center justify-center mx-auto transform group-hover:scale-110 transition-all duration-300 shadow-xl animate-bounce-subtle hover-lift">
                   <step.icon className="w-12 h-12 text-white" />
                 </div>
-                {index < steps.length - 1 && (
-                  <div className="hidden md:flex absolute top-12 left-full w-full items-center justify-center transform -translate-x-12">
-                    <ArrowRight className="w-8 h-8 text-gray-300 animate-pulse" />
-                  </div>
-                )}
                 <div className="absolute -top-3 -right-3 w-10 h-10 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center text-white font-bold text-lg shadow-lg animate-pulse-subtle">
                   {index + 1}
                 </div>

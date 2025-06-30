@@ -1,5 +1,5 @@
 import React from 'react';
-import { MessageCircle, Sparkles, Dumbbell } from 'lucide-react';
+import { MessageCircle, Sparkles } from 'lucide-react';
 
 interface ChatSimulationProps {
   isDarkMode?: boolean;
@@ -29,10 +29,15 @@ export default function ChatSimulation({ isDarkMode = false }: ChatSimulationPro
             Get instant, personalized fitness advice from our AI coach powered by advanced technology
           </p>
           
-          <div className="bg-gradient-to-br from-blue-500 to-purple-600 text-white rounded-3xl p-8 max-w-3xl mx-auto shadow-2xl animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
+          <div className="bg-gradient-to-br from-blue-500 to-purple-600 text-white rounded-3xl p-8 max-w-3xl mx-auto shadow-2xl animate-fade-in-up hover-lift" style={{ animationDelay: '0.3s' }}>
             <div className="flex items-center justify-center mb-6">
               <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mr-4 animate-pulse-subtle">
-                <Dumbbell className="w-8 h-8" />
+                {/* AI Symbol */}
+                <svg className="w-8 h-8 text-white" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 2L13.09 8.26L20 9L13.09 9.74L12 16L10.91 9.74L4 9L10.91 8.26L12 2Z"/>
+                  <path d="M19 12L20.09 18.26L27 19L20.09 19.74L19 26L17.91 19.74L11 19L17.91 18.26L19 12Z" opacity="0.6"/>
+                  <path d="M5 12L6.09 18.26L13 19L6.09 19.74L5 26L3.91 19.74L-3 19L3.91 18.26L5 12Z" opacity="0.6"/>
+                </svg>
               </div>
               <div className="text-left">
                 <h3 className="text-2xl font-bold">Try Our Live AI Coach</h3>

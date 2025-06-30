@@ -1,5 +1,5 @@
 import React from 'react';
-import { Instagram, Heart, Dumbbell } from 'lucide-react';
+import { Instagram, Heart } from 'lucide-react';
 
 interface FooterProps {
   isDarkMode?: boolean;
@@ -12,12 +12,19 @@ export default function Footer({ isDarkMode = false }: FooterProps) {
     }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center">
-          {/* Logo */}
+          {/* Custom Logo */}
           <div className="flex items-center justify-center mb-6">
             <div className="relative">
-              <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center mr-3 shadow-lg">
-                <Dumbbell className="w-7 h-7 text-white" />
+              {/* Main Logo Circle */}
+              <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center mr-3 shadow-lg">
+                {/* AI Symbol */}
+                <svg className="w-7 h-7 text-white" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 2L13.09 8.26L20 9L13.09 9.74L12 16L10.91 9.74L4 9L10.91 8.26L12 2Z"/>
+                  <path d="M19 12L20.09 18.26L27 19L20.09 19.74L19 26L17.91 19.74L11 19L17.91 18.26L19 12Z" opacity="0.6"/>
+                  <path d="M5 12L6.09 18.26L13 19L6.09 19.74L5 26L3.91 19.74L-3 19L3.91 18.26L5 12Z" opacity="0.6"/>
+                </svg>
               </div>
+              {/* AI Badge */}
               <div className="absolute -top-1 -right-1 w-4 h-4 bg-gradient-to-br from-green-400 to-green-500 rounded-full flex items-center justify-center">
                 <span className="text-xs font-bold text-white">AI</span>
               </div>

@@ -66,11 +66,11 @@ export default function Hero({ onStartClick, isDarkMode }: HeroProps) {
           <p className="text-sm text-gray-400 mb-6">Join fitness enthusiasts who transformed their health</p>
           <div className="flex justify-center items-center space-x-12 opacity-70">
             <div className="text-center">
-              <div className="text-3xl font-bold text-green-400">200+</div>
-              <div className="text-sm text-gray-400">Success Stories</div>
+              <div className="text-3xl font-bold text-green-400">150+</div>
+              <div className="text-sm text-gray-400">Plans Created</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold text-blue-400">4.8★</div>
+              <div className="text-3xl font-bold text-blue-400">4.7★</div>
               <div className="text-sm text-gray-400">User Rating</div>
             </div>
             <div className="text-center">
@@ -79,11 +79,6 @@ export default function Hero({ onStartClick, isDarkMode }: HeroProps) {
             </div>
           </div>
         </div>
-      </div>
-      
-      {/* Scroll Indicator */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-        <ArrowDown className="w-6 h-6 text-white/50" />
       </div>
     </section>
   );

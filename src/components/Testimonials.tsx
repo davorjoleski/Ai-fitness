@@ -18,7 +18,7 @@ export default function Testimonials({ isDarkMode = false }: TestimonialsProps) 
       name: 'Mike C.',
       avatar: 'https://images.pexels.com/photos/1040880/pexels-photo-1040880.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop',
       quote: 'Great for beginners like me. The AI understood my fitness level and created a plan I could actually follow.',
-      rating: 5,
+      rating: 4,
       result: 'Built confidence'
     },
     {
@@ -32,7 +32,7 @@ export default function Testimonials({ isDarkMode = false }: TestimonialsProps) 
 
   return (
     <section className={`py-20 relative transition-colors duration-300 ${
-      isDarkMode ? 'bg-gray-900' : 'bg-white'
+      isDarkMode ? 'bg-gray-800' : 'bg-gray-50'
     }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         <div className="text-center mb-16 animate-fade-in-up">
@@ -63,16 +63,23 @@ export default function Testimonials({ isDarkMode = false }: TestimonialsProps) 
           {testimonials.map((testimonial, index) => (
             <div 
               key={index} 
-              className={`rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border animate-fade-in-up ${
+              className={`rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border animate-fade-in-up hover-lift ${
                 isDarkMode 
-                  ? 'bg-gray-800 border-gray-700' 
+                  ? 'bg-gray-900 border-gray-700' 
                   : 'bg-white border-gray-100'
               }`}
               style={{ animationDelay: `${index * 0.2}s` }}
             >
               <div className="flex items-center mb-6">
-                {[...Array(testimonial.rating)].map((_, i) => (
-                  <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />
+                {[...Array(5)].map((_, i) => (
+                  <Star 
+                    key={i} 
+                    className={`w-5 h-5 ${
+                      i < testimonial.rating 
+                        ? 'text-yellow-400 fill-current' 
+                        : 'text-gray-300'
+                    }`} 
+                  />
                 ))}
               </div>
               
