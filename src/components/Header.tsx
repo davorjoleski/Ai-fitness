@@ -20,13 +20,36 @@ export default function Header({ isDarkMode, toggleDarkMode }: HeaderProps) {
     } backdrop-blur-md border-b ${isDarkMode ? 'border-gray-800' : 'border-gray-200'}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          {/* Custom Logo */}
+          {/* Custom Logo - Made Bigger */}
           <div className="flex items-center group">
-            <img 
-              src="/b73ab801-e2d5-4796-9eb3-ebfddc37e118.png" 
-              alt="AI Fit Coach Logo" 
-              className="h-12 w-auto mr-3 transform group-hover:scale-105 transition-all duration-300"
-            />
+            <svg 
+              className="h-16 w-16 mr-3 transform group-hover:scale-110 transition-all duration-300 animate-pulse-subtle" 
+              viewBox="0 0 400 400" 
+              fill="none"
+            >
+              {/* Head with AI circuits */}
+              <circle cx="160" cy="120" r="80" fill="#2563eb" className="animate-pulse"/>
+              
+              {/* AI Circuit patterns in head */}
+              <circle cx="140" cy="100" r="8" fill="#10b981"/>
+              <circle cx="180" cy="110" r="6" fill="#10b981"/>
+              <circle cx="160" cy="130" r="7" fill="#10b981"/>
+              
+              {/* Circuit connections */}
+              <path d="M140 100 L160 130 L180 110" stroke="#10b981" strokeWidth="3" fill="none"/>
+              <path d="M140 100 L180 110" stroke="#10b981" strokeWidth="2" fill="none"/>
+              
+              {/* Dumbbells */}
+              <rect x="80" y="180" width="20" height="60" rx="10" fill="#10b981"/>
+              <rect x="220" y="180" width="20" height="60" rx="10" fill="#10b981"/>
+              <rect x="70" y="175" width="40" height="15" rx="7" fill="#10b981"/>
+              <rect x="70" y="250" width="40" height="15" rx="7" fill="#10b981"/>
+              <rect x="210" y="175" width="40" height="15" rx="7" fill="#10b981"/>
+              <rect x="210" y="250" width="40" height="15" rx="7" fill="#10b981"/>
+              
+              {/* Connecting bar */}
+              <rect x="100" y="205" width="120" height="10" rx="5" fill="#2563eb"/>
+            </svg>
             <div>
               <span className={`text-xl font-black ${isDarkMode ? 'text-white' : 'text-gray-900'} tracking-tight`}>
                 AI Fit Coach
@@ -60,7 +83,7 @@ export default function Header({ isDarkMode, toggleDarkMode }: HeaderProps) {
             {/* Dark Mode Toggle */}
             <button
               onClick={toggleDarkMode}
-              className={`p-2 rounded-lg transition-all duration-300 transform hover:scale-110 ${
+              className={`p-2 rounded-lg transition-all duration-300 transform hover:scale-110 animate-bounce-subtle ${
                 isDarkMode 
                   ? 'bg-gray-800 text-yellow-400 hover:bg-gray-700' 
                   : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
