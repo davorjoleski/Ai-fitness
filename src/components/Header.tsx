@@ -22,21 +22,11 @@ export default function Header({ isDarkMode, toggleDarkMode }: HeaderProps) {
         <div className="flex items-center justify-between h-16">
           {/* Custom Logo */}
           <div className="flex items-center group">
-            <div className="relative">
-              {/* Main Logo Circle */}
-              <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center mr-3 transform group-hover:scale-110 transition-all duration-300 shadow-lg">
-                {/* AI Symbol */}
-                <svg className="w-7 h-7 text-white" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M12 2L13.09 8.26L20 9L13.09 9.74L12 16L10.91 9.74L4 9L10.91 8.26L12 2Z"/>
-                  <path d="M19 12L20.09 18.26L27 19L20.09 19.74L19 26L17.91 19.74L11 19L17.91 18.26L19 12Z" opacity="0.6"/>
-                  <path d="M5 12L6.09 18.26L13 19L6.09 19.74L5 26L3.91 19.74L-3 19L3.91 18.26L5 12Z" opacity="0.6"/>
-                </svg>
-              </div>
-              {/* AI Badge */}
-              <div className="absolute -top-1 -right-1 w-4 h-4 bg-gradient-to-br from-green-400 to-green-500 rounded-full flex items-center justify-center">
-                <span className="text-xs font-bold text-white">AI</span>
-              </div>
-            </div>
+            <img 
+              src="/b73ab801-e2d5-4796-9eb3-ebfddc37e118.png" 
+              alt="AI Fit Coach Logo" 
+              className="h-12 w-auto mr-3 transform group-hover:scale-105 transition-all duration-300"
+            />
             <div>
               <span className={`text-xl font-black ${isDarkMode ? 'text-white' : 'text-gray-900'} tracking-tight`}>
                 AI Fit Coach
@@ -83,7 +73,7 @@ export default function Header({ isDarkMode, toggleDarkMode }: HeaderProps) {
             {/* CTA Button */}
             <button
               onClick={scrollToForm}
-              className="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-semibold py-2 px-4 rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-lg text-sm animate-pulse-subtle"
+              className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-2 px-4 rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-lg text-sm animate-pulse-subtle"
             >
               Get Started
             </button>

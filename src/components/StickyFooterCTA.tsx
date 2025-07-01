@@ -25,14 +25,14 @@ export default function StickyFooterCTA({ isVisible, onClose, onGetStarted, isDa
                 Still thinking? Generate your free AI plan now!
               </p>
               <p className={`text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
-                Join 500+ people who transformed their fitness
+                Join 150+ people who transformed their fitness
               </p>
             </div>
             
             <div className="flex items-center space-x-3">
               <button
                 onClick={onGetStarted}
-                className="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold py-3 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg flex items-center"
+                className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-bold py-3 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg flex items-center"
               >
                 Get Free Plan
                 <ArrowRight className="w-5 h-5 ml-2" />

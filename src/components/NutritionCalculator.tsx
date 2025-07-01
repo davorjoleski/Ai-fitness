@@ -104,12 +104,12 @@ export default function NutritionCalculator({ isDarkMode = false }: NutritionCal
 
   return (
     <section className={`py-20 relative transition-colors duration-300 ${
-      isDarkMode ? 'bg-gray-900' : 'bg-white'
+      isDarkMode ? 'bg-gray-800' : 'bg-gray-50'
     }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         <div className="text-center mb-16 animate-fade-in-up">
           <div className="flex justify-center mb-6">
-            <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-600 rounded-2xl flex items-center justify-center animate-bounce-subtle">
+            <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center animate-bounce-subtle">
               <Calculator className="w-8 h-8 text-white" />
             </div>
           </div>
@@ -130,7 +130,7 @@ export default function NutritionCalculator({ isDarkMode = false }: NutritionCal
           {/* Calculator Form */}
           <div className={`lg:col-span-2 rounded-3xl p-8 shadow-xl border animate-fade-in-up hover-lift ${
             isDarkMode 
-              ? 'bg-gray-800 border-gray-700' 
+              ? 'bg-gray-900 border-gray-700' 
               : 'bg-white border-gray-100'
           }`}>
             <div className="flex items-center mb-6">
@@ -156,7 +156,7 @@ export default function NutritionCalculator({ isDarkMode = false }: NutritionCal
                     onChange={(e) => setFormData(prev => ({ ...prev, age: e.target.value }))}
                     className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all ${
                       isDarkMode 
-                        ? 'bg-gray-700 border-gray-600 text-white' 
+                        ? 'bg-gray-800 border-gray-600 text-white' 
                         : 'border-gray-300'
                     }`}
                     required
@@ -173,7 +173,7 @@ export default function NutritionCalculator({ isDarkMode = false }: NutritionCal
                     onChange={(e) => setFormData(prev => ({ ...prev, gender: e.target.value }))}
                     className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all ${
                       isDarkMode 
-                        ? 'bg-gray-700 border-gray-600 text-white' 
+                        ? 'bg-gray-800 border-gray-600 text-white' 
                         : 'border-gray-300'
                     }`}
                     required
@@ -198,7 +198,7 @@ export default function NutritionCalculator({ isDarkMode = false }: NutritionCal
                     onChange={(e) => setFormData(prev => ({ ...prev, height: e.target.value }))}
                     className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all ${
                       isDarkMode 
-                        ? 'bg-gray-700 border-gray-600 text-white' 
+                        ? 'bg-gray-800 border-gray-600 text-white' 
                         : 'border-gray-300'
                     }`}
                     required
@@ -216,7 +216,7 @@ export default function NutritionCalculator({ isDarkMode = false }: NutritionCal
                     onChange={(e) => setFormData(prev => ({ ...prev, weight: e.target.value }))}
                     className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all ${
                       isDarkMode 
-                        ? 'bg-gray-700 border-gray-600 text-white' 
+                        ? 'bg-gray-800 border-gray-600 text-white' 
                         : 'border-gray-300'
                     }`}
                     required
@@ -235,7 +235,7 @@ export default function NutritionCalculator({ isDarkMode = false }: NutritionCal
                   onChange={(e) => setFormData(prev => ({ ...prev, activityLevel: e.target.value }))}
                   className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all ${
                     isDarkMode 
-                      ? 'bg-gray-700 border-gray-600 text-white' 
+                      ? 'bg-gray-800 border-gray-600 text-white' 
                       : 'border-gray-300'
                   }`}
                   required
@@ -260,7 +260,7 @@ export default function NutritionCalculator({ isDarkMode = false }: NutritionCal
                   onChange={(e) => setFormData(prev => ({ ...prev, goal: e.target.value }))}
                   className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all ${
                     isDarkMode 
-                      ? 'bg-gray-700 border-gray-600 text-white' 
+                      ? 'bg-gray-800 border-gray-600 text-white' 
                       : 'border-gray-300'
                   }`}
                   required
@@ -274,7 +274,7 @@ export default function NutritionCalculator({ isDarkMode = false }: NutritionCal
 
               <button
                 type="submit"
-                className="w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-bold py-4 px-8 rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg"
+                className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-bold py-4 px-8 rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg"
               >
                 Calculate My Nutrition Plan
               </button>
@@ -285,11 +285,11 @@ export default function NutritionCalculator({ isDarkMode = false }: NutritionCal
           <div className="space-y-6">
             <div className={`rounded-3xl p-6 border animate-fade-in-up hover-lift ${
               isDarkMode 
-                ? 'bg-gray-800 border-gray-700' 
-                : 'bg-gradient-to-br from-green-50 to-blue-50 border-green-100'
+                ? 'bg-gray-900 border-gray-700' 
+                : 'bg-white border-gray-100'
             }`} style={{ animationDelay: '0.2s' }}>
               <div className="flex items-center mb-4">
-                <Heart className="w-6 h-6 text-green-600 mr-2" />
+                <Heart className="w-6 h-6 text-blue-600 mr-2" />
                 <h3 className={`text-lg font-bold ${
                   isDarkMode ? 'text-white' : 'text-gray-900'
                 }`}>
@@ -300,9 +300,9 @@ export default function NutritionCalculator({ isDarkMode = false }: NutritionCal
                 {nutritionTips.map((tip, index) => (
                   <div key={index} className="flex items-start space-x-3">
                     <div className={`w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 ${
-                      isDarkMode ? 'bg-gray-700' : 'bg-white'
+                      isDarkMode ? 'bg-gray-800' : 'bg-gray-50'
                     }`}>
-                      <tip.icon className="w-4 h-4 text-green-600" />
+                      <tip.icon className="w-4 h-4 text-blue-600" />
                     </div>
                     <div>
                       <h4 className={`font-semibold text-sm ${
@@ -324,11 +324,11 @@ export default function NutritionCalculator({ isDarkMode = false }: NutritionCal
             {/* Quick Facts */}
             <div className={`rounded-3xl p-6 border animate-fade-in-up hover-lift ${
               isDarkMode 
-                ? 'bg-gray-800 border-gray-700' 
-                : 'bg-gradient-to-br from-purple-50 to-pink-50 border-purple-100'
+                ? 'bg-gray-900 border-gray-700' 
+                : 'bg-white border-gray-100'
             }`} style={{ animationDelay: '0.4s' }}>
               <div className="flex items-center mb-4">
-                <Zap className="w-6 h-6 text-purple-600 mr-2" />
+                <Zap className="w-6 h-6 text-blue-600 mr-2" />
                 <h3 className={`text-lg font-bold ${
                   isDarkMode ? 'text-white' : 'text-gray-900'
                 }`}>
@@ -411,9 +411,9 @@ export default function NutritionCalculator({ isDarkMode = false }: NutritionCal
             </div>
 
             {/* Daily Calories */}
-            <div className="bg-gradient-to-br from-green-50 to-green-100 rounded-3xl p-6 shadow-lg border border-green-200 hover-lift">
+            <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-3xl p-6 shadow-lg border border-blue-200 hover-lift">
               <div className="flex items-center mb-4">
-                <Target className="w-8 h-8 text-green-600 mr-3" />
+                <Target className="w-8 h-8 text-blue-600 mr-3" />
                 <h4 className="text-lg font-bold text-gray-900">Daily Calories</h4>
               </div>
               <div className="text-center">
@@ -423,9 +423,9 @@ export default function NutritionCalculator({ isDarkMode = false }: NutritionCal
             </div>
 
             {/* Macros Summary */}
-            <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-3xl p-6 shadow-lg border border-purple-200 hover-lift">
+            <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-3xl p-6 shadow-lg border border-blue-200 hover-lift">
               <div className="flex items-center mb-4">
-                <Apple className="w-8 h-8 text-purple-600 mr-3" />
+                <Apple className="w-8 h-8 text-blue-600 mr-3" />
                 <h4 className="text-lg font-bold text-gray-900">Daily Macros</h4>
               </div>
               <div className="space-y-2">
@@ -435,11 +435,11 @@ export default function NutritionCalculator({ isDarkMode = false }: NutritionCal
                 </div>
                 <div className="flex justify-between items-center">
                   <span className="text-sm text-gray-700">Carbs</span>
-                  <span className="font-bold text-green-600">{results.macros.carbs}g</span>
+                  <span className="font-bold text-blue-600">{results.macros.carbs}g</span>
                 </div>
                 <div className="flex justify-between items-center">
                   <span className="text-sm text-gray-700">Fats</span>
-                  <span className="font-bold text-yellow-600">{results.macros.fats}g</span>
+                  <span className="font-bold text-blue-600">{results.macros.fats}g</span>
                 </div>
               </div>
             </div>
@@ -449,7 +449,7 @@ export default function NutritionCalculator({ isDarkMode = false }: NutritionCal
         {/* Additional Information */}
         <div className={`mt-12 rounded-3xl p-8 shadow-xl border animate-fade-in-up hover-lift ${
           isDarkMode 
-            ? 'bg-gray-800 border-gray-700' 
+            ? 'bg-gray-900 border-gray-700' 
             : 'bg-white border-gray-100'
         }`} style={{ animationDelay: '0.6s' }}>
           <div className="text-center mb-8">
@@ -467,7 +467,7 @@ export default function NutritionCalculator({ isDarkMode = false }: NutritionCal
 
           <div className="grid md:grid-cols-3 gap-6">
             <div className={`text-center p-6 rounded-2xl ${
-              isDarkMode ? 'bg-gray-700' : 'bg-gray-50'
+              isDarkMode ? 'bg-gray-800' : 'bg-gray-50'
             }`}>
               <div className="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Calculator className="w-6 h-6 text-white" />
@@ -485,9 +485,9 @@ export default function NutritionCalculator({ isDarkMode = false }: NutritionCal
             </div>
 
             <div className={`text-center p-6 rounded-2xl ${
-              isDarkMode ? 'bg-gray-700' : 'bg-gray-50'
+              isDarkMode ? 'bg-gray-800' : 'bg-gray-50'
             }`}>
-              <div className="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
+              <div className="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Activity className="w-6 h-6 text-white" />
               </div>
               <h4 className={`font-bold mb-2 ${
@@ -503,9 +503,9 @@ export default function NutritionCalculator({ isDarkMode = false }: NutritionCal
             </div>
 
             <div className={`text-center p-6 rounded-2xl ${
-              isDarkMode ? 'bg-gray-700' : 'bg-gray-50'
+              isDarkMode ? 'bg-gray-800' : 'bg-gray-50'
             }`}>
-              <div className="w-12 h-12 bg-purple-500 rounded-full flex items-center justify-center mx-auto mb-4">
+              <div className="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Target className="w-6 h-6 text-white" />
               </div>
               <h4 className={`font-bold mb-2 ${

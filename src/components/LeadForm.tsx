@@ -94,19 +94,12 @@ export default function LeadForm({ onSubmit, isDarkMode = false }: LeadFormProps
 
   return (
     <section id="form" className={`py-20 relative transition-colors duration-300 ${
-      isDarkMode ? 'bg-gray-800' : 'bg-gradient-to-br from-gray-50 to-blue-50'
+      isDarkMode ? 'bg-gray-800' : 'bg-gray-50'
     }`}>
-      {/* Section Divider */}
-      <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-yellow-500 via-orange-500 to-red-500"></div>
-      
-      {/* Background Elements */}
-      <div className="absolute top-10 left-10 w-64 h-64 bg-gradient-to-br from-blue-100 to-purple-100 rounded-full opacity-30 blur-3xl"></div>
-      <div className="absolute bottom-10 right-10 w-80 h-80 bg-gradient-to-br from-green-100 to-blue-100 rounded-full opacity-30 blur-3xl"></div>
-      
       <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-        <div className="text-center mb-12">
+        <div className="text-center mb-12 animate-fade-in-up">
           <div className="flex justify-center mb-6">
-            <div className="w-16 h-16 bg-gradient-to-br from-orange-500 to-red-600 rounded-2xl flex items-center justify-center">
+            <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center animate-bounce-subtle">
               <Sparkles className="w-8 h-8 text-white" />
             </div>
           </div>
@@ -123,7 +116,7 @@ export default function LeadForm({ onSubmit, isDarkMode = false }: LeadFormProps
           </p>
         </div>
 
-        <div className={`rounded-3xl shadow-2xl p-8 border ${
+        <div className={`rounded-3xl shadow-2xl p-8 border animate-fade-in-up hover-lift ${
           isDarkMode 
             ? 'bg-gray-900 border-gray-700' 
             : 'bg-white border-gray-100'
@@ -230,7 +223,7 @@ export default function LeadForm({ onSubmit, isDarkMode = false }: LeadFormProps
             <button
               type="submit"
               disabled={isSubmitting}
-              className={`w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold py-5 px-8 rounded-xl text-xl transition-all duration-300 transform hover:scale-105 hover:shadow-xl shadow-lg ${
+              className={`w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-bold py-5 px-8 rounded-xl text-xl transition-all duration-300 transform hover:scale-105 hover:shadow-xl shadow-lg ${
                 isSubmitting ? 'opacity-50 cursor-not-allowed transform-none' : ''
               }`}
             >
@@ -253,23 +246,25 @@ export default function LeadForm({ onSubmit, isDarkMode = false }: LeadFormProps
         </div>
 
         {/* EmailJS Setup Instructions */}
-        <div className={`mt-8 p-6 rounded-2xl border-2 border-dashed ${
+        <div className={`mt-8 p-6 rounded-2xl border-2 border-dashed animate-fade-in-up ${
           isDarkMode ? 'border-gray-600 bg-gray-800/50' : 'border-gray-300 bg-gray-50'
-        }`}>
+        }`} style={{ animationDelay: '0.3s' }}>
           <h3 className={`text-lg font-bold mb-3 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
-            📧 Email Setup Instructions
+            📧 Real Email Delivery Setup
           </h3>
           <div className={`text-sm space-y-2 ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>
-            <p>To enable real email sending, set up EmailJS:</p>
+            <p>To enable real email sending to your address:</p>
             <ol className="list-decimal list-inside space-y-1 ml-4">
               <li>Create a free account at <a href="https://www.emailjs.com/" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">EmailJS.com</a></li>
-              <li>Add an email service (Gmail, Outlook, etc.)</li>
-              <li>Create an email template with these variables: to_name, to_email, fitness_goal, days_per_week, workout_plan</li>
+              <li>Connect your email service (Gmail, Outlook, etc.)</li>
+              <li>Create an email template with variables: to_name, to_email, fitness_goal, days_per_week, workout_plan</li>
               <li>Copy your Service ID, Template ID, and Public Key to your .env file</li>
+              <li>Restart the development server</li>
             </ol>
-            <p className="text-xs mt-3 opacity-75">
-              Currently running in development mode - emails are simulated but not actually sent.
-            </p>
+            <div className="mt-4 p-3 bg-blue-50 rounded-lg border border-blue-200">
+              <p className="text-blue-800 font-medium">💡 Pro Tip:</p>
+              <p className="text-blue-700 text-xs">Once configured, emails will be sent to the address you enter in the form above. Perfect for testing with your own email!</p>
+            </div>
           </div>
         </div>
       </div>

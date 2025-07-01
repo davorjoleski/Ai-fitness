@@ -26,7 +26,7 @@ export default function HowItWorks({ isDarkMode = false }: HowItWorksProps) {
 
   return (
     <section className={`py-20 relative transition-colors duration-300 ${
-      isDarkMode ? 'bg-gray-800' : 'bg-gray-50'
+      isDarkMode ? 'bg-gray-900' : 'bg-white'
     }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         <div className="text-center mb-16 animate-fade-in-up">
@@ -46,10 +46,10 @@ export default function HowItWorks({ isDarkMode = false }: HowItWorksProps) {
           {steps.map((step, index) => (
             <div key={index} className="text-center group relative animate-fade-in-up" style={{ animationDelay: `${index * 0.2}s` }}>
               <div className="relative mb-8">
-                <div className="w-24 h-24 bg-gradient-to-br from-blue-500 to-purple-600 rounded-3xl flex items-center justify-center mx-auto transform group-hover:scale-110 transition-all duration-300 shadow-xl animate-bounce-subtle hover-lift">
+                <div className="w-24 h-24 bg-gradient-to-br from-blue-500 to-blue-600 rounded-3xl flex items-center justify-center mx-auto transform group-hover:scale-110 transition-all duration-300 shadow-xl animate-bounce-subtle hover-lift">
                   <step.icon className="w-12 h-12 text-white" />
                 </div>
-                <div className="absolute -top-3 -right-3 w-10 h-10 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center text-white font-bold text-lg shadow-lg animate-pulse-subtle">
+                <div className="absolute -top-3 -right-3 w-10 h-10 bg-gradient-to-br from-blue-600 to-blue-700 rounded-full flex items-center justify-center text-white font-bold text-lg shadow-lg animate-pulse-subtle">
                   {index + 1}
                 </div>
               </div>
