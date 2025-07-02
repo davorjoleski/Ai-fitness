@@ -110,7 +110,8 @@ export default function LiveChatbot({ isDarkMode = false }: LiveChatbotProps) {
           )}
         </button>
         
-    
+       
+      </div>
 
       {/* Enhanced Chat Window */}
       {isOpen && (
