@@ -24,14 +24,31 @@ interface FormData {
 
 function App() {
   const [isLoading, setIsLoading] = useState(false);
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  // Set dark mode as default
+  const [isDarkMode, setIsDarkMode] = useState(true);
   const [showStickyFooter, setShowStickyFooter] = useState(true);
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState('');
   const [toastType, setToastType] = useState<'success' | 'info' | 'error'>('success');
 
-  // Apply dark mode to document
+  // Apply dark mode to document and save preference
   useEffect(() => {
+    // Check for saved preference or default to dark mode
+    const savedTheme = localStorage.getItem('theme');
+    const prefersDark = savedTheme === 'dark' || (!savedTheme && true); // Default to dark
+    
+    setIsDarkMode(prefersDark);
+    
+    if (prefersDark) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }, []);
+
+  // Save theme preference when changed
+  useEffect(() => {
+    localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
     if (isDarkMode) {
       document.documentElement.classList.add('dark');
     } else {
@@ -61,9 +78,9 @@ function App() {
     setIsLoading(true);
     
     // Show initial loading toast
-    showToastMessage('Generating your personalized AI workout plan...', 'info');
+    showToastMessage('🤖 AI is analyzing your goals and generating your personalized workout plan...', 'info');
     
-    // Simulate AI processing time
+    // Simulate AI processing time with more realistic feedback
     setTimeout(() => {
       setIsLoading(false);
       
@@ -72,10 +89,15 @@ function App() {
         showToastMessage(emailResult.message, 'success');
         // Hide sticky footer after successful submission
         setShowStickyFooter(false);
+        
+        // Show celebration message after a delay
+        setTimeout(() => {
+          showToastMessage('🎉 Welcome to your fitness transformation journey! Check your email for your personalized plan.', 'success');
+        }, 3000);
       } else {
         showToastMessage(emailResult.message, 'error');
       }
-    }, 3000);
+    }, 3500); // Slightly longer for more realistic AI processing feel
   };
 
   const handleStickyFooterClose = () => {
