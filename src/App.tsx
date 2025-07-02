@@ -83,7 +83,7 @@ function App() {
   };
 
   return (
-    <div className={`min-h-screen transition-colors duration-300 ${
+    <div className={`min-h-screen transition-colors duration-300 overflow-x-hidden ${
       isDarkMode ? 'bg-gray-900' : 'bg-white'
     }`}>
       {isLoading && <LoadingScreen />}
@@ -91,7 +91,7 @@ function App() {
       <Header isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />
       
       {/* Add padding top to account for fixed header */}
-      <div className="pt-16">
+      <div className="pt-16 overflow-x-hidden">
         <Hero onStartClick={scrollToForm} isDarkMode={isDarkMode} />
         
         <SectionDivider variant="waves" isDarkMode={isDarkMode} />
