@@ -107,7 +107,7 @@ export default function NutritionCalculator({ isDarkMode = false }: NutritionCal
   ];
 
   return (
-    <section className={`py-20 relative transition-colors duration-300 ${
+    <section className={`py-12 sm:py-16 lg:py-20 relative transition-colors duration-300 ${
       isDarkMode ? 'bg-gray-900' : 'bg-white'
     }`}>
       {/* Animated background elements */}
@@ -118,43 +118,43 @@ export default function NutritionCalculator({ isDarkMode = false }: NutritionCal
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-        <div className="text-center mb-16 animate-fade-in-up">
-          <div className="flex justify-center mb-6">
-            <div className="w-20 h-20 bg-gradient-to-br from-green-500 to-emerald-600 rounded-3xl flex items-center justify-center animate-bounce-subtle hover:scale-110 transition-transform duration-300">
-              <Calculator className="w-10 h-10 text-white animate-pulse" />
+        <div className="text-center mb-12 sm:mb-16 animate-fade-in-up">
+          <div className="flex justify-center mb-4 sm:mb-6">
+            <div className="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-green-500 to-emerald-600 rounded-3xl flex items-center justify-center animate-bounce-subtle hover:scale-110 transition-transform duration-300">
+              <Calculator className="w-8 h-8 sm:w-10 sm:h-10 text-white animate-pulse" />
             </div>
           </div>
           
-          <h2 className={`text-4xl sm:text-5xl font-black mb-4 tracking-tight animate-text-shimmer ${
+          <h2 className={`text-3xl sm:text-4xl lg:text-5xl font-black mb-3 sm:mb-4 tracking-tight animate-text-shimmer ${
             isDarkMode ? 'text-white' : 'text-gray-900'
           }`}>
             NUTRITION CALCULATOR
           </h2>
-          <p className={`text-xl max-w-2xl mx-auto ${
+          <p className={`text-lg sm:text-xl max-w-2xl mx-auto px-4 ${
             isDarkMode ? 'text-gray-300' : 'text-gray-600'
           }`}>
             Calculate your BMI, daily calorie needs, and macro targets with precision
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-3 gap-8 mb-12">
+        <div className="grid lg:grid-cols-3 gap-6 sm:gap-8 mb-8 sm:mb-12">
           {/* Calculator Form */}
-          <div className={`lg:col-span-2 rounded-3xl p-8 shadow-xl border animate-fade-in-up hover-lift transform hover:scale-105 transition-all duration-500 ${
+          <div className={`lg:col-span-2 rounded-2xl sm:rounded-3xl p-6 sm:p-8 shadow-xl border animate-fade-in-up hover-lift transform hover:scale-105 transition-all duration-500 ${
             isDarkMode 
               ? 'bg-gray-800 border-gray-700' 
               : 'bg-white border-gray-100'
           }`}>
             <div className="flex items-center mb-6">
-              <TrendingUp className="w-10 h-10 text-green-600 mr-3 animate-bounce" />
-              <h3 className={`text-2xl font-bold ${
+              <TrendingUp className="w-8 h-8 sm:w-10 sm:h-10 text-green-600 mr-3 animate-bounce" />
+              <h3 className={`text-xl sm:text-2xl font-bold ${
                 isDarkMode ? 'text-white' : 'text-gray-900'
               }`}>
                 Your Information
               </h3>
             </div>
 
-            <form onSubmit={calculateNutrition} className="space-y-6">
-              <div className="grid grid-cols-2 gap-4">
+            <form onSubmit={calculateNutrition} className="space-y-4 sm:space-y-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="animate-slide-in-left">
                   <label className={`block text-sm font-semibold mb-2 ${
                     isDarkMode ? 'text-gray-300' : 'text-gray-700'
@@ -165,11 +165,12 @@ export default function NutritionCalculator({ isDarkMode = false }: NutritionCal
                     type="number"
                     value={formData.age}
                     onChange={(e) => setFormData(prev => ({ ...prev, age: e.target.value }))}
-                    className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all transform hover:scale-105 ${
+                    className={`w-full px-4 py-3 sm:py-4 border rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all transform hover:scale-105 text-base ${
                       isDarkMode 
                         ? 'bg-gray-700 border-gray-600 text-white' 
                         : 'border-gray-300'
                     }`}
+                    placeholder="25"
                     required
                   />
                 </div>
@@ -182,7 +183,7 @@ export default function NutritionCalculator({ isDarkMode = false }: NutritionCal
                   <select
                     value={formData.gender}
                     onChange={(e) => setFormData(prev => ({ ...prev, gender: e.target.value }))}
-                    className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all transform hover:scale-105 ${
+                    className={`w-full px-4 py-3 sm:py-4 border rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all transform hover:scale-105 text-base ${
                       isDarkMode 
                         ? 'bg-gray-700 border-gray-600 text-white' 
                         : 'border-gray-300'
@@ -196,7 +197,7 @@ export default function NutritionCalculator({ isDarkMode = false }: NutritionCal
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="animate-slide-in-left" style={{ animationDelay: '0.1s' }}>
                   <label className={`block text-sm font-semibold mb-2 ${
                     isDarkMode ? 'text-gray-300' : 'text-gray-700'
@@ -207,11 +208,12 @@ export default function NutritionCalculator({ isDarkMode = false }: NutritionCal
                     type="number"
                     value={formData.height}
                     onChange={(e) => setFormData(prev => ({ ...prev, height: e.target.value }))}
-                    className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all transform hover:scale-105 ${
+                    className={`w-full px-4 py-3 sm:py-4 border rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all transform hover:scale-105 text-base ${
                       isDarkMode 
                         ? 'bg-gray-700 border-gray-600 text-white' 
                         : 'border-gray-300'
                     }`}
+                    placeholder="175"
                     required
                   />
                 </div>
@@ -225,11 +227,12 @@ export default function NutritionCalculator({ isDarkMode = false }: NutritionCal
                     type="number"
                     value={formData.weight}
                     onChange={(e) => setFormData(prev => ({ ...prev, weight: e.target.value }))}
-                    className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all transform hover:scale-105 ${
+                    className={`w-full px-4 py-3 sm:py-4 border rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all transform hover:scale-105 text-base ${
                       isDarkMode 
                         ? 'bg-gray-700 border-gray-600 text-white' 
                         : 'border-gray-300'
                     }`}
+                    placeholder="70"
                     required
                   />
                 </div>
@@ -244,7 +247,7 @@ export default function NutritionCalculator({ isDarkMode = false }: NutritionCal
                 <select
                   value={formData.activityLevel}
                   onChange={(e) => setFormData(prev => ({ ...prev, activityLevel: e.target.value }))}
-                  className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all transform hover:scale-105 ${
+                  className={`w-full px-4 py-3 sm:py-4 border rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all transform hover:scale-105 text-base ${
                     isDarkMode 
                       ? 'bg-gray-700 border-gray-600 text-white' 
                       : 'border-gray-300'
@@ -269,7 +272,7 @@ export default function NutritionCalculator({ isDarkMode = false }: NutritionCal
                 <select
                   value={formData.goal}
                   onChange={(e) => setFormData(prev => ({ ...prev, goal: e.target.value }))}
-                  className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all transform hover:scale-105 ${
+                  className={`w-full px-4 py-3 sm:py-4 border rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all transform hover:scale-105 text-base ${
                     isDarkMode 
                       ? 'bg-gray-700 border-gray-600 text-white' 
                       : 'border-gray-300'
@@ -283,35 +286,37 @@ export default function NutritionCalculator({ isDarkMode = false }: NutritionCal
                 </select>
               </div>
 
-              <button
-                type="submit"
-                className="w-full bg-gradient-to-r from-green-600 to-emerald-700 hover:from-green-700 hover:to-emerald-800 text-white font-bold py-4 px-8 rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg animate-pulse-subtle"
-              >
-                Calculate My Nutrition Plan
-              </button>
+              <div className="pt-2">
+                <button
+                  type="submit"
+                  className="w-full bg-gradient-to-r from-green-600 to-emerald-700 hover:from-green-700 hover:to-emerald-800 text-white font-bold py-4 sm:py-5 px-8 rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg animate-pulse-subtle text-base sm:text-lg"
+                >
+                  Calculate My Nutrition Plan
+                </button>
+              </div>
             </form>
           </div>
 
           {/* Nutrition Tips Sidebar */}
-          <div className="space-y-6">
-            <div className={`rounded-3xl p-6 border animate-fade-in-up hover-lift transform hover:scale-105 transition-all duration-500 ${
+          <div className="space-y-4 sm:space-y-6">
+            <div className={`rounded-2xl sm:rounded-3xl p-4 sm:p-6 border animate-fade-in-up hover-lift transform hover:scale-105 transition-all duration-500 ${
               isDarkMode 
                 ? 'bg-gray-800 border-gray-700' 
                 : 'bg-white border-gray-100'
             }`} style={{ animationDelay: '0.2s' }}>
               <div className="flex items-center mb-4">
-                <Heart className="w-8 h-8 text-red-500 mr-2 animate-bounce" />
-                <h3 className={`text-lg font-bold ${
+                <Heart className="w-6 h-6 sm:w-8 sm:h-8 text-red-500 mr-2 animate-bounce" />
+                <h3 className={`text-base sm:text-lg font-bold ${
                   isDarkMode ? 'text-white' : 'text-gray-900'
                 }`}>
                   Nutrition Tips
                 </h3>
               </div>
-              <div className="space-y-4">
+              <div className="space-y-3 sm:space-y-4">
                 {nutritionTips.map((tip, index) => (
                   <div key={index} className="flex items-start space-x-3 animate-slide-in-left" style={{ animationDelay: `${index * 0.1}s` }}>
-                    <div className={`w-10 h-10 bg-gradient-to-br ${tip.color} rounded-lg flex items-center justify-center flex-shrink-0 animate-bounce-subtle hover:scale-110 transition-transform duration-300`}>
-                      <tip.icon className="w-5 h-5 text-white" />
+                    <div className={`w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br ${tip.color} rounded-lg flex items-center justify-center flex-shrink-0 animate-bounce-subtle hover:scale-110 transition-transform duration-300`}>
+                      <tip.icon className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
                     </div>
                     <div>
                       <h4 className={`font-semibold text-sm ${
@@ -331,14 +336,14 @@ export default function NutritionCalculator({ isDarkMode = false }: NutritionCal
             </div>
 
             {/* Quick Facts */}
-            <div className={`rounded-3xl p-6 border animate-fade-in-up hover-lift transform hover:scale-105 transition-all duration-500 ${
+            <div className={`rounded-2xl sm:rounded-3xl p-4 sm:p-6 border animate-fade-in-up hover-lift transform hover:scale-105 transition-all duration-500 ${
               isDarkMode 
                 ? 'bg-gray-800 border-gray-700' 
                 : 'bg-white border-gray-100'
             }`} style={{ animationDelay: '0.4s' }}>
               <div className="flex items-center mb-4">
-                <Zap className="w-8 h-8 text-yellow-500 mr-2 animate-spin" />
-                <h3 className={`text-lg font-bold ${
+                <Zap className="w-6 h-6 sm:w-8 sm:h-8 text-yellow-500 mr-2 animate-spin" />
+                <h3 className={`text-base sm:text-lg font-bold ${
                   isDarkMode ? 'text-white' : 'text-gray-900'
                 }`}>
                   Quick Facts
@@ -390,65 +395,80 @@ export default function NutritionCalculator({ isDarkMode = false }: NutritionCal
           </div>
         </div>
 
-        {/* Results */}
+        {/* Results - Positioned directly below calculator */}
         {results && (
-          <div className="grid lg:grid-cols-4 gap-6 animate-fade-in-up">
-            {/* BMI */}
-            <div className={`${getBMICategory(results.bmi).bgColor} rounded-3xl p-6 shadow-lg border ${getBMICategory(results.bmi).borderColor} hover-lift transform hover:scale-105 transition-all duration-500 animate-bounce-subtle`}>
-              <div className="flex items-center mb-4">
-                <Scale className="w-10 h-10 text-gray-700 mr-3 animate-bounce" />
-                <h4 className="text-lg font-bold text-gray-900">BMI</h4>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl font-black text-gray-900 mb-2 animate-pulse">{results.bmi.toFixed(1)}</div>
-                <span className={`font-bold text-sm px-3 py-1 rounded-full ${getBMICategory(results.bmi).color} bg-white animate-bounce-subtle`}>
-                  {getBMICategory(results.bmi).category}
-                </span>
-              </div>
+          <div className="animate-fade-in-up">
+            <div className="text-center mb-6 sm:mb-8">
+              <h3 className={`text-2xl sm:text-3xl font-bold ${
+                isDarkMode ? 'text-white' : 'text-gray-900'
+              }`}>
+                Your Personalized Results
+              </h3>
+              <p className={`text-base sm:text-lg mt-2 ${
+                isDarkMode ? 'text-gray-300' : 'text-gray-600'
+              }`}>
+                Based on your information, here are your calculated metrics
+              </p>
             </div>
-
-            {/* BMR */}
-            <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-3xl p-6 shadow-lg border border-blue-200 hover-lift transform hover:scale-105 transition-all duration-500 animate-bounce-subtle" style={{ animationDelay: '0.1s' }}>
-              <div className="flex items-center mb-4">
-                <Activity className="w-10 h-10 text-blue-600 mr-3 animate-spin" />
-                <h4 className="text-lg font-bold text-gray-900">BMR</h4>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl font-black text-gray-900 mb-2 animate-pulse">{Math.round(results.bmr)}</div>
-                <p className="text-sm text-gray-600">calories at rest</p>
-              </div>
-            </div>
-
-            {/* Daily Calories */}
-            <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-3xl p-6 shadow-lg border border-purple-200 hover-lift transform hover:scale-105 transition-all duration-500 animate-bounce-subtle" style={{ animationDelay: '0.2s' }}>
-              <div className="flex items-center mb-4">
-                <Target className="w-10 h-10 text-purple-600 mr-3 animate-bounce" />
-                <h4 className="text-lg font-bold text-gray-900">Daily Calories</h4>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl font-black text-gray-900 mb-2 animate-pulse">{Math.round(results.tdee)}</div>
-                <p className="text-sm text-gray-600">total daily energy</p>
-              </div>
-            </div>
-
-            {/* Macros Summary */}
-            <div className="bg-gradient-to-br from-green-50 to-green-100 rounded-3xl p-6 shadow-lg border border-green-200 hover-lift transform hover:scale-105 transition-all duration-500 animate-bounce-subtle" style={{ animationDelay: '0.3s' }}>
-              <div className="flex items-center mb-4">
-                <Apple className="w-10 h-10 text-green-600 mr-3 animate-spin" />
-                <h4 className="text-lg font-bold text-gray-900">Daily Macros</h4>
-              </div>
-              <div className="space-y-2">
-                <div className="flex justify-between items-center animate-slide-in-left">
-                  <span className="text-sm text-gray-700">Protein</span>
-                  <span className="font-bold text-green-600">{results.macros.protein}g</span>
+            
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+              {/* BMI */}
+              <div className={`${getBMICategory(results.bmi).bgColor} rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-lg border ${getBMICategory(results.bmi).borderColor} hover-lift transform hover:scale-105 transition-all duration-500 animate-bounce-subtle`}>
+                <div className="flex items-center mb-3 sm:mb-4">
+                  <Scale className="w-8 h-8 sm:w-10 sm:h-10 text-gray-700 mr-3 animate-bounce" />
+                  <h4 className="text-base sm:text-lg font-bold text-gray-900">BMI</h4>
                 </div>
-                <div className="flex justify-between items-center animate-slide-in-left" style={{ animationDelay: '0.1s' }}>
-                  <span className="text-sm text-gray-700">Carbs</span>
-                  <span className="font-bold text-green-600">{results.macros.carbs}g</span>
+                <div className="text-center">
+                  <div className="text-2xl sm:text-3xl font-black text-gray-900 mb-2 animate-pulse">{results.bmi.toFixed(1)}</div>
+                  <span className={`font-bold text-xs sm:text-sm px-2 sm:px-3 py-1 rounded-full ${getBMICategory(results.bmi).color} bg-white animate-bounce-subtle`}>
+                    {getBMICategory(results.bmi).category}
+                  </span>
                 </div>
-                <div className="flex justify-between items-center animate-slide-in-left" style={{ animationDelay: '0.2s' }}>
-                  <span className="text-sm text-gray-700">Fats</span>
-                  <span className="font-bold text-green-600">{results.macros.fats}g</span>
+              </div>
+
+              {/* BMR */}
+              <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-lg border border-blue-200 hover-lift transform hover:scale-105 transition-all duration-500 animate-bounce-subtle" style={{ animationDelay: '0.1s' }}>
+                <div className="flex items-center mb-3 sm:mb-4">
+                  <Activity className="w-8 h-8 sm:w-10 sm:h-10 text-blue-600 mr-3 animate-spin" />
+                  <h4 className="text-base sm:text-lg font-bold text-gray-900">BMR</h4>
+                </div>
+                <div className="text-center">
+                  <div className="text-2xl sm:text-3xl font-black text-gray-900 mb-2 animate-pulse">{Math.round(results.bmr)}</div>
+                  <p className="text-xs sm:text-sm text-gray-600">calories at rest</p>
+                </div>
+              </div>
+
+              {/* Daily Calories */}
+              <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-lg border border-purple-200 hover-lift transform hover:scale-105 transition-all duration-500 animate-bounce-subtle" style={{ animationDelay: '0.2s' }}>
+                <div className="flex items-center mb-3 sm:mb-4">
+                  <Target className="w-8 h-8 sm:w-10 sm:h-10 text-purple-600 mr-3 animate-bounce" />
+                  <h4 className="text-base sm:text-lg font-bold text-gray-900">Daily Calories</h4>
+                </div>
+                <div className="text-center">
+                  <div className="text-2xl sm:text-3xl font-black text-gray-900 mb-2 animate-pulse">{Math.round(results.tdee)}</div>
+                  <p className="text-xs sm:text-sm text-gray-600">total daily energy</p>
+                </div>
+              </div>
+
+              {/* Macros Summary */}
+              <div className="bg-gradient-to-br from-green-50 to-green-100 rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-lg border border-green-200 hover-lift transform hover:scale-105 transition-all duration-500 animate-bounce-subtle" style={{ animationDelay: '0.3s' }}>
+                <div className="flex items-center mb-3 sm:mb-4">
+                  <Apple className="w-8 h-8 sm:w-10 sm:h-10 text-green-600 mr-3 animate-spin" />
+                  <h4 className="text-base sm:text-lg font-bold text-gray-900">Daily Macros</h4>
+                </div>
+                <div className="space-y-2">
+                  <div className="flex justify-between items-center animate-slide-in-left">
+                    <span className="text-xs sm:text-sm text-gray-700">Protein</span>
+                    <span className="font-bold text-green-600 text-sm">{results.macros.protein}g</span>
+                  </div>
+                  <div className="flex justify-between items-center animate-slide-in-left" style={{ animationDelay: '0.1s' }}>
+                    <span className="text-xs sm:text-sm text-gray-700">Carbs</span>
+                    <span className="font-bold text-green-600 text-sm">{results.macros.carbs}g</span>
+                  </div>
+                  <div className="flex justify-between items-center animate-slide-in-left" style={{ animationDelay: '0.2s' }}>
+                    <span className="text-xs sm:text-sm text-gray-700">Fats</span>
+                    <span className="font-bold text-green-600 text-sm">{results.macros.fats}g</span>
+                  </div>
                 </div>
               </div>
             </div>

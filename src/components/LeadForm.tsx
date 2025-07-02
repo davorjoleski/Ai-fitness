@@ -93,36 +93,36 @@ export default function LeadForm({ onSubmit, isDarkMode = false }: LeadFormProps
   };
 
   return (
-    <section id="form" className={`py-20 relative transition-colors duration-300 ${
+    <section id="form" className={`py-12 sm:py-16 lg:py-20 relative transition-colors duration-300 ${
       isDarkMode ? 'bg-gray-800' : 'bg-gray-50'
     }`}>
       <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-        <div className="text-center mb-12 animate-fade-in-up">
-          <div className="flex justify-center mb-6">
-            <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center animate-bounce-subtle">
-              <Sparkles className="w-8 h-8 text-white" />
+        <div className="text-center mb-8 sm:mb-12 animate-fade-in-up">
+          <div className="flex justify-center mb-4 sm:mb-6">
+            <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center animate-bounce-subtle">
+              <Sparkles className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
             </div>
           </div>
           
-          <h2 className={`text-4xl sm:text-5xl font-black mb-4 tracking-tight ${
+          <h2 className={`text-3xl sm:text-4xl lg:text-5xl font-black mb-3 sm:mb-4 tracking-tight ${
             isDarkMode ? 'text-white' : 'text-gray-900'
           }`}>
             GET YOUR AI WORKOUT PLAN
           </h2>
-          <p className={`text-xl max-w-lg mx-auto ${
+          <p className={`text-lg sm:text-xl max-w-lg mx-auto px-4 ${
             isDarkMode ? 'text-gray-300' : 'text-gray-600'
           }`}>
             Fill out the form below and receive your personalized plan via email - completely free!
           </p>
         </div>
 
-        <div className={`rounded-3xl shadow-2xl p-8 border animate-fade-in-up hover-lift ${
+        <div className={`rounded-2xl sm:rounded-3xl shadow-2xl p-6 sm:p-8 border animate-fade-in-up hover-lift ${
           isDarkMode 
             ? 'bg-gray-900 border-gray-700' 
             : 'bg-white border-gray-100'
         }`}>
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <div>
+          <form onSubmit={handleSubmit} className="space-y-6 sm:space-y-8">
+            <div className="space-y-2">
               <label htmlFor="fullName" className={`block text-sm font-semibold mb-2 ${
                 isDarkMode ? 'text-gray-300' : 'text-gray-700'
               }`}>
@@ -136,15 +136,15 @@ export default function LeadForm({ onSubmit, isDarkMode = false }: LeadFormProps
                 value={formData.fullName}
                 onChange={handleChange}
                 disabled={isSubmitting}
-                className={`w-full px-4 py-4 border rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-lg ${
+                className={`w-full px-4 py-4 sm:py-5 border rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-base sm:text-lg ${
                   errors.fullName ? 'border-red-500' : isDarkMode ? 'border-gray-600 bg-gray-800 text-white' : 'border-gray-300'
                 } ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''}`}
                 placeholder="Enter your full name"
               />
-              {errors.fullName && <p className="mt-1 text-sm text-red-600">{errors.fullName}</p>}
+              {errors.fullName && <p className="mt-2 text-sm text-red-600">{errors.fullName}</p>}
             </div>
 
-            <div>
+            <div className="space-y-2">
               <label htmlFor="email" className={`block text-sm font-semibold mb-2 ${
                 isDarkMode ? 'text-gray-300' : 'text-gray-700'
               }`}>
@@ -158,15 +158,15 @@ export default function LeadForm({ onSubmit, isDarkMode = false }: LeadFormProps
                 value={formData.email}
                 onChange={handleChange}
                 disabled={isSubmitting}
-                className={`w-full px-4 py-4 border rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-lg ${
+                className={`w-full px-4 py-4 sm:py-5 border rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-base sm:text-lg ${
                   errors.email ? 'border-red-500' : isDarkMode ? 'border-gray-600 bg-gray-800 text-white' : 'border-gray-300'
                 } ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''}`}
                 placeholder="Enter your email address"
               />
-              {errors.email && <p className="mt-1 text-sm text-red-600">{errors.email}</p>}
+              {errors.email && <p className="mt-2 text-sm text-red-600">{errors.email}</p>}
             </div>
 
-            <div>
+            <div className="space-y-2">
               <label htmlFor="fitnessGoal" className={`block text-sm font-semibold mb-2 ${
                 isDarkMode ? 'text-gray-300' : 'text-gray-700'
               }`}>
@@ -179,7 +179,7 @@ export default function LeadForm({ onSubmit, isDarkMode = false }: LeadFormProps
                 value={formData.fitnessGoal}
                 onChange={handleChange}
                 disabled={isSubmitting}
-                className={`w-full px-4 py-4 border rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-lg ${
+                className={`w-full px-4 py-4 sm:py-5 border rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-base sm:text-lg ${
                   errors.fitnessGoal ? 'border-red-500' : isDarkMode ? 'border-gray-600 bg-gray-800 text-white' : 'border-gray-300'
                 } ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''}`}
               >
@@ -190,10 +190,10 @@ export default function LeadForm({ onSubmit, isDarkMode = false }: LeadFormProps
                 <option value="improve-endurance">Improve Endurance</option>
                 <option value="general-fitness">General Fitness</option>
               </select>
-              {errors.fitnessGoal && <p className="mt-1 text-sm text-red-600">{errors.fitnessGoal}</p>}
+              {errors.fitnessGoal && <p className="mt-2 text-sm text-red-600">{errors.fitnessGoal}</p>}
             </div>
 
-            <div>
+            <div className="space-y-2">
               <label htmlFor="daysPerWeek" className={`block text-sm font-semibold mb-2 ${
                 isDarkMode ? 'text-gray-300' : 'text-gray-700'
               }`}>
@@ -206,7 +206,7 @@ export default function LeadForm({ onSubmit, isDarkMode = false }: LeadFormProps
                 value={formData.daysPerWeek}
                 onChange={handleChange}
                 disabled={isSubmitting}
-                className={`w-full px-4 py-4 border rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-lg ${
+                className={`w-full px-4 py-4 sm:py-5 border rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-base sm:text-lg ${
                   errors.daysPerWeek ? 'border-red-500' : isDarkMode ? 'border-gray-600 bg-gray-800 text-white' : 'border-gray-300'
                 } ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''}`}
               >
@@ -217,27 +217,29 @@ export default function LeadForm({ onSubmit, isDarkMode = false }: LeadFormProps
                   </option>
                 ))}
               </select>
-              {errors.daysPerWeek && <p className="mt-1 text-sm text-red-600">{errors.daysPerWeek}</p>}
+              {errors.daysPerWeek && <p className="mt-2 text-sm text-red-600">{errors.daysPerWeek}</p>}
             </div>
 
-            <button
-              type="submit"
-              disabled={isSubmitting}
-              className={`w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-bold py-5 px-8 rounded-xl text-xl transition-all duration-300 transform hover:scale-105 hover:shadow-xl shadow-lg ${
-                isSubmitting ? 'opacity-50 cursor-not-allowed transform-none' : ''
-              }`}
-            >
-              {isSubmitting ? (
-                <div className="flex items-center justify-center">
-                  <div className="w-6 h-6 border-2 border-white border-t-transparent rounded-full animate-spin mr-3"></div>
-                  Sending Your Plan...
-                </div>
-              ) : (
-                '🚀 GENERATE MY FREE PLAN NOW'
-              )}
-            </button>
+            <div className="pt-4">
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className={`w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-bold py-5 sm:py-6 px-8 rounded-xl text-lg sm:text-xl transition-all duration-300 transform hover:scale-105 hover:shadow-xl shadow-lg ${
+                  isSubmitting ? 'opacity-50 cursor-not-allowed transform-none' : ''
+                }`}
+              >
+                {isSubmitting ? (
+                  <div className="flex items-center justify-center">
+                    <div className="w-6 h-6 border-2 border-white border-t-transparent rounded-full animate-spin mr-3"></div>
+                    Sending Your Plan...
+                  </div>
+                ) : (
+                  '🚀 GENERATE MY FREE PLAN NOW'
+                )}
+              </button>
+            </div>
             
-            <p className={`text-center text-sm mt-4 ${
+            <p className={`text-center text-sm mt-4 px-4 ${
               isDarkMode ? 'text-gray-400' : 'text-gray-500'
             }`}>
               ✅ 100% Free • ✅ No Credit Card Required • ✅ Instant Email Delivery
@@ -246,10 +248,10 @@ export default function LeadForm({ onSubmit, isDarkMode = false }: LeadFormProps
         </div>
 
         {/* EmailJS Setup Instructions */}
-        <div className={`mt-8 p-6 rounded-2xl border-2 border-dashed animate-fade-in-up ${
+        <div className={`mt-6 sm:mt-8 p-4 sm:p-6 rounded-2xl border-2 border-dashed animate-fade-in-up ${
           isDarkMode ? 'border-gray-600 bg-gray-800/50' : 'border-gray-300 bg-gray-50'
         }`} style={{ animationDelay: '0.3s' }}>
-          <h3 className={`text-lg font-bold mb-3 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+          <h3 className={`text-base sm:text-lg font-bold mb-3 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
             📧 Real Email Delivery Setup
           </h3>
           <div className={`text-sm space-y-2 ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>

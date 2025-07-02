@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { MessageCircle, Bot, User, Send, RefreshCw, AlertCircle, X } from 'lucide-react';
+import { MessageCircle, Bot, User, Send, RefreshCw, AlertCircle, X, Sparkles, Heart, Calculator, Dumbbell, Target, Zap } from 'lucide-react';
 import { useChat } from '../hooks/useChat';
 
 interface LiveChatbotProps {
@@ -9,6 +9,7 @@ interface LiveChatbotProps {
 export default function LiveChatbot({ isDarkMode = false }: LiveChatbotProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [inputMessage, setInputMessage] = useState('');
+  const [showQuickTips, setShowQuickTips] = useState(true);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   
@@ -34,6 +35,12 @@ export default function LiveChatbot({ isDarkMode = false }: LiveChatbotProps) {
 
     const message = inputMessage;
     setInputMessage('');
+    setShowQuickTips(false);
+    await sendMessage(message);
+  };
+
+  const handleQuickMessage = async (message: string) => {
+    setShowQuickTips(false);
     await sendMessage(message);
   };
 
@@ -48,53 +55,105 @@ export default function LiveChatbot({ isDarkMode = false }: LiveChatbotProps) {
     return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
   };
 
+  const quickTips = [
+    {
+      icon: Target,
+      text: "Help me set fitness goals",
+      color: "from-blue-500 to-purple-600"
+    },
+    {
+      icon: Dumbbell,
+      text: "Create a workout plan",
+      color: "from-green-500 to-emerald-600"
+    },
+    {
+      icon: Calculator,
+      text: "Explain my calculator results",
+      color: "from-orange-500 to-red-600"
+    },
+    {
+      icon: Heart,
+      text: "Nutrition advice",
+      color: "from-pink-500 to-rose-600"
+    }
+  ];
+
   return (
     <>
-      {/* Chat Toggle Button */}
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        className={`fixed bottom-6 right-6 z-50 w-16 h-16 rounded-full shadow-2xl transition-all duration-300 transform hover:scale-110 ${
-          isOpen 
-            ? 'bg-red-500 hover:bg-red-600' 
-            : 'bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700'
-        }`}
-        aria-label={isOpen ? 'Close chat' : 'Open chat'}
-      >
-        {isOpen ? (
-          <X className="w-8 h-8 text-white mx-auto" />
-        ) : (
-          <MessageCircle className="w-8 h-8 text-white mx-auto" />
+      {/* Enhanced Chat Toggle Button */}
+      <div className="fixed bottom-6 right-6 z-50">
+        {/* Notification Badge */}
+        {!isOpen && (
+          <div className="absolute -top-2 -left-2 w-6 h-6 bg-gradient-to-r from-red-500 to-pink-500 rounded-full flex items-center justify-center animate-bounce">
+            <Sparkles className="w-3 h-3 text-white" />
+          </div>
         )}
-      </button>
+        
+        <button
+          onClick={() => setIsOpen(!isOpen)}
+          className={`w-16 h-16 rounded-full shadow-2xl transition-all duration-300 transform hover:scale-110 relative overflow-hidden ${
+            isOpen 
+              ? 'bg-gradient-to-r from-red-500 to-pink-600 hover:from-red-600 hover:to-pink-700' 
+              : 'bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700'
+          }`}
+          aria-label={isOpen ? 'Close Virtual Fitness Agent' : 'Open Virtual Fitness Agent'}
+        >
+          {/* Animated background */}
+          <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent animate-pulse"></div>
+          
+          {isOpen ? (
+            <X className="w-8 h-8 text-white mx-auto relative z-10" />
+          ) : (
+            <div className="relative z-10 flex items-center justify-center">
+              <Bot className="w-8 h-8 text-white animate-bounce" />
+            </div>
+          )}
+        </button>
+        
+        {/* Floating label */}
+        {!isOpen && (
+          <div className="absolute bottom-full right-0 mb-2 px-3 py-1 bg-gray-900 text-white text-xs rounded-lg whitespace-nowrap animate-fade-in-up">
+            Virtual Fitness Agent
+            <div className="absolute top-full right-4 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900"></div>
+          </div>
+        )}
+      </div>
 
-      {/* Chat Window */}
+      {/* Enhanced Chat Window */}
       {isOpen && (
-        <div className={`fixed bottom-24 right-6 z-40 w-96 max-w-[calc(100vw-3rem)] h-[500px] rounded-2xl shadow-2xl border flex flex-col overflow-hidden ${
+        <div className={`fixed bottom-24 right-6 z-40 w-96 max-w-[calc(100vw-3rem)] h-[600px] rounded-2xl shadow-2xl border flex flex-col overflow-hidden ${
           isDarkMode 
             ? 'bg-gray-800 border-gray-700' 
             : 'bg-white border-gray-200'
         }`}>
-          {/* Header */}
-          <div className="bg-gradient-to-r from-blue-500 to-purple-600 text-white p-4 flex items-center justify-between">
-            <div className="flex items-center">
-              <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center mr-3">
-                <Bot className="w-6 h-6" />
-              </div>
-              <div>
-                <h3 className="font-semibold">AI Fitness Coach</h3>
-                <div className="flex items-center text-sm opacity-90">
-                  <div className="w-2 h-2 bg-green-400 rounded-full mr-2"></div>
-                  Online
+          {/* Enhanced Header */}
+          <div className="bg-gradient-to-r from-blue-500 via-purple-600 to-pink-500 text-white p-4 relative overflow-hidden">
+            {/* Animated background pattern */}
+            <div className="absolute inset-0 opacity-20">
+              <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-white/10 to-transparent animate-pulse"></div>
+            </div>
+            
+            <div className="flex items-center justify-between relative z-10">
+              <div className="flex items-center">
+                <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center mr-3 animate-bounce-subtle">
+                  <Bot className="w-7 h-7 animate-pulse" />
+                </div>
+                <div>
+                  <h3 className="font-bold text-lg">Virtual Fitness Agent</h3>
+                  <div className="flex items-center text-sm opacity-90">
+                    <div className="w-2 h-2 bg-green-400 rounded-full mr-2 animate-pulse"></div>
+                    <span>AI-Powered • Always Available</span>
+                  </div>
                 </div>
               </div>
+              <button
+                onClick={resetChat}
+                className="p-2 hover:bg-white/20 rounded-lg transition-colors group"
+                title="Reset conversation"
+              >
+                <RefreshCw className="w-5 h-5 group-hover:rotate-180 transition-transform duration-300" />
+              </button>
             </div>
-            <button
-              onClick={resetChat}
-              className="p-2 hover:bg-white/20 rounded-lg transition-colors"
-              title="Reset conversation"
-            >
-              <RefreshCw className="w-4 h-4" />
-            </button>
           </div>
 
           {/* Error Banner */}
@@ -117,10 +176,34 @@ export default function LiveChatbot({ isDarkMode = false }: LiveChatbotProps) {
 
           {/* Messages */}
           <div className="flex-1 overflow-y-auto p-4 space-y-4">
+            {/* Quick Tips (shown initially) */}
+            {showQuickTips && messages.length <= 1 && (
+              <div className="space-y-3 animate-fade-in-up">
+                <div className={`text-center text-sm font-medium ${
+                  isDarkMode ? 'text-gray-300' : 'text-gray-600'
+                }`}>
+                  Quick Actions:
+                </div>
+                <div className="grid grid-cols-2 gap-2">
+                  {quickTips.map((tip, index) => (
+                    <button
+                      key={index}
+                      onClick={() => handleQuickMessage(tip.text)}
+                      className={`p-3 rounded-xl bg-gradient-to-r ${tip.color} text-white text-xs font-medium hover:scale-105 transition-all duration-200 flex items-center space-x-2 animate-fade-in-up`}
+                      style={{ animationDelay: `${index * 0.1}s` }}
+                    >
+                      <tip.icon className="w-4 h-4" />
+                      <span className="truncate">{tip.text}</span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+
             {messages.map((message) => (
               <div
                 key={message.id}
-                className={`flex items-start space-x-3 ${
+                className={`flex items-start space-x-3 animate-fade-in-up ${
                   message.type === 'user' ? 'justify-end' : 'justify-start'
                 }`}
               >
@@ -132,7 +215,7 @@ export default function LiveChatbot({ isDarkMode = false }: LiveChatbotProps) {
                 
                 <div className="flex flex-col max-w-[80%]">
                   <div
-                    className={`px-4 py-3 rounded-2xl ${
+                    className={`px-4 py-3 rounded-2xl relative ${
                       message.type === 'user'
                         ? 'bg-gradient-to-r from-blue-500 to-purple-600 text-white'
                         : isDarkMode 
@@ -140,11 +223,14 @@ export default function LiveChatbot({ isDarkMode = false }: LiveChatbotProps) {
                           : 'bg-gray-100 text-gray-900'
                     }`}
                   >
+                    {message.type === 'ai' && (
+                      <div className="absolute -left-2 top-3 w-0 h-0 border-r-8 border-t-4 border-b-4 border-transparent border-r-gray-100"></div>
+                    )}
                     <p className="text-sm leading-relaxed">{message.text}</p>
                   </div>
                   <span className={`text-xs mt-1 px-2 ${
-                    isDarkMode ? 'text-gray-400' : 'text-gray-500'
-                  }`}>
+                    message.type === 'user' ? 'text-right' : 'text-left'
+                  } ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
                     {formatTime(message.timestamp)}
                   </span>
                 </div>
@@ -159,15 +245,16 @@ export default function LiveChatbot({ isDarkMode = false }: LiveChatbotProps) {
               </div>
             ))}
             
-            {/* Typing Indicator */}
+            {/* Enhanced Typing Indicator */}
             {isLoading && (
-              <div className="flex items-start space-x-3">
+              <div className="flex items-start space-x-3 animate-fade-in-up">
                 <div className="flex-shrink-0 w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
-                  <Bot className="w-4 h-4 text-white" />
+                  <Bot className="w-4 h-4 text-white animate-pulse" />
                 </div>
-                <div className={`px-4 py-3 rounded-2xl ${
+                <div className={`px-4 py-3 rounded-2xl relative ${
                   isDarkMode ? 'bg-gray-700' : 'bg-gray-100'
                 }`}>
+                  <div className="absolute -left-2 top-3 w-0 h-0 border-r-8 border-t-4 border-b-4 border-transparent border-r-gray-100"></div>
                   <div className="flex space-x-1">
                     <div className={`w-2 h-2 rounded-full animate-bounce ${
                       isDarkMode ? 'bg-gray-400' : 'bg-gray-400'
@@ -186,32 +273,49 @@ export default function LiveChatbot({ isDarkMode = false }: LiveChatbotProps) {
             <div ref={messagesEndRef} />
           </div>
 
-          {/* Input */}
+          {/* Enhanced Input */}
           <form onSubmit={handleSubmit} className={`p-4 border-t ${
             isDarkMode ? 'border-gray-700' : 'border-gray-200'
           }`}>
             <div className="flex space-x-2">
-              <input
-                ref={inputRef}
-                type="text"
-                value={inputMessage}
-                onChange={(e) => setInputMessage(e.target.value)}
-                onKeyPress={handleKeyPress}
-                placeholder="Ask about your fitness goals..."
-                className={`flex-1 px-4 py-2 border rounded-full focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-colors ${
-                  isDarkMode 
-                    ? 'bg-gray-700 border-gray-600 text-white placeholder-gray-400' 
-                    : 'bg-white border-gray-300 text-gray-900 placeholder-gray-500'
-                }`}
-                disabled={isLoading}
-              />
+              <div className="flex-1 relative">
+                <input
+                  ref={inputRef}
+                  type="text"
+                  value={inputMessage}
+                  onChange={(e) => setInputMessage(e.target.value)}
+                  onKeyPress={handleKeyPress}
+                  placeholder="Ask about workouts, nutrition, or fitness goals..."
+                  className={`w-full px-4 py-3 pr-12 border rounded-full focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-colors ${
+                    isDarkMode 
+                      ? 'bg-gray-700 border-gray-600 text-white placeholder-gray-400' 
+                      : 'bg-white border-gray-300 text-gray-900 placeholder-gray-500'
+                  }`}
+                  disabled={isLoading}
+                />
+                {inputMessage && (
+                  <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
+                    <Zap className="w-4 h-4 text-blue-500 animate-pulse" />
+                  </div>
+                )}
+              </div>
               <button
                 type="submit"
                 disabled={!inputMessage.trim() || isLoading}
-                className="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 disabled:opacity-50 disabled:cursor-not-allowed text-white rounded-full flex items-center justify-center transition-all duration-200"
+                className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 disabled:opacity-50 disabled:cursor-not-allowed text-white rounded-full flex items-center justify-center transition-all duration-200 transform hover:scale-105 disabled:transform-none"
               >
-                <Send className="w-4 h-4" />
+                <Send className="w-5 h-5" />
               </button>
+            </div>
+            
+            {/* Status indicator */}
+            <div className="flex items-center justify-center mt-2 text-xs">
+              <div className={`flex items-center ${
+                isDarkMode ? 'text-gray-400' : 'text-gray-500'
+              }`}>
+                <div className="w-1 h-1 bg-green-400 rounded-full mr-2 animate-pulse"></div>
+                <span>Powered by AI • Instant responses</span>
+              </div>
             </div>
           </form>
         </div>
