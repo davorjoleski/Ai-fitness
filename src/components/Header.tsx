@@ -90,7 +90,7 @@ export default function Header({ isDarkMode, toggleDarkMode }: HeaderProps) {
               aria-label="Toggle dark mode"
             >
               {/* Animated background */}
-              <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent animate-pulse"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent "></div>
               
               <div className="relative z-10">
                 {isDarkMode ? (
