@@ -84,7 +84,7 @@ export default function LiveChatbot({ isDarkMode = false }: LiveChatbotProps) {
       <div className="fixed bottom-6 right-6 z-50">
         {/* Notification Badge */}
         {!isOpen && (
-          <div className="absolute -top-2 -left-2 w-6 h-6 bg-gradient-to-r from-red-500 to-pink-500 rounded-full flex items-center justify-center animate-bounce">
+          <div className="absolute -top-2 -left-2 w-6 h-6 bg-gradient-to-r from-red-500 to-pink-500 rounded-full flex items-center justify-center">
             <Sparkles className="w-3 h-3 text-white" />
           </div>
         )}
