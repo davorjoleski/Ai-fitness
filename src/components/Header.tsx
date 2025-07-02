@@ -79,13 +79,13 @@ export default function Header({ isDarkMode, toggleDarkMode }: HeaderProps) {
               </a>
             </nav>
 
-            {/* Enhanced Dark Mode Toggle */}
+            {/* Fixed Dark Mode Toggle - Moon for Dark Mode, Sun for Light Mode */}
             <button
               onClick={toggleDarkMode}
               className={`p-3 rounded-xl transition-all duration-300 transform hover:scale-110 animate-bounce-subtle relative overflow-hidden ${
                 isDarkMode 
-                  ? 'bg-gradient-to-br from-yellow-400 to-orange-500 text-white shadow-lg' 
-                  : 'bg-gradient-to-br from-gray-700 to-gray-900 text-yellow-400 shadow-lg'
+                  ? 'bg-gradient-to-br from-gray-700 to-gray-900 text-blue-300 shadow-lg' 
+                  : 'bg-gradient-to-br from-yellow-400 to-orange-500 text-white shadow-lg'
               }`}
               aria-label="Toggle dark mode"
             >
@@ -94,9 +94,9 @@ export default function Header({ isDarkMode, toggleDarkMode }: HeaderProps) {
               
               <div className="relative z-10">
                 {isDarkMode ? (
-                  <Sun className="w-5 h-5 animate-spin-slow" />
-                ) : (
                   <Moon className="w-5 h-5 animate-bounce" />
+                ) : (
+                  <Sun className="w-5 h-5 animate-spin-slow" />
                 )}
               </div>
             </button>
