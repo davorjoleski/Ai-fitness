@@ -12,39 +12,16 @@ export default function Footer({ isDarkMode = false }: FooterProps) {
     }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center">
-          {/* Custom Logo - Made Bigger */}
+          {/* Professional Logo */}
           <div className="flex items-center justify-center mb-6 animate-fade-in-up">
-            <svg 
-              className="h-16 w-16 mr-3 animate-float" 
-              viewBox="0 0 400 400" 
-              fill="none"
-            >
-              {/* Head with AI circuits */}
-              <circle cx="160" cy="120" r="80" fill="#2563eb"/>
-              
-              {/* AI Circuit patterns in head */}
-              <circle cx="140" cy="100" r="8" fill="#10b981"/>
-              <circle cx="180" cy="110" r="6" fill="#10b981"/>
-              <circle cx="160" cy="130" r="7" fill="#10b981"/>
-              
-              {/* Circuit connections */}
-              <path d="M140 100 L160 130 L180 110" stroke="#10b981" strokeWidth="3" fill="none"/>
-              <path d="M140 100 L180 110" stroke="#10b981" strokeWidth="2" fill="none"/>
-              
-              {/* Dumbbells */}
-              <rect x="80" y="180" width="20" height="60" rx="10" fill="#10b981"/>
-              <rect x="220" y="180" width="20" height="60" rx="10" fill="#10b981"/>
-              <rect x="70" y="175" width="40" height="15" rx="7" fill="#10b981"/>
-              <rect x="70" y="250" width="40" height="15" rx="7" fill="#10b981"/>
-              <rect x="210" y="175" width="40" height="15" rx="7" fill="#10b981"/>
-              <rect x="210" y="250" width="40" height="15" rx="7" fill="#10b981"/>
-              
-              {/* Connecting bar */}
-              <rect x="100" y="205" width="120" height="10" rx="5" fill="#2563eb"/>
-            </svg>
+            <img 
+              src="/b73ab801-e2d5-4796-9eb3-ebfddc37e118.png" 
+              alt="AI Fit Coach Logo" 
+              className="h-16 w-auto mr-3 animate-float filter brightness-0 invert"
+            />
             <div>
               <h3 className="text-2xl font-black tracking-tight">AI Fit Coach</h3>
-              <div className="text-xs text-gray-400 -mt-1">Powered by AI</div>
+              <div className="text-xs text-gray-400 -mt-1">Smart Fitness Solutions</div>
             </div>
           </div>
           

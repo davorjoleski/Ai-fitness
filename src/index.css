@@ -227,6 +227,27 @@
   }
 }
 
+@keyframes morphing {
+  0%, 100% {
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+  }
+  50% {
+    border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
+  }
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
 .animate-fadeIn {
   animation: fadeIn 0.5s ease-out forwards;
 }
@@ -316,6 +337,15 @@
   opacity: 0;
 }
 
+.animate-morphing {
+  animation: morphing 6s ease-in-out infinite;
+}
+
+.animate-gradient-shift {
+  background-size: 400% 400%;
+  animation: gradientShift 4s ease infinite;
+}
+
 /* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
@@ -353,12 +383,14 @@
   background-size: 20px 20px;
 }
 
-/* Gradient text */
+/* Enhanced Gradient text */
 .gradient-text {
-  background: linear-gradient(135deg, #2563eb, #3b82f6);
+  background: linear-gradient(135deg, #2563eb, #3b82f6, #8b5cf6, #ec4899);
+  background-size: 400% 400%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  animation: gradientShift 4s ease infinite;
 }
 
 /* Mobile optimizations */
@@ -461,7 +493,7 @@ button:active {
   transform: translateY(0);
 }
 
-/* Glowing effects */
+/* Enhanced Glowing effects */
 .glow {
   box-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
 }
@@ -591,4 +623,36 @@ html {
     background: white !important;
     color: black !important;
   }
+}
+
+/* Logo specific styles */
+.logo-filter-white {
+  filter: brightness(0) invert(1);
+}
+
+/* Enhanced mobile responsiveness */
+@media (max-width: 640px) {
+  .text-responsive {
+    font-size: clamp(1rem, 4vw, 1.5rem);
+  }
+  
+  .heading-responsive {
+    font-size: clamp(1.5rem, 8vw, 3rem);
+  }
+}
+
+/* Performance optimizations */
+.will-change-transform {
+  will-change: transform;
+}
+
+.will-change-opacity {
+  will-change: opacity;
+}
+
+/* GPU acceleration for animations */
+.gpu-accelerated {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
 }
