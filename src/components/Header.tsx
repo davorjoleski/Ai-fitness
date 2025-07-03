@@ -27,7 +27,7 @@ export default function Header({ isDarkMode, toggleDarkMode }: HeaderProps) {
               <img 
                 src="/b73ab801-e2d5-4796-9eb3-ebfddc37e118.png" 
                 alt="AI Fit Coach Logo" 
-                className="h-12 w-auto transform group-hover:scale-110 transition-all duration-300 animate-pulse-subtle"
+                className="h-12.5 w-auto transform group-hover:scale-110 transition-all duration-300 animate-pulse-subtle"
               />
               
               {/* Floating sparkle effect */}
