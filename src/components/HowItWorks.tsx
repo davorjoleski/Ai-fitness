@@ -19,14 +19,14 @@ export default function HowItWorks({ isDarkMode = false }: HowItWorksProps) {
       title: 'AI Analyzes Your Goals',
       description: 'Our advanced AI processes your information and creates a personalized workout plan just for you.',
       color: 'from-purple-500 to-indigo-500',
-      animation: 'animate-heartbeat'
+      animation: 'animate-pulse'
     },
     {
       icon: Mail,
       title: 'Get Your Plan via Email',
       description: 'Receive your custom workout plan instantly in your inbox, ready to start your transformation.',
       color: 'from-green-500 to-emerald-500',
-      animation: 'animate-spin-slow'
+      animation: 'animate-float'
     }
   ];
 
@@ -69,7 +69,7 @@ export default function HowItWorks({ isDarkMode = false }: HowItWorksProps) {
                 <div className={`w-28 h-28 bg-gradient-to-br ${step.color} rounded-3xl flex items-center justify-center mx-auto transform group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-xl hover-lift`}>
                   <step.icon className={`w-14 h-14 text-white ${step.animation}`} />
                 </div>
-                <div className="absolute -top-4 -right-4 w-12 h-12 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full flex items-center justify-center text-white font-bold text-lg shadow-lg animate-glow">
+                <div className="absolute -top-2 -right-2 w-12 h-12 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full flex items-center justify-center text-white font-bold text-lg shadow-lg animate-glow">
                   {index + 1}
                 </div>
                 

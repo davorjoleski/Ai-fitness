@@ -416,6 +416,82 @@
     max-width: 100%;
     overflow-x: hidden;
   }
+  
+  /* Better spacing on mobile */
+  .space-y-6 > * + * {
+    margin-top: 1rem;
+  }
+  
+  .space-y-8 > * + * {
+    margin-top: 1.5rem;
+  }
+  
+  /* Responsive padding */
+  .px-4 {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  .py-12 {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+  
+  /* Better form spacing on mobile */
+  .grid.sm\\:grid-cols-2 {
+    gap: 1rem;
+  }
+}
+
+/* Enhanced mobile responsiveness */
+@media (max-width: 640px) {
+  .text-responsive {
+    font-size: clamp(1rem, 4vw, 1.5rem);
+    line-height: 1.4;
+  }
+  
+  .heading-responsive {
+    font-size: clamp(1.5rem, 8vw, 3rem);
+    line-height: 1.2;
+  }
+  
+  /* Better button sizing on mobile */
+  .py-5 {
+    padding-top: 0.875rem;
+    padding-bottom: 0.875rem;
+  }
+  
+  .px-16 {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+  
+  /* Improved form layout on mobile */
+  .grid.lg\\:grid-cols-3 {
+    gap: 1.5rem;
+  }
+  
+  /* Better card spacing */
+  .rounded-2xl {
+    border-radius: 1rem;
+  }
+  
+  .p-6 {
+    padding: 1rem;
+  }
+  
+  /* Responsive text sizes */
+  .text-3xl {
+    font-size: 1.5rem;
+  }
+  
+  .text-4xl {
+    font-size: 1.75rem;
+  }
+  
+  .text-5xl {
+    font-size: 2rem;
+  }
 }
 
 /* Loading animation */
@@ -630,17 +706,6 @@ html {
   filter: brightness(0) invert(1);
 }
 
-/* Enhanced mobile responsiveness */
-@media (max-width: 640px) {
-  .text-responsive {
-    font-size: clamp(1rem, 4vw, 1.5rem);
-  }
-  
-  .heading-responsive {
-    font-size: clamp(1.5rem, 8vw, 3rem);
-  }
-}
-
 /* Performance optimizations */
 .will-change-transform {
   will-change: transform;
@@ -655,4 +720,72 @@ html {
   transform: translateZ(0);
   backface-visibility: hidden;
   perspective: 1000px;
+}
+
+/* Enhanced mobile form styling */
+@media (max-width: 640px) {
+  /* Better form field sizing */
+  input[type="text"],
+  input[type="email"],
+  select {
+    font-size: 16px; /* Prevents zoom on iOS */
+    padding: 0.875rem 1rem;
+  }
+  
+  /* Improved button sizing */
+  button {
+    padding: 0.875rem 1.5rem;
+    font-size: 1rem;
+  }
+  
+  /* Better spacing for form sections */
+  .space-y-6 > * + * {
+    margin-top: 1.25rem;
+  }
+  
+  /* Responsive grid adjustments */
+  .grid.sm\\:grid-cols-2 {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+  
+  /* Better card padding on mobile */
+  .p-6.sm\\:p-8 {
+    padding: 1.25rem;
+  }
+  
+  /* Improved text sizing */
+  .text-lg.sm\\:text-xl {
+    font-size: 1rem;
+  }
+  
+  .text-xl.sm\\:text-2xl {
+    font-size: 1.125rem;
+  }
+}
+
+/* Ultra-small screen optimizations */
+@media (max-width: 375px) {
+  .px-4 {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+  
+  .text-3xl {
+    font-size: 1.25rem;
+  }
+  
+  .text-4xl {
+    font-size: 1.5rem;
+  }
+  
+  .py-5 {
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+  }
+  
+  .px-16 {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
 }

@@ -112,8 +112,8 @@ function App() {
       
       <Header isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />
       
-      {/* Add padding top to account for fixed header */}
-      <div className="pt-16 overflow-x-hidden">
+      {/* Add padding top to account for fixed header - increased for bigger header */}
+      <div className="pt-24 overflow-x-hidden">
         <Hero onStartClick={scrollToForm} isDarkMode={isDarkMode} />
         
         <SectionDivider variant="waves" isDarkMode={isDarkMode} />

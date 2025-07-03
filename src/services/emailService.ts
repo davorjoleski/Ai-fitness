@@ -12,82 +12,183 @@ interface EmailResponse {
   message: string;
 }
 
+interface EmailServiceConfig {
+  serviceId: string;
+  templateId: string;
+  publicKey: string;
+  isConfigured: boolean;
+}
+
 export class EmailService {
-  private serviceId: string;
-  private templateId: string;
-  private publicKey: string;
-  private isConfigured: boolean;
+  private config: EmailServiceConfig;
+  private retryAttempts = 3;
+  private retryDelay = 1000; // 1 second
 
   constructor() {
-    this.serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID || '';
-    this.templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || '';
-    this.publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY || '';
+    this.config = {
+      serviceId: import.meta.env.VITE_EMAILJS_SERVICE_ID || '',
+      templateId: import.meta.env.VITE_EMAILJS_TEMPLATE_ID || '',
+      publicKey: import.meta.env.VITE_EMAILJS_PUBLIC_KEY || '',
+      isConfigured: false
+    };
     
-    this.isConfigured = !!(this.serviceId && this.templateId && this.publicKey);
+    this.config.isConfigured = !!(this.config.serviceId && this.config.templateId && this.config.publicKey);
     
-    if (this.isConfigured) {
-      // Initialize EmailJS
-      emailjs.init(this.publicKey);
+    if (this.config.isConfigured) {
+      this.initializeEmailJS();
     }
   }
 
-  async sendWorkoutPlan(data: EmailData): Promise<EmailResponse> {
-    // If EmailJS is not configured, simulate success for development
-    if (!this.isConfigured) {
-      console.log('EmailJS not configured, simulating email send:', data);
-      console.log('Generated workout plan:', this.generateWorkoutPlan(data));
-      
-      // Simulate network delay
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      
-      return {
-        success: true,
-        message: `✅ Your AI workout plan has been generated! (Development mode - configure EmailJS to send real emails to ${data.email})`
-      };
-    }
-
+  private initializeEmailJS(): void {
     try {
-      // Generate personalized workout plan content
-      const workoutPlan = this.generateWorkoutPlan(data);
-      
-      // Prepare template parameters
-      const templateParams = {
-        to_name: data.fullName,
-        to_email: data.email,
-        fitness_goal: this.formatGoal(data.fitnessGoal),
-        days_per_week: data.daysPerWeek,
-        workout_plan: workoutPlan,
-        from_name: 'AI Fit Coach',
-        reply_to: 'noreply@aifitcoach.com'
-      };
-
-      console.log('Sending email with EmailJS:', templateParams);
-
-      // Send email using EmailJS
-      const response = await emailjs.send(
-        this.serviceId,
-        this.templateId,
-        templateParams
-      );
-
-      console.log('EmailJS response:', response);
-
-      if (response.status === 200) {
-        return {
-          success: true,
-          message: `🎉 Your personalized AI workout plan has been sent to ${data.email}! Check your inbox (and spam folder) for your custom fitness plan.`
-        };
-      } else {
-        throw new Error('Failed to send email');
-      }
+      emailjs.init(this.config.publicKey);
+      console.log('EmailJS initialized successfully');
     } catch (error) {
-      console.error('EmailJS error:', error);
+      console.error('Failed to initialize EmailJS:', error);
+      this.config.isConfigured = false;
+    }
+  }
+
+  private async delay(ms: number): Promise<void> {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+  private validateEmailData(data: EmailData): boolean {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    
+    if (!data.fullName?.trim()) {
+      throw new Error('Full name is required');
+    }
+    
+    if (!data.email?.trim() || !emailRegex.test(data.email)) {
+      throw new Error('Valid email address is required');
+    }
+    
+    if (!data.fitnessGoal?.trim()) {
+      throw new Error('Fitness goal is required');
+    }
+    
+    if (!data.daysPerWeek?.trim()) {
+      throw new Error('Training days per week is required');
+    }
+    
+    return true;
+  }
+
+  async sendWorkoutPlan(data: EmailData): Promise<EmailResponse> {
+    try {
+      // Validate input data
+      this.validateEmailData(data);
+
+      // If EmailJS is not configured, use development mode
+      if (!this.config.isConfigured) {
+        return this.handleDevelopmentMode(data);
+      }
+
+      // Attempt to send email with retry logic
+      return await this.sendEmailWithRetry(data);
+      
+    } catch (error) {
+      console.error('Email service error:', error);
+      
+      if (error instanceof Error) {
+        return {
+          success: false,
+          message: `❌ ${error.message}`
+        };
+      }
       
       return {
         success: false,
-        message: '❌ Failed to send email. Please check your email address and try again. If the problem persists, contact support.'
+        message: '❌ An unexpected error occurred. Please try again later.'
       };
     }
+  }
+
+  private async sendEmailWithRetry(data: EmailData): Promise<EmailResponse> {
+    let lastError: Error | null = null;
+    
+    for (let attempt = 1; attempt <= this.retryAttempts; attempt++) {
+      try {
+        console.log(`Email sending attempt ${attempt}/${this.retryAttempts}`);
+        
+        const result = await this.sendEmailViaEmailJS(data);
+        
+        if (result.success) {
+          return result;
+        }
+        
+        lastError = new Error(result.message);
+        
+      } catch (error) {
+        lastError = error instanceof Error ? error : new Error('Unknown error');
+        console.error(`Attempt ${attempt} failed:`, lastError.message);
+      }
+      
+      // Wait before retrying (except on last attempt)
+      if (attempt < this.retryAttempts) {
+        await this.delay(this.retryDelay * attempt);
+      }
+    }
+    
+    // All attempts failed
+    return {
+      success: false,
+      message: `❌ Failed to send email after ${this.retryAttempts} attempts. ${lastError?.message || 'Please try again later.'}`
+    };
+  }
+
+  private async sendEmailViaEmailJS(data: EmailData): Promise<EmailResponse> {
+    const workoutPlan = this.generateWorkoutPlan(data);
+    
+    const templateParams = {
+      to_name: data.fullName.trim(),
+      to_email: data.email.trim().toLowerCase(),
+      fitness_goal: this.formatGoal(data.fitnessGoal),
+      days_per_week: data.daysPerWeek,
+      workout_plan: workoutPlan,
+      from_name: 'AI Fit Coach',
+      reply_to: 'support@aifitcoach.com',
+      timestamp: new Date().toISOString()
+    };
+
+    console.log('Sending email with parameters:', {
+      ...templateParams,
+      workout_plan: '[Generated Plan]' // Don't log full plan
+    });
+
+    const response = await emailjs.send(
+      this.config.serviceId,
+      this.config.templateId,
+      templateParams,
+      this.config.publicKey
+    );
+
+    console.log('EmailJS response:', response);
+
+    if (response.status === 200) {
+      return {
+        success: true,
+        message: `🎉 Success! Your personalized AI workout plan has been sent to ${data.email}. Check your inbox (and spam folder) within the next few minutes.`
+      };
+    } else {
+      throw new Error(`EmailJS returned status ${response.status}`);
+    }
+  }
+
+  private async handleDevelopmentMode(data: EmailData): Promise<EmailResponse> {
+    console.log('=== DEVELOPMENT MODE - EMAIL SIMULATION ===');
+    console.log('Form Data:', data);
+    console.log('Generated Workout Plan:', this.generateWorkoutPlan(data));
+    console.log('===========================================');
+    
+    // Simulate realistic network delay
+    await this.delay(2000 + Math.random() * 1000);
+    
+    return {
+      success: true,
+      message: `✅ Development Mode: Your AI workout plan has been generated! (Configure EmailJS environment variables to send real emails to ${data.email})`
+    };
   }
 
   private generateWorkoutPlan(data: EmailData): string {
@@ -97,7 +198,9 @@ export class EmailService {
     let plan = `🎯 Your Personalized AI Workout Plan\n\n`;
     plan += `👤 Name: ${data.fullName}\n`;
     plan += `🎯 Goal: ${this.formatGoal(fitnessGoal)}\n`;
-    plan += `📅 Training Days: ${days} days per week\n\n`;
+    plan += `📅 Training Days: ${days} days per week\n`;
+    plan += `📧 Email: ${data.email}\n`;
+    plan += `📅 Generated: ${new Date().toLocaleDateString()}\n\n`;
     plan += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n`;
     
     if (fitnessGoal === 'lose-weight') {
@@ -130,7 +233,8 @@ export class EmailService {
     plan += `Our AI coach is here to help you succeed.\n\n`;
     
     plan += `🤖 Generated by AI Fit Coach - Your Personal Fitness Assistant\n`;
-    plan += `Visit our website for more tools and live AI coaching!`;
+    plan += `Visit our website for more tools and live AI coaching!\n`;
+    plan += `\n© 2025 AI Fit Coach. All rights reserved.`;
     
     return plan;
   }
@@ -440,5 +544,18 @@ export class EmailService {
     }
     
     return plan;
+  }
+
+  // Health check method for monitoring
+  public async healthCheck(): Promise<boolean> {
+    return this.config.isConfigured;
+  }
+
+  // Get configuration status
+  public getStatus(): { configured: boolean; service: string } {
+    return {
+      configured: this.config.isConfigured,
+      service: this.config.isConfigured ? 'EmailJS' : 'Development Mode'
+    };
   }
 }

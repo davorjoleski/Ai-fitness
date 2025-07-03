@@ -19,15 +19,15 @@ export default function Header({ isDarkMode, toggleDarkMode }: HeaderProps) {
       isDarkMode ? 'bg-gray-900/95' : 'bg-white/95'
     } backdrop-blur-md border-b ${isDarkMode ? 'border-gray-800' : 'border-gray-200'}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20">
-          {/* Professional Logo - Made Bigger */}
+        <div className="flex items-center justify-between h-24">
+          {/* Professional Logo - Made Much Bigger */}
           <div className="flex items-center group cursor-pointer">
             <div className="relative mr-4">
-              {/* Custom Logo Image - Increased from h-12 to h-16 */}
+              {/* Custom Logo Image - Increased from h-16 to h-20 */}
               <img 
                 src="/b73ab801-e2d5-4796-9eb3-ebfddc37e118.png" 
                 alt="AI Fit Coach Logo" 
-                className="h-16 w-auto transform group-hover:scale-110 transition-all duration-300 animate-pulse-subtle"
+                className="h-20 w-auto transform group-hover:scale-110 transition-all duration-300 animate-pulse-subtle"
               />
               
               {/* Floating sparkle effect */}
@@ -37,7 +37,7 @@ export default function Header({ isDarkMode, toggleDarkMode }: HeaderProps) {
             </div>
             
             <div>
-              <span className={`text-2xl sm:text-3xl font-black ${isDarkMode ? 'text-white' : 'text-gray-900'} tracking-tight group-hover:text-blue-500 transition-colors duration-300`}>
+              <span className={`text-3xl sm:text-4xl font-black ${isDarkMode ? 'text-white' : 'text-gray-900'} tracking-tight group-hover:text-blue-500 transition-colors duration-300`}>
                 AI Fit Coach
               </span>
               <div className={`text-sm font-medium ${isDarkMode ? 'text-gray-400' : 'text-gray-500'} -mt-1 flex items-center`}>
@@ -48,7 +48,7 @@ export default function Header({ isDarkMode, toggleDarkMode }: HeaderProps) {
           </div>
 
           {/* Navigation */}
-          <div className="flex items-center space-x-6">
+          <div className="flex items-center space-x-4 sm:space-x-6">
             <nav className="hidden md:flex space-x-6">
               <a href="#features" className={`text-sm font-medium hover:text-blue-600 transition-colors duration-300 relative group ${
                 isDarkMode ? 'text-gray-300' : 'text-gray-700'
@@ -94,13 +94,14 @@ export default function Header({ isDarkMode, toggleDarkMode }: HeaderProps) {
             {/* CTA Button */}
             <button
               onClick={scrollToForm}
-              className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 hover:from-blue-700 hover:via-purple-700 hover:to-pink-700 text-white font-bold py-3 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-xl text-sm animate-glow relative overflow-hidden"
+              className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 hover:from-blue-700 hover:via-purple-700 hover:to-pink-700 text-white font-bold py-3 px-4 sm:px-6 rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-xl text-sm animate-glow relative overflow-hidden"
             >
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-pulse"></div>
               
               <span className="relative z-10 flex items-center">
                 <Sparkles className="w-4 h-4 mr-2 animate-spin" />
-                Get Started
+                <span className="hidden sm:inline">Get Started</span>
+                <span className="sm:hidden">Start</span>
               </span>
             </button>
           </div>
