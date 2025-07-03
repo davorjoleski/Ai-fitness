@@ -12,16 +12,16 @@ export default function Footer({ isDarkMode = false }: FooterProps) {
     }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center">
-          {/* Professional Logo */}
-          <div className="flex items-center justify-center mb-6 animate-fade-in-up">
+          {/* Professional Logo - Made Bigger */}
+          <div className="flex items-center justify-center mb-8 animate-fade-in-up">
             <img 
               src="/b73ab801-e2d5-4796-9eb3-ebfddc37e118.png" 
               alt="AI Fit Coach Logo" 
-              className="h-16 w-auto mr-3 animate-float "
+              className="h-20 w-auto mr-4 animate-float logo-filter-white"
             />
             <div>
-              <h3 className="text-2xl font-black tracking-tight">AI Fit Coach</h3>
-              <div className="text-xs text-gray-400 -mt-1">Smart Fitness Solutions</div>
+              <h3 className="text-3xl sm:text-4xl font-black tracking-tight">AI Fit Coach</h3>
+              <div className="text-sm text-gray-400 -mt-1">Smart Fitness Solutions</div>
             </div>
           </div>
           

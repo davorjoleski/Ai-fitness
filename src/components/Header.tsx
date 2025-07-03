@@ -19,29 +19,29 @@ export default function Header({ isDarkMode, toggleDarkMode }: HeaderProps) {
       isDarkMode ? 'bg-gray-900/95' : 'bg-white/95'
     } backdrop-blur-md border-b ${isDarkMode ? 'border-gray-800' : 'border-gray-200'}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          {/* Professional Logo */}
+        <div className="flex items-center justify-between h-20">
+          {/* Professional Logo - Made Bigger */}
           <div className="flex items-center group cursor-pointer">
-            <div className="relative mr-3">
-              {/* Custom Logo Image */}
+            <div className="relative mr-4">
+              {/* Custom Logo Image - Increased from h-12 to h-16 */}
               <img 
                 src="/b73ab801-e2d5-4796-9eb3-ebfddc37e118.png" 
                 alt="AI Fit Coach Logo" 
-                className="h-12 w-auto transform group-hover:scale-110 transition-all duration-300 animate-pulse-subtle"
+                className="h-16 w-auto transform group-hover:scale-110 transition-all duration-300 animate-pulse-subtle"
               />
               
               {/* Floating sparkle effect */}
-              <div className="absolute -top-1 -right-1 w-4 h-4 text-yellow-400 animate-wiggle">
-                <Sparkles className="w-4 h-4" />
+              <div className="absolute -top-1 -right-1 w-5 h-5 text-yellow-400 animate-wiggle">
+                <Sparkles className="w-5 h-5" />
               </div>
             </div>
             
             <div>
-              <span className={`text-2xl font-black ${isDarkMode ? 'text-white' : 'text-gray-900'} tracking-tight group-hover:text-blue-500 transition-colors duration-300`}>
+              <span className={`text-2xl sm:text-3xl font-black ${isDarkMode ? 'text-white' : 'text-gray-900'} tracking-tight group-hover:text-blue-500 transition-colors duration-300`}>
                 AI Fit Coach
               </span>
-              <div className={`text-xs font-medium ${isDarkMode ? 'text-gray-400' : 'text-gray-500'} -mt-1 flex items-center`}>
-                <div className="w-1 h-1 bg-green-400 rounded-full mr-1 animate-pulse"></div>
+              <div className={`text-sm font-medium ${isDarkMode ? 'text-gray-400' : 'text-gray-500'} -mt-1 flex items-center`}>
+                <div className="w-1.5 h-1.5 bg-green-400 rounded-full mr-2 animate-pulse"></div>
                 Smart Fitness Solutions
               </div>
             </div>
