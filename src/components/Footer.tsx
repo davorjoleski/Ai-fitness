@@ -17,7 +17,7 @@ export default function Footer({ isDarkMode = false }: FooterProps) {
             <img 
               src="/b73ab801-e2d5-4796-9eb3-ebfddc37e118.png" 
               alt="AI Fit Coach Logo" 
-              className="h-20 w-auto mr-4 animate-float logo-filter-white"
+              className="h-20 w-auto mr-4 animate-float "
             />
             <div>
               <h3 className="text-3xl sm:text-4xl font-black tracking-tight">AI Fit Coach</h3>
