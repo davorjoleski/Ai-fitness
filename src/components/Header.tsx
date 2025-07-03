@@ -24,10 +24,10 @@ export default function Header({ isDarkMode, toggleDarkMode }: HeaderProps) {
           <div className="flex items-center group cursor-pointer">
             <div className="relative">
               {/* AI Brain with Circuit Pattern */}
-              <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center mr-3 transform group-hover:scale-110 transition-all duration-300 animate-pulse-subtle shadow-lg">
+              <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center mr-3 transform group-hover:scale-110 transition-all duration-300 animate-pulse-subtle shadow-lg">
                 <div className="relative">
                   {/* Brain outline */}
-                  <div className="w-8 h-8 border-2 border-white rounded-full relative">
+                  <div className="w-10 h-10 border-2 border-white rounded-full relative">
                     {/* Circuit nodes */}
                     <div className="absolute top-1 left-1 w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse"></div>
                     <div className="absolute top-1 right-1 w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse" style={{ animationDelay: '0.5s' }}></div>
@@ -40,19 +40,15 @@ export default function Header({ isDarkMode, toggleDarkMode }: HeaderProps) {
               </div>
               
               {/* Floating sparkle */}
-              <div className="absolute -top-1 -right-1 w-4 h-4 text-yellow-400 animate-bounce">
+              <div className="absolute -top-1 -right-1 w-4 h-4 text-yellow-400 animate-wiggle">
                 <Sparkles className="w-4 h-4" />
               </div>
             </div>
             
             <div>
-              <span className={`text-xl font-black ${isDarkMode ? 'text-white' : 'text-gray-900'} tracking-tight group-hover:text-blue-500 transition-colors duration-300`}>
+              <span className={`text-2xl font-black ${isDarkMode ? 'text-white' : 'text-gray-900'} tracking-tight group-hover:text-blue-500 transition-colors duration-300`}>
                 AI Fit Coach
               </span>
-              <div className={`text-xs font-medium ${isDarkMode ? 'text-gray-400' : 'text-gray-500'} -mt-1 flex items-center`}>
-                <div className="w-1 h-1 bg-green-400 rounded-full mr-1 animate-pulse"></div>
-                Powered by AI
-              </div>
             </div>
           </div>
 
@@ -82,7 +78,7 @@ export default function Header({ isDarkMode, toggleDarkMode }: HeaderProps) {
             {/* Fixed Dark Mode Toggle - Moon for Dark Mode, Sun for Light Mode */}
             <button
               onClick={toggleDarkMode}
-              className={`p-3 rounded-xl transition-all duration-300 transform hover:scale-110 animate-bounce-subtle relative overflow-hidden ${
+              className={`p-3 rounded-xl transition-all duration-300 transform hover:scale-110 animate-pulse-subtle relative overflow-hidden ${
                 isDarkMode 
                   ? 'bg-gradient-to-br from-gray-700 to-gray-900 text-blue-300 shadow-lg' 
                   : 'bg-gradient-to-br from-yellow-400 to-orange-500 text-white shadow-lg'
@@ -94,7 +90,7 @@ export default function Header({ isDarkMode, toggleDarkMode }: HeaderProps) {
               
               <div className="relative z-10">
                 {isDarkMode ? (
-                  <Moon className="w-5 h-5 animate-bounce" />
+                  <Moon className="w-5 h-5 animate-float" />
                 ) : (
                   <Sun className="w-5 h-5 animate-spin-slow" />
                 )}
@@ -104,7 +100,7 @@ export default function Header({ isDarkMode, toggleDarkMode }: HeaderProps) {
             {/* Enhanced CTA Button */}
             <button
               onClick={scrollToForm}
-              className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 hover:from-blue-700 hover:via-purple-700 hover:to-pink-700 text-white font-bold py-3 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-xl text-sm animate-pulse-subtle relative overflow-hidden"
+              className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 hover:from-blue-700 hover:via-purple-700 hover:to-pink-700 text-white font-bold py-3 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-xl text-sm animate-glow relative overflow-hidden"
             >
               {/* Animated shine effect */}
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-pulse"></div>
