@@ -1,5 +1,3 @@
-import { serve } from "https://deno.land/std@0.168.0/http/server.ts"
-
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
@@ -13,13 +11,13 @@ interface EmailRequest {
   daysPerWeek: string;
 }
 
-serve(async (req) => {
-  // Handle CORS preflight requests
-  if (req.method === 'OPTIONS') {
-    return new Response('ok', { headers: corsHeaders })
-  }
-
+Deno.serve(async (req) => {
   try {
+    // Handle CORS preflight requests
+    if (req.method === 'OPTIONS') {
+      return new Response('ok', { headers: corsHeaders })
+    }
+
     const { fullName, email, fitnessGoal, daysPerWeek }: EmailRequest = await req.json()
 
     // Validate input
@@ -60,7 +58,7 @@ serve(async (req) => {
       return new Response(
         JSON.stringify({ 
           success: false, 
-          message: '❌ Email service not configured. Please contact support.' 
+          message: '❌ Email service not configured. Please add RESEND_API_KEY to your Supabase Edge Function environment variables.' 
         }),
         { 
           status: 500, 
