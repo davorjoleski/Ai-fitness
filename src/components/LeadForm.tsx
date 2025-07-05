@@ -99,7 +99,7 @@ export default function LeadForm({ onSubmit, isDarkMode = false }: LeadFormProps
     <section id="form" className={`py-12 sm:py-16 lg:py-20 relative transition-colors duration-300 ${
       isDarkMode ? 'bg-gray-800' : 'bg-gray-50'
     }`}>
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         <div className="text-center mb-8 sm:mb-12 animate-fade-in-up">
           <div className="flex justify-center mb-4 sm:mb-6">
             <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center animate-bounce-subtle">
@@ -119,15 +119,15 @@ export default function LeadForm({ onSubmit, isDarkMode = false }: LeadFormProps
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-3 gap-8">
+        <div className="grid lg:grid-cols-5 gap-6 lg:gap-8">
           {/* Main Form */}
-          <div className={`lg:col-span-2 rounded-2xl sm:rounded-3xl shadow-2xl p-6 sm:p-8 border animate-fade-in-up hover-lift ${
+          <div className={`lg:col-span-3 rounded-2xl sm:rounded-3xl shadow-2xl p-6 sm:p-8 border animate-fade-in-up hover-lift ${
             isDarkMode 
               ? 'bg-gray-900 border-gray-700' 
               : 'bg-white border-gray-100'
           }`}>
             <form onSubmit={handleSubmit} className="space-y-6 sm:space-y-8">
-              <div className="grid sm:grid-cols-2 gap-6">
+              <div className="grid sm:grid-cols-2 gap-4 sm:gap-6">
                 <div className="space-y-2">
                   <label htmlFor="fullName" className={`block text-sm font-semibold mb-2 ${
                     isDarkMode ? 'text-gray-300' : 'text-gray-700'
@@ -142,7 +142,7 @@ export default function LeadForm({ onSubmit, isDarkMode = false }: LeadFormProps
                     value={formData.fullName}
                     onChange={handleChange}
                     disabled={isSubmitting}
-                    className={`w-full px-4 py-4 sm:py-5 border rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-base sm:text-lg ${
+                    className={`w-full px-4 py-3 sm:py-4 border rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-base sm:text-lg ${
                       errors.fullName ? 'border-red-500' : isDarkMode ? 'border-gray-600 bg-gray-800 text-white' : 'border-gray-300'
                     } ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''}`}
                     placeholder="Enter your full name"
@@ -169,7 +169,7 @@ export default function LeadForm({ onSubmit, isDarkMode = false }: LeadFormProps
                     value={formData.email}
                     onChange={handleChange}
                     disabled={isSubmitting}
-                    className={`w-full px-4 py-4 sm:py-5 border rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-base sm:text-lg ${
+                    className={`w-full px-4 py-3 sm:py-4 border rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-base sm:text-lg ${
                       errors.email ? 'border-red-500' : isDarkMode ? 'border-gray-600 bg-gray-800 text-white' : 'border-gray-300'
                     } ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''}`}
                     placeholder="Enter your email address"
@@ -196,7 +196,7 @@ export default function LeadForm({ onSubmit, isDarkMode = false }: LeadFormProps
                   value={formData.fitnessGoal}
                   onChange={handleChange}
                   disabled={isSubmitting}
-                  className={`w-full px-4 py-4 sm:py-5 border rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-base sm:text-lg ${
+                  className={`w-full px-4 py-3 sm:py-4 border rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-base sm:text-lg ${
                     errors.fitnessGoal ? 'border-red-500' : isDarkMode ? 'border-gray-600 bg-gray-800 text-white' : 'border-gray-300'
                   } ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''}`}
                 >
@@ -228,7 +228,7 @@ export default function LeadForm({ onSubmit, isDarkMode = false }: LeadFormProps
                   value={formData.daysPerWeek}
                   onChange={handleChange}
                   disabled={isSubmitting}
-                  className={`w-full px-4 py-4 sm:py-5 border rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-base sm:text-lg ${
+                  className={`w-full px-4 py-3 sm:py-4 border rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-base sm:text-lg ${
                     errors.daysPerWeek ? 'border-red-500' : isDarkMode ? 'border-gray-600 bg-gray-800 text-white' : 'border-gray-300'
                   } ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''}`}
                 >
@@ -251,7 +251,7 @@ export default function LeadForm({ onSubmit, isDarkMode = false }: LeadFormProps
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className={`w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-bold py-5 sm:py-6 px-8 rounded-xl text-lg sm:text-xl transition-all duration-300 transform hover:scale-105 hover:shadow-xl shadow-lg ${
+                  className={`w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-bold py-4 sm:py-5 px-8 rounded-xl text-lg sm:text-xl transition-all duration-300 transform hover:scale-105 hover:shadow-xl shadow-lg ${
                     isSubmitting ? 'opacity-50 cursor-not-allowed transform-none' : ''
                   }`}
                 >
@@ -277,65 +277,65 @@ export default function LeadForm({ onSubmit, isDarkMode = false }: LeadFormProps
             </form>
           </div>
 
-          {/* Enhanced Sidebar */}
-          <div className="space-y-6">
-            {/* Email Infrastructure Info */}
-            <div className={`rounded-2xl sm:rounded-3xl p-6 border animate-fade-in-up hover-lift ${
+          {/* Compact Sidebar */}
+          <div className="lg:col-span-2 space-y-4 sm:space-y-6">
+            {/* Backend Email Info */}
+            <div className={`rounded-2xl sm:rounded-3xl p-4 sm:p-6 border animate-fade-in-up hover-lift ${
               isDarkMode 
                 ? 'bg-gray-900 border-gray-700' 
                 : 'bg-white border-gray-100'
             }`} style={{ animationDelay: '0.2s' }}>
               <div className="flex items-center mb-4">
-                <CheckCircle className="w-8 h-8 text-green-500 mr-3 animate-bounce" />
-                <h3 className={`text-lg font-bold ${
+                <CheckCircle className="w-6 h-6 sm:w-8 sm:h-8 text-green-500 mr-3 animate-bounce" />
+                <h3 className={`text-base sm:text-lg font-bold ${
                   isDarkMode ? 'text-white' : 'text-gray-900'
                 }`}>
-                  Production Email System
+                  Secure Email System
                 </h3>
               </div>
-              <div className="space-y-3 text-sm">
+              <div className="space-y-2 sm:space-y-3 text-sm">
                 <div className="flex items-center">
                   <div className="w-2 h-2 bg-green-400 rounded-full mr-3 animate-pulse"></div>
                   <span className={isDarkMode ? 'text-gray-300' : 'text-gray-600'}>
-                    Enterprise-grade email delivery
+                    Backend-powered email delivery
                   </span>
                 </div>
                 <div className="flex items-center">
                   <div className="w-2 h-2 bg-green-400 rounded-full mr-3 animate-pulse"></div>
                   <span className={isDarkMode ? 'text-gray-300' : 'text-gray-600'}>
-                    99.9% delivery success rate
+                    No client-side API keys exposed
                   </span>
                 </div>
                 <div className="flex items-center">
                   <div className="w-2 h-2 bg-green-400 rounded-full mr-3 animate-pulse"></div>
                   <span className={isDarkMode ? 'text-gray-300' : 'text-gray-600'}>
-                    Automatic retry on failure
+                    Reliable delivery with retry logic
                   </span>
                 </div>
                 <div className="flex items-center">
                   <div className="w-2 h-2 bg-green-400 rounded-full mr-3 animate-pulse"></div>
                   <span className={isDarkMode ? 'text-gray-300' : 'text-gray-600'}>
-                    Spam folder protection
+                    Professional HTML email format
                   </span>
                 </div>
               </div>
             </div>
 
             {/* Benefits */}
-            <div className={`rounded-2xl sm:rounded-3xl p-6 border animate-fade-in-up hover-lift ${
+            <div className={`rounded-2xl sm:rounded-3xl p-4 sm:p-6 border animate-fade-in-up hover-lift ${
               isDarkMode 
                 ? 'bg-gray-900 border-gray-700' 
                 : 'bg-white border-gray-100'
             }`} style={{ animationDelay: '0.4s' }}>
               <div className="flex items-center mb-4">
-                <Sparkles className="w-8 h-8 text-blue-500 mr-3 animate-spin" />
-                <h3 className={`text-lg font-bold ${
+                <Sparkles className="w-6 h-6 sm:w-8 sm:h-8 text-blue-500 mr-3 animate-spin" />
+                <h3 className={`text-base sm:text-lg font-bold ${
                   isDarkMode ? 'text-white' : 'text-gray-900'
                 }`}>
                   What You'll Get
                 </h3>
               </div>
-              <div className="space-y-3 text-sm">
+              <div className="space-y-2 sm:space-y-3 text-sm">
                 <div className="flex items-start">
                   <CheckCircle className="w-4 h-4 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
                   <span className={isDarkMode ? 'text-gray-300' : 'text-gray-600'}>
@@ -370,12 +370,12 @@ export default function LeadForm({ onSubmit, isDarkMode = false }: LeadFormProps
             </div>
 
             {/* Trust Indicators */}
-            <div className={`rounded-2xl sm:rounded-3xl p-6 border animate-fade-in-up hover-lift ${
+            <div className={`rounded-2xl sm:rounded-3xl p-4 sm:p-6 border animate-fade-in-up hover-lift ${
               isDarkMode 
                 ? 'bg-gray-900 border-gray-700' 
                 : 'bg-white border-gray-100'
             }`} style={{ animationDelay: '0.6s' }}>
-              <h3 className={`text-lg font-bold mb-4 ${
+              <h3 className={`text-base sm:text-lg font-bold mb-4 ${
                 isDarkMode ? 'text-white' : 'text-gray-900'
               }`}>
                 🔒 Your Privacy Matters
@@ -388,7 +388,7 @@ export default function LeadForm({ onSubmit, isDarkMode = false }: LeadFormProps
                   • No spam or promotional emails
                 </p>
                 <p className={isDarkMode ? 'text-gray-300' : 'text-gray-600'}>
-                  • Unsubscribe anytime with one click
+                  • Secure backend processing
                 </p>
                 <p className={isDarkMode ? 'text-gray-300' : 'text-gray-600'}>
                   • GDPR compliant data handling
