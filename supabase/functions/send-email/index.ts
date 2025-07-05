@@ -48,28 +48,38 @@ serve(async (req) => {
     // Generate workout plan
     const workoutPlan = generateWorkoutPlan({ fullName, email, fitnessGoal, daysPerWeek })
 
-    // In a real implementation, you would integrate with an email service like:
-    // - Resend (recommended)
-    // - SendGrid
-    // - AWS SES
-    // - Postmark
+    console.log('Processing email request for:', email)
+    console.log('Workout plan length:', workoutPlan.length)
+
+    // **REAL EMAIL INTEGRATION WITH RESEND**
+    // Get the Resend API key from environment variables
+    const resendApiKey = Deno.env.get('RESEND_API_KEY')
     
-    // For now, we'll simulate the email sending
-    console.log('Sending email to:', email)
-    console.log('Workout plan generated:', workoutPlan.substring(0, 200) + '...')
+    if (!resendApiKey) {
+      console.error('RESEND_API_KEY not found in environment variables')
+      return new Response(
+        JSON.stringify({ 
+          success: false, 
+          message: '❌ Email service not configured. Please contact support.' 
+        }),
+        { 
+          status: 500, 
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' } 
+        }
+      )
+    }
 
-    // Simulate email sending delay
-    await new Promise(resolve => setTimeout(resolve, 1000))
-
-    // In production, replace this with actual email sending logic
-    const emailSent = await sendEmail({
+    // Send email using Resend API
+    const emailSent = await sendEmailWithResend({
+      apiKey: resendApiKey,
       to: email,
       subject: `Your Personalized AI Workout Plan - ${formatGoal(fitnessGoal)}`,
       html: generateEmailHTML(workoutPlan, fullName),
       text: workoutPlan
     })
 
-    if (emailSent) {
+    if (emailSent.success) {
+      console.log('Email sent successfully to:', email)
       return new Response(
         JSON.stringify({ 
           success: true, 
@@ -80,15 +90,25 @@ serve(async (req) => {
         }
       )
     } else {
-      throw new Error('Failed to send email')
+      console.error('Failed to send email:', emailSent.error)
+      return new Response(
+        JSON.stringify({ 
+          success: false, 
+          message: `❌ Failed to send email: ${emailSent.error}. Please try again or contact support.`
+        }),
+        { 
+          status: 500, 
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' } 
+        }
+      )
     }
 
   } catch (error) {
-    console.error('Error sending email:', error)
+    console.error('Error processing email request:', error)
     return new Response(
       JSON.stringify({ 
         success: false, 
-        message: '❌ Failed to send email. Please try again later.' 
+        message: '❌ Server error occurred. Please try again later.' 
       }),
       { 
         status: 500, 
@@ -98,35 +118,59 @@ serve(async (req) => {
   }
 })
 
-// Mock email sending function - replace with real email service
-async function sendEmail({ to, subject, html, text }: { 
+// **REAL EMAIL SENDING WITH RESEND API**
+async function sendEmailWithResend({ 
+  apiKey, 
+  to, 
+  subject, 
+  html, 
+  text 
+}: { 
+  apiKey: string;
   to: string; 
   subject: string; 
   html: string; 
   text: string; 
-}): Promise<boolean> {
-  // This is where you'd integrate with your email service
-  // Example with Resend:
-  /*
-  const resend = new Resend(Deno.env.get('RESEND_API_KEY'))
-  
+}): Promise<{ success: boolean; error?: string }> {
   try {
-    await resend.emails.send({
-      from: 'AI Fit Coach <noreply@yourdomain.com>',
-      to: [to],
-      subject: subject,
-      html: html,
-      text: text,
+    console.log('Sending email via Resend API to:', to)
+    
+    const response = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${apiKey}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        from: 'AI Fit Coach <noreply@aifitcoach.dev>', // Replace with your verified domain
+        to: [to],
+        subject: subject,
+        html: html,
+        text: text,
+      }),
     })
-    return true
+
+    if (!response.ok) {
+      const errorData = await response.text()
+      console.error('Resend API error:', response.status, errorData)
+      return { 
+        success: false, 
+        error: `Email service error (${response.status}): ${errorData}` 
+      }
+    }
+
+    const result = await response.json()
+    console.log('Resend API success:', result)
+    
+    return { success: true }
+    
   } catch (error) {
-    console.error('Resend error:', error)
-    return false
+    console.error('Resend API exception:', error)
+    return { 
+      success: false, 
+      error: `Network error: ${error.message}` 
+    }
   }
-  */
-  
-  // For demo purposes, always return true
-  return true
 }
 
 function formatGoal(goal: string): string {
@@ -149,29 +193,101 @@ function generateEmailHTML(workoutPlan: string, fullName: string): string {
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <title>Your AI Workout Plan</title>
       <style>
-        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px; }
-        .header { background: linear-gradient(135deg, #2563eb, #8b5cf6); color: white; padding: 30px; text-align: center; border-radius: 10px; margin-bottom: 30px; }
-        .content { background: #f9fafb; padding: 30px; border-radius: 10px; white-space: pre-line; }
-        .footer { text-align: center; margin-top: 30px; color: #666; font-size: 14px; }
-        .button { display: inline-block; background: #2563eb; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; margin: 20px 0; }
+        body { 
+          font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+          line-height: 1.6; 
+          color: #333; 
+          max-width: 600px; 
+          margin: 0 auto; 
+          padding: 20px; 
+          background-color: #f8fafc;
+        }
+        .container {
+          background: white;
+          border-radius: 12px;
+          overflow: hidden;
+          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .header { 
+          background: linear-gradient(135deg, #2563eb, #8b5cf6); 
+          color: white; 
+          padding: 40px 30px; 
+          text-align: center; 
+        }
+        .header h1 {
+          margin: 0;
+          font-size: 28px;
+          font-weight: bold;
+        }
+        .header p {
+          margin: 10px 0 0 0;
+          font-size: 16px;
+          opacity: 0.9;
+        }
+        .content { 
+          padding: 40px 30px; 
+          white-space: pre-line; 
+          font-size: 14px;
+          line-height: 1.7;
+        }
+        .footer { 
+          background: #f1f5f9;
+          text-align: center; 
+          padding: 30px; 
+          color: #64748b; 
+          font-size: 14px; 
+          border-top: 1px solid #e2e8f0;
+        }
+        .button { 
+          display: inline-block; 
+          background: #2563eb; 
+          color: white; 
+          padding: 12px 24px; 
+          text-decoration: none; 
+          border-radius: 8px; 
+          margin: 20px 0; 
+          font-weight: 600;
+        }
+        .highlight {
+          background: #eff6ff;
+          padding: 20px;
+          border-radius: 8px;
+          border-left: 4px solid #2563eb;
+          margin: 20px 0;
+        }
+        @media (max-width: 600px) {
+          body { padding: 10px; }
+          .header, .content, .footer { padding: 20px; }
+          .header h1 { font-size: 24px; }
+        }
       </style>
     </head>
     <body>
-      <div class="header">
-        <h1>🤖 AI Fit Coach</h1>
-        <p>Your Personalized Workout Plan is Ready!</p>
-      </div>
-      
-      <div class="content">
-        <p>Hi ${fullName},</p>
-        <p>Thank you for using AI Fit Coach! Here's your personalized workout plan:</p>
+      <div class="container">
+        <div class="header">
+          <h1>🤖 AI Fit Coach</h1>
+          <p>Your Personalized Workout Plan is Ready!</p>
+        </div>
         
-        ${workoutPlan}
-      </div>
-      
-      <div class="footer">
-        <p>Questions? Reply to this email for personalized advice!</p>
-        <p>© 2025 AI Fit Coach. All rights reserved.</p>
+        <div class="content">
+          <div class="highlight">
+            <p><strong>Hi ${fullName},</strong></p>
+            <p>Thank you for using AI Fit Coach! Your personalized workout plan has been generated based on your specific goals and preferences.</p>
+          </div>
+          
+          ${workoutPlan}
+          
+          <div class="highlight">
+            <p><strong>🎯 Ready to Start?</strong></p>
+            <p>Begin with Day 1 of your plan and track your progress. Remember, consistency is key to achieving your fitness goals!</p>
+          </div>
+        </div>
+        
+        <div class="footer">
+          <p><strong>Questions? Need Support?</strong></p>
+          <p>Reply to this email for personalized advice and motivation!</p>
+          <p style="margin-top: 20px; font-size: 12px;">© 2025 AI Fit Coach. All rights reserved.</p>
+        </div>
       </div>
     </body>
     </html>

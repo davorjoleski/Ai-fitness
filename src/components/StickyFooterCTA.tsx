@@ -18,24 +18,25 @@ export default function StickyFooterCTA({ isVisible, onClose, onGetStarted, isDa
       <div className={`${
         isDarkMode ? 'bg-gray-900' : 'bg-white'
       } border-t ${isDarkMode ? 'border-gray-800' : 'border-gray-200'} shadow-2xl`}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-4">
           <div className="flex items-center justify-between">
-            <div className="flex-1">
-              <p className={`text-lg font-semibold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+            <div className="flex-1 min-w-0">
+              <p className={`text-base sm:text-lg font-semibold truncate ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
                 Still thinking? Generate your free AI plan now!
               </p>
-              <p className={`text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+              <p className={`text-xs sm:text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
                 Join 150+ people who transformed their fitness
               </p>
             </div>
             
-            <div className="flex items-center space-x-3">
+            <div className="flex items-center space-x-2 sm:space-x-3 ml-4">
               <button
                 onClick={onGetStarted}
-                className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-bold py-3 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg flex items-center"
+                className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-bold py-2 sm:py-3 px-4 sm:px-6 rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg flex items-center text-sm sm:text-base whitespace-nowrap"
               >
-                Get Free Plan
-                <ArrowRight className="w-5 h-5 ml-2" />
+                <span className="hidden sm:inline">Get Free Plan</span>
+                <span className="sm:hidden">Get Plan</span>
+                <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 ml-1 sm:ml-2" />
               </button>
               
               <button
@@ -47,7 +48,7 @@ export default function StickyFooterCTA({ isVisible, onClose, onGetStarted, isDa
                 }`}
                 aria-label="Close"
               >
-                <X className="w-5 h-5" />
+                <X className="w-4 h-4 sm:w-5 sm:h-5" />
               </button>
             </div>
           </div>
