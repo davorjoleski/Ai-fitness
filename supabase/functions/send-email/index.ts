@@ -50,7 +50,7 @@ Deno.serve(async (req) => {
     console.log('Workout plan length:', workoutPlan.length)
 
     // Check for Resend API key
-    const resendApiKey = Deno.env.get('RESEND_API_KEY')
+    const resendApiKey = Deno.env.get('re_a4SzgM7h_Ni7Q5ZyKCs8frqce8Vp31SNt')
     
     if (!resendApiKey) {
       console.log('RESEND_API_KEY not found - running in demo mode')
