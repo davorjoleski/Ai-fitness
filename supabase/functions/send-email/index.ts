@@ -143,7 +143,7 @@ async function sendEmailWithResend({
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        from: 'AI Fit Coach <noreply@aifitcoach.dev>', // Replace with your verified domain
+        from: 'AI Fit Coach <lively-crisp-5ac264.netlify.app/>', // Replace with your verified domain
         to: [to],
         subject: subject,
         html: html,
