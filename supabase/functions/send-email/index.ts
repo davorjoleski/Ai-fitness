@@ -49,19 +49,21 @@ Deno.serve(async (req) => {
     console.log('Processing email request for:', email)
     console.log('Workout plan length:', workoutPlan.length)
 
-    // **REAL EMAIL INTEGRATION WITH RESEND**
-    // Get the Resend API key from environment variables
+    // Check for Resend API key
     const resendApiKey = Deno.env.get('RESEND_API_KEY')
     
     if (!resendApiKey) {
-      console.error('RESEND_API_KEY not found in environment variables')
+      console.log('RESEND_API_KEY not found - running in demo mode')
+      
+      // Return success with demo message and the workout plan
       return new Response(
         JSON.stringify({ 
-          success: false, 
-          message: '❌ Email service not configured. Please add RESEND_API_KEY to your Supabase Edge Function environment variables.' 
+          success: true, 
+          message: `🎉 Demo Mode: Your personalized AI workout plan has been generated! In production, this would be sent to ${email}.`,
+          workoutPlan: workoutPlan,
+          isDemoMode: true
         }),
         { 
-          status: 500, 
           headers: { ...corsHeaders, 'Content-Type': 'application/json' } 
         }
       )
@@ -81,7 +83,8 @@ Deno.serve(async (req) => {
       return new Response(
         JSON.stringify({ 
           success: true, 
-          message: `🎉 Success! Your personalized AI workout plan has been sent to ${email}. Check your inbox (and spam folder) within the next few minutes.`
+          message: `🎉 Success! Your personalized AI workout plan has been sent to ${email}. Check your inbox (and spam folder) within the next few minutes.`,
+          workoutPlan: workoutPlan
         }),
         { 
           headers: { ...corsHeaders, 'Content-Type': 'application/json' } 

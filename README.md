@@ -1,10 +1,10 @@
-# AI Fitness Website with EmailJS Integration
+# AI Fitness Website with Real Email Integration
 
 A professional AI fitness website featuring real email delivery, live GPT-4 powered chatbot, and comprehensive fitness tools.
 
 ## 🚀 Features
 
-- **Real Email Delivery**: EmailJS integration for sending personalized workout plans
+- **Real Email Delivery**: Resend API integration for sending personalized workout plans
 - **Live AI Chatbot**: Real-time conversations with GPT-4 for personalized fitness advice
 - **Progress Tracking**: Log workouts and track fitness journey
 - **Nutrition Calculator**: BMI, BMR, TDEE, and macro calculations
@@ -26,65 +26,57 @@ Copy `.env.example` to `.env` and configure:
 # OpenAI API Configuration (Optional)
 VITE_OPENAI_API_KEY=your_openai_api_key_here
 
-# EmailJS Configuration (Required for real email sending)
-VITE_EMAILJS_SERVICE_ID=your_emailjs_service_id
-VITE_EMAILJS_TEMPLATE_ID=your_emailjs_template_id
-VITE_EMAILJS_PUBLIC_KEY=your_emailjs_public_key
+# Supabase Configuration (Required)
+VITE_SUPABASE_URL=your_supabase_project_url
+VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
 ```
 
-### 3. EmailJS Setup
+### 3. Supabase Edge Function Setup
 
-1. **Create EmailJS Account**
-   - Go to [EmailJS.com](https://www.emailjs.com/)
-   - Create a free account
+#### 3.1 Deploy the Edge Function
+The `send-email` edge function is already included in this project. It will be automatically deployed when you connect to Supabase.
 
-2. **Add Email Service**
-   - Connect your email provider (Gmail, Outlook, etc.)
-   - Follow the setup instructions for your provider
+#### 3.2 Configure Resend API Key (Required for Production)
 
-3. **Create Email Template**
-   Create a template with these variables:
-   ```
-   {{to_name}} - Recipient's name
-   {{to_email}} - Recipient's email
-   {{fitness_goal}} - User's fitness goal
-   {{days_per_week}} - Training days per week
-   {{workout_plan}} - Generated workout plan
-   {{from_name}} - Sender name (AI Fit Coach)
-   ```
+**For Production Email Sending:**
 
-   Example template:
-   ```
-   Hi {{to_name}},
+1. **Create Resend Account**
+   - Go to [Resend.com](https://resend.com/)
+   - Create a free account (100 emails/day free tier)
 
-   Thank you for using AI Fit Coach! Here's your personalized workout plan:
+2. **Get API Key**
+   - In your Resend dashboard, go to API Keys
+   - Create a new API key
+   - Copy the API key (starts with `re_`)
 
-   {{workout_plan}}
+3. **Add to Supabase Edge Function**
+   - Go to your Supabase Dashboard
+   - Navigate to Edge Functions
+   - Find the `send-email` function
+   - Add environment variable: `RESEND_API_KEY` with your Resend API key
 
-   Best regards,
-   {{from_name}}
-   ```
-
-4. **Get Credentials**
-   - Copy your Service ID, Template ID, and Public Key
-   - Add them to your `.env` file
+4. **Verify Domain (Optional but Recommended)**
+   - In Resend dashboard, add and verify your domain
+   - Update the `from` field in the edge function to use your domain
 
 ### 4. Start Development Server
 ```bash
 npm run dev
 ```
 
-## 📧 Email Template Variables
+## 📧 Demo Mode vs Production Mode
 
-The system sends the following data to your EmailJS template:
+### Demo Mode (Default)
+- **When**: No `RESEND_API_KEY` configured in Supabase Edge Function
+- **Behavior**: Generates workout plans and shows them in the UI
+- **Message**: "Demo Mode: Your personalized AI workout plan has been generated!"
+- **Perfect for**: Testing, development, and demonstrations
 
-- `to_name`: User's full name
-- `to_email`: User's email address
-- `fitness_goal`: Selected fitness goal
-- `days_per_week`: Number of training days
-- `workout_plan`: AI-generated personalized workout plan
-- `from_name`: "AI Fit Coach"
-- `reply_to`: "noreply@aifitcoach.com"
+### Production Mode
+- **When**: `RESEND_API_KEY` is properly configured
+- **Behavior**: Actually sends emails via Resend API
+- **Message**: "Success! Your personalized AI workout plan has been sent to [email]"
+- **Perfect for**: Live websites with real users
 
 ## 🎯 Workout Plan Generation
 
@@ -103,27 +95,28 @@ The system generates personalized workout plans based on:
 
 ## 🔧 Development Features
 
-- **Mock Email Mode**: When EmailJS isn't configured, emails are simulated
+- **Automatic Demo Mode**: When Resend isn't configured, the app works in demo mode
 - **Error Handling**: Graceful fallbacks for API failures
 - **Loading States**: Professional loading animations and feedback
 - **Toast Notifications**: Success/error messages for user feedback
+- **Workout Plan Preview**: Users can see their plan even in demo mode
 
 ## 🚀 Deployment
 
 For production deployment:
 
-1. **Environment Variables**: Set up all environment variables on your hosting platform
-2. **EmailJS Limits**: Free tier has monthly email limits - monitor usage
-3. **Domain Verification**: Add your domain to EmailJS for security
-4. **Analytics**: Consider adding email delivery tracking
+1. **Environment Variables**: Set up Supabase URL and keys
+2. **Resend API Key**: Add `RESEND_API_KEY` to your Supabase Edge Function environment variables
+3. **Domain Verification**: Add your domain to Resend for better deliverability
+4. **Email Limits**: Free tier has monthly limits - monitor usage
 
 ## 💡 Customization
 
 ### Email Templates
-Modify `src/services/emailService.ts` to customize:
+Modify `supabase/functions/send-email/index.ts` to customize:
 - Workout plan generation logic
 - Email content and formatting
-- Template parameters
+- HTML email styling
 
 ### Styling
 - All components support dark mode
@@ -132,10 +125,10 @@ Modify `src/services/emailService.ts` to customize:
 
 ## 🔐 Security
 
-- **Client-side Email**: EmailJS handles email sending securely
-- **No Server Required**: Fully client-side implementation
-- **Rate Limiting**: EmailJS provides built-in rate limiting
-- **Domain Restrictions**: Configure allowed domains in EmailJS
+- **Server-side Email**: Supabase Edge Functions handle email sending securely
+- **API Key Protection**: Resend API key is stored securely in Supabase
+- **Rate Limiting**: Supabase provides built-in rate limiting
+- **CORS Protection**: Proper CORS headers configured
 
 ## 📊 Features Overview
 
@@ -153,33 +146,48 @@ Modify `src/services/emailService.ts` to customize:
 - **TypeScript**: Full type safety
 - **Tailwind CSS**: Utility-first styling
 - **React Hooks**: Modern state management
-- **EmailJS**: Real email delivery
+- **Supabase Edge Functions**: Serverless email delivery
+- **Resend API**: Professional email service
 - **Responsive Design**: Mobile-first approach
 - **Dark Mode**: Complete theme system
 - **Error Handling**: Graceful error management
 
+## 🆘 Troubleshooting
+
+### Email Not Sending (Production)
+1. Check if `RESEND_API_KEY` is set in Supabase Edge Function environment variables
+2. Verify your Resend API key is valid and active
+3. Check Resend dashboard for delivery status and errors
+4. Ensure you haven't exceeded your monthly email limit
+5. Check Supabase Edge Function logs for detailed error messages
+
+### Demo Mode Issues
+1. Demo mode is normal when `RESEND_API_KEY` is not configured
+2. Workout plans are still generated and displayed
+3. Check browser console for any JavaScript errors
+4. Ensure Supabase connection is working
+
+### Development Mode
+- The app works fully in demo mode without any email configuration
+- All functionality works except actual email delivery
+- Perfect for development and testing
+
 ## 📄 License
 
 This project is for educational and commercial use. Please ensure you comply with:
+- Resend's terms of service for email delivery
+- Supabase's usage policies
 - OpenAI's usage policies when using their API
-- EmailJS terms of service for email delivery
 - Respect user privacy and data protection laws
 
-## 🆘 Troubleshooting
+## 🔄 Migration from EmailJS
 
-### Email Not Sending
-1. Check EmailJS credentials in `.env`
-2. Verify template variables match
-3. Check EmailJS dashboard for errors
-4. Ensure domain is whitelisted
+This project has been updated to use Supabase Edge Functions with Resend API instead of EmailJS for better reliability and security. The key improvements include:
 
-### API Errors
-1. Check browser console for detailed errors
-2. Verify EmailJS service is active
-3. Check monthly usage limits
-4. Test with EmailJS dashboard
+- **Server-side Processing**: More secure than client-side email sending
+- **Better Error Handling**: Detailed error messages and fallbacks
+- **Demo Mode**: Works without configuration for development
+- **Professional Email Service**: Resend provides better deliverability than EmailJS
+- **No Client-side API Keys**: All sensitive keys are stored securely in Supabase
 
-### Development Mode
-- Without EmailJS config, emails are simulated
-- Check console for mock email content
-- All functionality works except actual email delivery
+If you're migrating from the EmailJS version, simply follow the setup instructions above to configure Resend API.
