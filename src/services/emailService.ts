@@ -33,23 +33,8 @@ export class EmailService {
       throw new Error('Full name is required');
     }
     
-    // Enhanced name validation
-    if (data.fullName.trim().length < 2 || data.fullName.trim().length > 100) {
-      throw new Error('Name must be between 2 and 100 characters');
-    }
-    
-    // Check for potentially malicious content
-    if (/<script|javascript:|data:|vbscript:/i.test(data.fullName)) {
-      throw new Error('Invalid characters in name');
-    }
-    
     if (!data.email?.trim() || !emailRegex.test(data.email)) {
       throw new Error('Valid email address is required');
-    }
-    
-    // Enhanced email validation
-    if (data.email.length > 254) {
-      throw new Error('Email address is too long');
     }
     
     if (!data.fitnessGoal?.trim()) {
@@ -60,30 +45,16 @@ export class EmailService {
       throw new Error('Training days per week is required');
     }
     
-    // Validate days per week is a number between 1-7
-    const days = parseInt(data.daysPerWeek);
-    if (isNaN(days) || days < 1 || days > 7) {
-      throw new Error('Training days must be between 1 and 7');
-    }
-    
     return true;
   }
 
   async sendWorkoutPlan(data: EmailData): Promise<EmailResponse> {
     try {
-      // Validate and sanitize input data
+      // Validate input data
       this.validateEmailData(data);
 
-      // Sanitize inputs to prevent XSS
-      const sanitizedData = {
-        fullName: data.fullName.trim().replace(/[<>]/g, ''),
-        email: data.email.trim().toLowerCase(),
-        fitnessGoal: data.fitnessGoal,
-        daysPerWeek: data.daysPerWeek
-      };
-
       // Attempt to send email with retry logic
-      return await this.sendEmailWithRetry(sanitizedData);
+      return await this.sendEmailWithRetry(data);
       
     } catch (error) {
       console.error('Email service error:', error);
@@ -145,10 +116,6 @@ export class EmailService {
       headers['Authorization'] = `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`;
     }
 
-    // Add security headers
-    headers['X-Requested-With'] = 'XMLHttpRequest';
-    headers['X-Client-Version'] = '1.0.0';
-
     console.log('Sending email request to backend:', {
       ...data,
       email: data.email.substring(0, 3) + '***' // Mask email for logging
@@ -189,11 +156,10 @@ export class EmailService {
   }
 
   // Get configuration status
-  public getStatus(): { configured: boolean; service: string; secure: boolean } {
+  public getStatus(): { configured: boolean; service: string } {
     return {
       configured: !!this.baseUrl,
-      service: 'Backend Email Service with Resend API',
-      secure: this.baseUrl.startsWith('https://')
+      service: 'Backend Email Service'
     };
   }
 }
