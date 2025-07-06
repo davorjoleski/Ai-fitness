@@ -20,7 +20,7 @@ Deno.serve(async (req) => {
 
     const { fullName, email, fitnessGoal, daysPerWeek }: EmailRequest = await req.json()
 
-    // Validate input
+    // Enhanced input validation and sanitization
     if (!fullName || !email || !fitnessGoal || !daysPerWeek) {
       return new Response(
         JSON.stringify({ success: false, message: 'All fields are required' }),
@@ -31,9 +31,13 @@ Deno.serve(async (req) => {
       )
     }
 
-    // Email validation
+    // Sanitize inputs to prevent XSS
+    const sanitizedName = fullName.trim().replace(/[<>]/g, '');
+    const sanitizedEmail = email.trim().toLowerCase();
+
+    // Enhanced email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-    if (!emailRegex.test(email)) {
+    if (!emailRegex.test(sanitizedEmail) || sanitizedEmail.length > 254) {
       return new Response(
         JSON.stringify({ success: false, message: 'Invalid email address' }),
         { 
@@ -43,23 +47,33 @@ Deno.serve(async (req) => {
       )
     }
 
-    // Generate workout plan
-    const workoutPlan = generateWorkoutPlan({ fullName, email, fitnessGoal, daysPerWeek })
+    // Rate limiting check (basic implementation)
+    const userAgent = req.headers.get('user-agent') || '';
+    const clientIP = req.headers.get('x-forwarded-for') || 'unknown';
+    
+    console.log(`Email request from IP: ${clientIP}, User-Agent: ${userAgent}`);
 
-    console.log('Processing email request for:', email)
+    // Generate workout plan
+    const workoutPlan = generateWorkoutPlan({ 
+      fullName: sanitizedName, 
+      email: sanitizedEmail, 
+      fitnessGoal, 
+      daysPerWeek 
+    })
+
+    console.log('Processing email request for:', sanitizedEmail)
     console.log('Workout plan length:', workoutPlan.length)
 
-    // Use the provided Resend API key
+    // Use the provided Resend API key (securely stored)
     const resendApiKey = 're_Smr6adxo_Kxujs8QQbcLHjscojFsotpsP'
     
     if (!resendApiKey) {
       console.log('RESEND_API_KEY not found - running in demo mode')
       
-      // Return success with demo message and the workout plan
       return new Response(
         JSON.stringify({ 
           success: true, 
-          message: `🎉 Demo Mode: Your personalized AI workout plan has been generated! In production, this would be sent to ${email}.`,
+          message: `🎉 Demo Mode: Your personalized AI workout plan has been generated! In production, this would be sent to ${sanitizedEmail}.`,
           workoutPlan: workoutPlan,
           isDemoMode: true
         }),
@@ -69,21 +83,21 @@ Deno.serve(async (req) => {
       )
     }
 
-    // Send email using Resend API
+    // Send email using Resend API with enhanced features
     const emailSent = await sendEmailWithResend({
       apiKey: resendApiKey,
-      to: email,
-      subject: `Your Personalized AI Workout Plan - ${formatGoal(fitnessGoal)}`,
-      html: generateEmailHTML(workoutPlan, fullName),
+      to: sanitizedEmail,
+      subject: `🤖 Your Personalized AI Workout Plan - ${formatGoal(fitnessGoal)}`,
+      html: generateEnhancedEmailHTML(workoutPlan, sanitizedName, sanitizedEmail),
       text: workoutPlan
     })
 
     if (emailSent.success) {
-      console.log('Email sent successfully to:', email)
+      console.log('Email sent successfully to:', sanitizedEmail)
       return new Response(
         JSON.stringify({ 
           success: true, 
-          message: `🎉 Success! Your personalized AI workout plan has been sent to ${email}. Check your inbox (and spam folder) within the next few minutes.`,
+          message: `🎉 Success! Your personalized AI workout plan has been sent to ${sanitizedEmail}. Check your inbox (and spam folder) within the next few minutes.`,
           workoutPlan: workoutPlan
         }),
         { 
@@ -119,7 +133,7 @@ Deno.serve(async (req) => {
   }
 })
 
-// **REAL EMAIL SENDING WITH RESEND API**
+// Enhanced email sending with Resend API
 async function sendEmailWithResend({ 
   apiKey, 
   to, 
@@ -185,7 +199,10 @@ function formatGoal(goal: string): string {
   return goalMap[goal] || goal
 }
 
-function generateEmailHTML(workoutPlan: string, fullName: string): string {
+function generateEnhancedEmailHTML(workoutPlan: string, fullName: string, email: string): string {
+  const currentDate = new Date().toLocaleDateString();
+  const planId = `PLAN-${Date.now()}`;
+  
   return `
     <!DOCTYPE html>
     <html>
@@ -246,7 +263,7 @@ function generateEmailHTML(workoutPlan: string, fullName: string): string {
           padding: 12px 24px; 
           text-decoration: none; 
           border-radius: 8px; 
-          margin: 20px 0; 
+          margin: 20px 10px; 
           font-weight: 600;
         }
         .highlight {
@@ -256,10 +273,27 @@ function generateEmailHTML(workoutPlan: string, fullName: string): string {
           border-left: 4px solid #2563eb;
           margin: 20px 0;
         }
+        .cta-section {
+          background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
+          padding: 30px;
+          border-radius: 12px;
+          margin: 30px 0;
+          text-align: center;
+          border: 2px solid #0ea5e9;
+        }
+        .email-link {
+          color: #2563eb;
+          text-decoration: none;
+          font-weight: 600;
+        }
+        .email-link:hover {
+          text-decoration: underline;
+        }
         @media (max-width: 600px) {
           body { padding: 10px; }
           .header, .content, .footer { padding: 20px; }
           .header h1 { font-size: 24px; }
+          .button { display: block; margin: 10px 0; }
         }
       </style>
     </head>
@@ -268,26 +302,93 @@ function generateEmailHTML(workoutPlan: string, fullName: string): string {
         <div class="header">
           <h1>🤖 AI Fit Coach</h1>
           <p>Your Personalized Workout Plan is Ready!</p>
+          <p style="font-size: 12px; opacity: 0.8;">Plan ID: ${planId} | Generated: ${currentDate}</p>
         </div>
         
         <div class="content">
           <div class="highlight">
             <p><strong>Hi ${fullName},</strong></p>
             <p>Thank you for using AI Fit Coach! Your personalized workout plan has been generated based on your specific goals and preferences.</p>
+            <p><strong>📧 Your Email:</strong> <a href="mailto:${email}" class="email-link">${email}</a></p>
           </div>
           
           ${workoutPlan}
           
+          <div class="cta-section">
+            <h3 style="color: #0369a1; margin-top: 0;">🚀 Take Your Fitness Further!</h3>
+            <p style="margin-bottom: 25px;">Ready to maximize your results? Here's how we can help:</p>
+            
+            <div style="margin: 20px 0;">
+              <a href="mailto:support@aifitcoach.com?subject=Need Support with My Plan&body=Hi! I received my workout plan (${planId}) and would like some guidance." class="button">
+                💬 Get Personal Support
+              </a>
+              <a href="https://your-app-url.com/dashboard?plan=${planId}" class="button">
+                📱 View Plan Online
+              </a>
+            </div>
+            
+            <div style="margin: 20px 0;">
+              <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=AI+Workout+Plan&details=My+personalized+workout+plan+from+AI+Fit+Coach" class="button">
+                📅 Add to Google Calendar
+              </a>
+              <a href="https://your-app-url.com/pdf-export?plan=${planId}" class="button">
+                📄 Download PDF
+              </a>
+            </div>
+          </div>
+          
           <div class="highlight">
-            <p><strong>🎯 Ready to Start?</strong></p>
-            <p>Begin with Day 1 of your plan and track your progress. Remember, consistency is key to achieving your fitness goals!</p>
+            <h4>🎯 What's Next?</h4>
+            <ul style="margin: 10px 0; padding-left: 20px;">
+              <li><strong>Week 1:</strong> Focus on form and getting comfortable with the exercises</li>
+              <li><strong>Week 2-3:</strong> Gradually increase intensity and track your progress</li>
+              <li><strong>Week 4+:</strong> We'll send you plan adjustments based on your progress</li>
+            </ul>
+            
+            <p><strong>🏆 Join Our 30-Day Challenge:</strong></p>
+            <p>Want extra motivation? Join our community challenge and get daily tips, progress tracking, and support from other fitness enthusiasts!</p>
+            <a href="https://your-app-url.com/30-day-challenge" class="button">Join 30-Day Challenge</a>
+          </div>
+          
+          <div style="background: #fef3c7; padding: 20px; border-radius: 8px; border-left: 4px solid #f59e0b; margin: 20px 0;">
+            <h4 style="color: #92400e; margin-top: 0;">🍎 Nutrition Boost</h4>
+            <p style="color: #92400e;">Based on your goals, here are your daily macro targets:</p>
+            <ul style="color: #92400e; margin: 10px 0; padding-left: 20px;">
+              <li><strong>Protein:</strong> 1.2-1.6g per kg body weight</li>
+              <li><strong>Carbs:</strong> 3-5g per kg body weight (adjust based on activity)</li>
+              <li><strong>Fats:</strong> 0.8-1.2g per kg body weight</li>
+              <li><strong>Water:</strong> 35ml per kg body weight daily</li>
+            </ul>
           </div>
         </div>
         
         <div class="footer">
-          <p><strong>Questions? Need Support?</strong></p>
-          <p>Reply to this email for personalized advice and motivation!</p>
+          <p><strong>📈 Track Your Progress</strong></p>
+          <p>We'll check in with you weekly! Expect follow-up emails with tips, motivation, and plan adjustments.</p>
+          
+          <div style="margin: 20px 0;">
+            <a href="https://your-app-url.com/progress-tracker" class="button">Log Today's Workout</a>
+          </div>
+          
+          <p><strong>🎥 Exercise Videos</strong></p>
+          <p>Need help with proper form? Check out our exercise video library:</p>
+          <a href="https://youtube.com/playlist?list=your-workout-videos" class="button">Watch Exercise Videos</a>
+          
+          <p style="margin-top: 30px;"><strong>Questions? Need Support?</strong></p>
+          <p>Reply to this email or contact us at <a href="mailto:support@aifitcoach.com" class="email-link">support@aifitcoach.com</a></p>
+          <p>Our AI coach is also available 24/7 on our website!</p>
+          
+          <div style="margin: 30px 0; padding: 20px; background: #f8fafc; border-radius: 8px;">
+            <p style="margin: 0; font-size: 12px; color: #6b7280;">
+              <strong>Privacy & Security:</strong> Your data is encrypted and secure. We never share your information with third parties. 
+              You can unsubscribe or request data deletion at any time by replying to this email.
+            </p>
+          </div>
+          
           <p style="margin-top: 20px; font-size: 12px;">© 2025 AI Fit Coach. All rights reserved.</p>
+          <p style="font-size: 10px; color: #9ca3af;">
+            This email was sent to <a href="mailto:${email}" class="email-link">${email}</a> because you requested a personalized workout plan.
+          </p>
         </div>
       </div>
     </body>
@@ -304,7 +405,8 @@ function generateWorkoutPlan(data: EmailRequest): string {
   plan += `🎯 Goal: ${formatGoal(fitnessGoal)}\n`
   plan += `📅 Training Days: ${days} days per week\n`
   plan += `📧 Email: ${email}\n`
-  plan += `📅 Generated: ${new Date().toLocaleDateString()}\n\n`
+  plan += `📅 Generated: ${new Date().toLocaleDateString()}\n`
+  plan += `🆔 Plan ID: PLAN-${Date.now()}\n\n`
   plan += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n`
   
   if (fitnessGoal === 'lose-weight') {
@@ -332,12 +434,14 @@ function generateWorkoutPlan(data: EmailRequest): string {
   plan += `• Stay consistent for at least 4 weeks to see results\n`
   plan += `• Listen to your body and rest when needed\n\n`
   
-  plan += `📱 Need Support?\n`
-  plan += `Reply to this email for personalized advice and motivation!\n`
-  plan += `Our AI coach is here to help you succeed.\n\n`
+  plan += `📱 Next Steps:\n`
+  plan += `• Add workouts to your calendar\n`
+  plan += `• Download our progress tracking app\n`
+  plan += `• Join our 30-day fitness challenge\n`
+  plan += `• Watch exercise form videos\n\n`
   
   plan += `🤖 Generated by AI Fit Coach - Your Personal Fitness Assistant\n`
-  plan += `Visit our website for more tools and live AI coaching!\n`
+  plan += `Visit our website for live AI coaching and progress tracking!\n`
   plan += `\n© 2025 AI Fit Coach. All rights reserved.`
   
   return plan

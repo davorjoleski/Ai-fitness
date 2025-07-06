@@ -80,11 +80,11 @@ export default function LiveChatbot({ isDarkMode = false }: LiveChatbotProps) {
 
   return (
     <>
-      {/* Enhanced Chat Toggle Button */}
-      <div className="fixed bottom-6 right-6 z-50">
+      {/* Enhanced Chat Toggle Button - Positioned above "Get Plan" */}
+      <div className="fixed bottom-20 right-6 z-50">
         {/* Notification Badge */}
         {!isOpen && (
-          <div className="absolute -top-2 -left-2 w-6 h-6 bg-gradient-to-r from-red-500 to-pink-500 rounded-full flex items-center justify-center">
+          <div className="absolute -top-2 -left-2 w-6 h-6 bg-gradient-to-r from-red-500 to-pink-500 rounded-full flex items-center justify-center animate-bounce">
             <Sparkles className="w-3 h-3 text-white" />
           </div>
         )}
@@ -111,9 +111,9 @@ export default function LiveChatbot({ isDarkMode = false }: LiveChatbotProps) {
         </button>
       </div>
 
-      {/* Enhanced Chat Window - Increased Height */}
+      {/* Enhanced Chat Window - Positioned to the right and increased height */}
       {isOpen && (
-        <div className={`fixed bottom-24 right-6 z-40 w-96 max-w-[calc(100vw-3rem)] h-[700px] rounded-2xl shadow-2xl border flex flex-col overflow-hidden ${
+        <div className={`fixed bottom-40 right-6 z-40 w-96 max-w-[calc(100vw-3rem)] h-[750px] rounded-2xl shadow-2xl border flex flex-col overflow-hidden ${
           isDarkMode 
             ? 'bg-gray-800 border-gray-700' 
             : 'bg-white border-gray-200'
@@ -166,8 +166,8 @@ export default function LiveChatbot({ isDarkMode = false }: LiveChatbotProps) {
             </div>
           )}
 
-          {/* Messages - Increased Height */}
-          <div className="flex-1 overflow-y-auto p-4 space-y-4" style={{ maxHeight: 'calc(700px - 200px)' }}>
+          {/* Messages - Increased height */}
+          <div className="flex-1 overflow-y-auto p-4 space-y-4" style={{ maxHeight: 'calc(750px - 200px)' }}>
             {/* Quick Tips (shown initially) */}
             {showQuickTips && messages.length <= 1 && (
               <div className="space-y-3 animate-fade-in-up">
