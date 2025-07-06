@@ -1,5 +1,5 @@
 import React from 'react';
-import { Moon, Sun, Sparkles } from 'lucide-react';
+import { Moon, Sun } from 'lucide-react';
 
 interface HeaderProps {
   isDarkMode: boolean;
@@ -22,18 +22,13 @@ export default function Header({ isDarkMode, toggleDarkMode }: HeaderProps) {
         <div className="flex items-center justify-between h-20 sm:h-24">
           {/* Professional Logo - Responsive sizing */}
           <div className="flex items-center group cursor-pointer">
-            <div className="relative mr-3 sm:mr-4">
+            <div className="relative mr-3 sm:mr-4 flex items-center justify-center">
               {/* Custom Logo Image - Responsive sizing */}
               <img 
                 src="/b73ab801-e2d5-4796-9eb3-ebfddc37e118.png" 
                 alt="AI Fit Coach Logo" 
                 className="h-12 sm:h-16 lg:h-20 w-auto transform group-hover:scale-110 transition-all duration-300 animate-pulse-subtle"
               />
-              
-              {/* Floating sparkle effect */}
-              <div className="absolute -top-1 -right-1 w-4 h-4 sm:w-5 sm:h-5 text-yellow-400 animate-wiggle">
-                <Sparkles className="w-4 h-4 sm:w-5 sm:h-5" />
-              </div>
             </div>
             
             <div>
@@ -73,7 +68,7 @@ export default function Header({ isDarkMode, toggleDarkMode }: HeaderProps) {
             {/* Dark Mode Toggle */}
             <button
               onClick={toggleDarkMode}
-              className={`p-2 sm:p-3 rounded-xl transition-all duration-300 transform hover:scale-110 animate-pulse-subtle relative overflow-hidden ${
+              className={`p-2 sm:p-3 rounded-xl transition-all duration-300 transform hover:scale-110 animate-pulse-subtle relative overflow-hidden flex items-center justify-center ${
                 isDarkMode 
                   ? 'bg-gradient-to-br from-gray-700 to-gray-900 text-blue-300 shadow-lg' 
                   : 'bg-gradient-to-br from-yellow-400 to-orange-500 text-white shadow-lg'
@@ -82,7 +77,7 @@ export default function Header({ isDarkMode, toggleDarkMode }: HeaderProps) {
             >
               <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent"></div>
               
-              <div className="relative z-10">
+              <div className="relative z-10 flex items-center justify-center">
                 {isDarkMode ? (
                   <Moon className="w-4 h-4 sm:w-5 sm:h-5 animate-float" />
                 ) : (
@@ -99,7 +94,6 @@ export default function Header({ isDarkMode, toggleDarkMode }: HeaderProps) {
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-pulse"></div>
               
               <span className="relative z-10 flex items-center">
-                <Sparkles className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2 animate-spin" />
                 <span className="hidden sm:inline">Get Started</span>
                 <span className="sm:hidden">Start</span>
               </span>

@@ -109,13 +109,11 @@ export default function LiveChatbot({ isDarkMode = false }: LiveChatbotProps) {
             </div>
           )}
         </button>
-        
-       
       </div>
 
-      {/* Enhanced Chat Window */}
+      {/* Enhanced Chat Window - Increased Height */}
       {isOpen && (
-        <div className={`fixed bottom-24 right-6 z-40 w-96 max-w-[calc(100vw-3rem)] h-[600px] rounded-2xl shadow-2xl border flex flex-col overflow-hidden ${
+        <div className={`fixed bottom-24 right-6 z-40 w-96 max-w-[calc(100vw-3rem)] h-[700px] rounded-2xl shadow-2xl border flex flex-col overflow-hidden ${
           isDarkMode 
             ? 'bg-gray-800 border-gray-700' 
             : 'bg-white border-gray-200'
@@ -168,8 +166,8 @@ export default function LiveChatbot({ isDarkMode = false }: LiveChatbotProps) {
             </div>
           )}
 
-          {/* Messages */}
-          <div className="flex-1 overflow-y-auto p-4 space-y-4">
+          {/* Messages - Increased Height */}
+          <div className="flex-1 overflow-y-auto p-4 space-y-4" style={{ maxHeight: 'calc(700px - 200px)' }}>
             {/* Quick Tips (shown initially) */}
             {showQuickTips && messages.length <= 1 && (
               <div className="space-y-3 animate-fade-in-up">

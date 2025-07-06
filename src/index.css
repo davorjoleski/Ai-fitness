@@ -419,11 +419,11 @@
   
   /* Better spacing on mobile */
   .space-y-6 > * + * {
-    margin-top: 1rem;
+    margin-top: 1.5rem;
   }
   
   .space-y-8 > * + * {
-    margin-top: 1.5rem;
+    margin-top: 2rem;
   }
   
   /* Responsive padding */
@@ -433,13 +433,13 @@
   }
   
   .py-12 {
-    padding-top: 2rem;
-    padding-bottom: 2rem;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
   }
   
   /* Better form spacing on mobile */
   .grid.sm\\:grid-cols-2 {
-    gap: 1rem;
+    gap: 1.5rem;
   }
 }
 
@@ -457,8 +457,8 @@
   
   /* Better button sizing on mobile */
   .py-5 {
-    padding-top: 0.875rem;
-    padding-bottom: 0.875rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
   }
   
   .px-16 {
@@ -468,7 +468,7 @@
   
   /* Improved form layout on mobile */
   .grid.lg\\:grid-cols-5 {
-    gap: 1.5rem;
+    gap: 2rem;
   }
   
   /* Better card spacing */
@@ -477,20 +477,44 @@
   }
   
   .p-6 {
-    padding: 1rem;
+    padding: 1.5rem;
   }
   
   /* Responsive text sizes */
   .text-3xl {
-    font-size: 1.5rem;
-  }
-  
-  .text-4xl {
     font-size: 1.75rem;
   }
   
-  .text-5xl {
+  .text-4xl {
     font-size: 2rem;
+  }
+  
+  .text-5xl {
+    font-size: 2.5rem;
+  }
+  
+  /* Better mobile spacing */
+  .mb-6 {
+    margin-bottom: 2rem;
+  }
+  
+  .mb-8 {
+    margin-bottom: 2.5rem;
+  }
+  
+  .mb-12 {
+    margin-bottom: 3rem;
+  }
+  
+  /* Improved mobile padding */
+  .py-16 {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+  }
+  
+  .py-20 {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
   }
 }
 
@@ -729,63 +753,119 @@ html {
   input[type="email"],
   select {
     font-size: 16px; /* Prevents zoom on iOS */
-    padding: 0.875rem 1rem;
+    padding: 1rem;
   }
   
   /* Improved button sizing */
   button {
-    padding: 0.875rem 1.5rem;
+    padding: 1rem 1.5rem;
     font-size: 1rem;
   }
   
   /* Better spacing for form sections */
   .space-y-6 > * + * {
-    margin-top: 1.25rem;
+    margin-top: 1.5rem;
   }
   
   /* Responsive grid adjustments */
   .grid.sm\\:grid-cols-2 {
     grid-template-columns: 1fr;
-    gap: 1.25rem;
+    gap: 1.5rem;
   }
   
   /* Better card padding on mobile */
   .p-6.sm\\:p-8 {
-    padding: 1.25rem;
+    padding: 1.5rem;
   }
   
   /* Improved text sizing */
   .text-lg.sm\\:text-xl {
-    font-size: 1rem;
+    font-size: 1.125rem;
   }
   
   .text-xl.sm\\:text-2xl {
-    font-size: 1.125rem;
+    font-size: 1.25rem;
   }
 }
 
 /* Ultra-small screen optimizations */
 @media (max-width: 375px) {
   .px-4 {
-    padding-left: 0.75rem;
-    padding-right: 0.75rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
   }
   
   .text-3xl {
-    font-size: 1.25rem;
-  }
-  
-  .text-4xl {
     font-size: 1.5rem;
   }
   
+  .text-4xl {
+    font-size: 1.75rem;
+  }
+  
   .py-5 {
-    padding-top: 0.75rem;
-    padding-bottom: 0.75rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
   }
   
   .px-16 {
     padding-left: 1.5rem;
     padding-right: 1.5rem;
+  }
+}
+
+/* Better mobile spacing and layout */
+@media (max-width: 640px) {
+  /* Improved container spacing */
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  /* Better section spacing */
+  .py-12 {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
+  
+  .py-16 {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+  }
+  
+  .py-20 {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+  }
+  
+  /* Improved margin spacing */
+  .mb-8 {
+    margin-bottom: 2rem;
+  }
+  
+  .mb-12 {
+    margin-bottom: 3rem;
+  }
+  
+  .mb-16 {
+    margin-bottom: 4rem;
+  }
+  
+  /* Better gap spacing */
+  .gap-6 {
+    gap: 1.5rem;
+  }
+  
+  .gap-8 {
+    gap: 2rem;
+  }
+  
+  /* Responsive flex spacing */
+  .space-x-6 > * + * {
+    margin-left: 1.5rem;
+  }
+  
+  .space-x-8 > * + * {
+    margin-left: 2rem;
   }
 }

@@ -49,8 +49,8 @@ Deno.serve(async (req) => {
     console.log('Processing email request for:', email)
     console.log('Workout plan length:', workoutPlan.length)
 
-    // Check for Resend API key
-    const resendApiKey = Deno.env.get('re_a4SzgM7h_Ni7Q5ZyKCs8frqce8Vp31SNt')
+    // Use the provided Resend API key
+    const resendApiKey = 're_Smr6adxo_Kxujs8QQbcLHjscojFsotpsP'
     
     if (!resendApiKey) {
       console.log('RESEND_API_KEY not found - running in demo mode')
@@ -143,7 +143,7 @@ async function sendEmailWithResend({
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        from: 'AI Fit Coach <lively-crisp-5ac264.netlify.app/>', // Replace with your verified domain
+        from: 'AI Fit Coach <noreply@resend.dev>',
         to: [to],
         subject: subject,
         html: html,
