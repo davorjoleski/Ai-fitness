@@ -50,7 +50,7 @@ Deno.serve(async (req) => {
     console.log('Workout plan length:', workoutPlan.length)
 
     // Use the provided Resend API key
-    const resendApiKey = 'AIre_2SeMDkmU_2E5zmBijwpqPkvYiFX4i6dbx'
+    const resendApiKey = 're_2SeMDkmU_2E5zmBijwpqPkvYiFX4i6dbx'
     
     console.log('Using Resend API key for email delivery')
     
