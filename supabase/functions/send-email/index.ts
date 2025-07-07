@@ -52,8 +52,11 @@ Deno.serve(async (req) => {
     // Use the provided Resend API key
       const resendApiKey = Deno.env.get("re_2SeMDkmU_2E5zmBijwpqPkvYiFX4i6dbx");
     
-    console.log('Using Resend API key for email delivery')
-    
+      if (!resendApiKey) {
+          throw new Error("Missing RESEND_API_KEY environment variable");
+        }
+
+console.log('Using Resend API key for email delivery');
     // Send email using Resend API
     const emailSent = await sendEmailWithResend({
       apiKey: resendApiKey,
