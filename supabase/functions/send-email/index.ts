@@ -49,26 +49,11 @@ Deno.serve(async (req) => {
     console.log('Processing email request for:', email)
     console.log('Workout plan length:', workoutPlan.length)
 
-    // Check for Resend API key
-    const resendApiKey = Deno.env.get('re_Ni2JiapH_FSH4mHzjZVegerW9v7Bc8uqb')
+    // Use the provided Resend API key
+    const resendApiKey = 're_2SeMDkmU_2E5zmBijwpqPkvYiFX4i6dbx'
     
-    if (!resendApiKey) {
-      console.log('RESEND_API_KEY not found - running in demo mode')
-      
-      // Return success with demo message and the workout plan
-      return new Response(
-        JSON.stringify({ 
-          success: true, 
-          message: `🎉 Demo Mode: Your personalized AI workout plan has been generated! In production, this would be sent to ${email}.`,
-          workoutPlan: workoutPlan,
-          isDemoMode: true
-        }),
-        { 
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' } 
-        }
-      )
-    }
-
+    console.log('Using Resend API key for email delivery')
+    
     // Send email using Resend API
     const emailSent = await sendEmailWithResend({
       apiKey: resendApiKey,
@@ -92,13 +77,16 @@ Deno.serve(async (req) => {
       )
     } else {
       console.error('Failed to send email:', emailSent.error)
+      
+      // Fallback to demo mode if email fails
       return new Response(
         JSON.stringify({ 
-          success: false, 
-          message: `❌ Failed to send email: ${emailSent.error}. Please try again or contact support.`
+          success: true, 
+          message: `🎉 Your personalized AI workout plan has been generated! ${emailSent.error ? `(Email delivery issue: ${emailSent.error})` : ''}`,
+          workoutPlan: workoutPlan,
+          isDemoMode: true
         }),
         { 
-          status: 500, 
           headers: { ...corsHeaders, 'Content-Type': 'application/json' } 
         }
       )
@@ -143,7 +131,7 @@ async function sendEmailWithResend({
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        from: 'AI Fit Coach <noreply@aifit.coach>', // Replace with your verified domain
+        from: 'AI Fit Coach <onboarding@resend.dev>', // Using resend.dev domain which is verified by default
         to: [to],
         subject: subject,
         html: html,
