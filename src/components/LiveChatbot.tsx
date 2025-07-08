@@ -113,15 +113,11 @@ export default function LiveChatbot({ isDarkMode = false }: LiveChatbotProps) {
 
       {/* Enhanced Chat Window - Positioned to the right and increased height */}
       {isOpen && (
-    <div className={`fixed bottom-40 right-6 z-40 
-  w-[95vw] max-w-md 
-  h-[85vh] sm:h-[650px] md:h-[700px] lg:h-[750px] 
-  rounded-2xl shadow-2xl border flex flex-col overflow-hidden ${
-    isDarkMode 
-      ? 'bg-gray-800 border-gray-700' 
-      : 'bg-white border-gray-200'
-  }`}>
-
+        <div className={`fixed bottom-40 right-6 z-40 w-96 max-w-[calc(100vw-3rem)] h-[450px] rounded-2xl shadow-2xl border flex flex-col overflow-hidden ${
+          isDarkMode 
+            ? 'bg-gray-800 border-gray-700' 
+            : 'bg-white border-gray-200'
+        }`}>
           {/* Enhanced Header */}
           <div className="bg-gradient-to-r from-blue-500 via-purple-600 to-pink-500 text-white p-4 relative overflow-hidden">
             {/* Animated background pattern */}
@@ -171,7 +167,7 @@ export default function LiveChatbot({ isDarkMode = false }: LiveChatbotProps) {
           )}
 
           {/* Messages - Increased height */}
-          <div className="flex-1 overflow-y-auto p-4 space-y-4" style={{ maxHeight: 'calc(100% - 200px)' }}>
+          <div className="flex-1 overflow-y-auto p-4 space-y-4" style={{ maxHeight: 'calc(750px - 200px)' }}>
             {/* Quick Tips (shown initially) */}
             {showQuickTips && messages.length <= 1 && (
               <div className="space-y-3 animate-fade-in-up">
@@ -316,26 +312,6 @@ export default function LiveChatbot({ isDarkMode = false }: LiveChatbotProps) {
           </form>
         </div>
       )}
-
-/* Responsive chat window adjustments */
-@media (max-width: 768px) {
-  .fixed.bottom-40.right-6.z-40 {
-    bottom: 20px;
-    right: 4px;
-    left: 4px;
-    width: auto;
-    max-width: none;
-    height: 70vh;
-    max-height: 500px;
-  }
-}
-
-@media (max-width: 640px) {
-  .fixed.bottom-40.right-6.z-40 {
-    height: 60vh;
-    max-height: 400px;
-  }
-}
     </>
   );
 }
