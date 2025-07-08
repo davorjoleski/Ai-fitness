@@ -113,8 +113,15 @@ export default function LiveChatbot({ isDarkMode = false }: LiveChatbotProps) {
 
       {/* Enhanced Chat Window - Positioned to the right and increased height */}
       {isOpen && (
-  <div className="fixed bottom-16 right-4 sm:right-6 z-50">
-
+   <div className={`fixed z-40 
+  right-4 sm:right-6 bottom-[100px] sm:bottom-40 
+  w-[95vw] sm:w-96 max-w-md 
+  h-[70vh] sm:h-[550px] 
+  rounded-2xl shadow-2xl border flex flex-col overflow-hidden transition-all duration-300 ${
+    isDarkMode 
+      ? 'bg-gray-800 border-gray-700' 
+      : 'bg-white border-gray-200'
+  }`}>
           {/* Enhanced Header */}
           <div className="bg-gradient-to-r from-blue-500 via-purple-600 to-pink-500 text-white p-4 relative overflow-hidden">
             {/* Animated background pattern */}
