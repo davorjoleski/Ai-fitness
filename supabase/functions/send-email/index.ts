@@ -127,7 +127,7 @@ async function sendEmailWithResend({
   try {
     console.log('Sending email via Resend API to:', to)
     
-    const response = await fetch("https://your-project-id.functions.supabase.co/send-email", {
+    const response = await fetch("https://ahuptdaeciudbikaymxg.supabase.co/functions/v1/send-email", {
 
       method: 'POST',
       headers: {
