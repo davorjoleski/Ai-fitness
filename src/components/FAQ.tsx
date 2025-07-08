@@ -15,7 +15,7 @@ export default function FAQ({ isDarkMode = false }: FAQProps) {
 
   const faqs: FAQItem[] = [
     {
-      question: "What types of fitness goals does this supportTT?",
+      question: "What types of fitness goals does this support?",
       answer: "Our AI supports all major fitness goals including weight loss, muscle building, strength training, endurance improvement, general fitness, and rehabilitation. The AI customizes workouts based on your specific objectives, current fitness level, and available time."
     },
     {
